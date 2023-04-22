@@ -25,6 +25,16 @@ $queryresult = mysqli_num_rows($query);
      
         move_uploaded_file($file_tmp1,"reports/$upload_admitcard_idcard");
 		// move_uploaded_file($file_tmp2,"uploadsfrontit/$pdffile2");
+        // Check if the data has already been approved
+    $query_check = "SELECT STATUS FROM higher_studies WHERE id='$id'";
+    $query_check_run = mysqli_query($connection, $query_check);
+    $data = mysqli_fetch_assoc($query_check_run);
+    $status = $data['STATUS'];
+    if($status == 'APPROVED'){
+        echo '<script> alert("Data has already been approved and cannot be updated."); </script>';
+        header("Location:index.php");
+        exit();
+    }
         
         $query = "UPDATE higher_studies SET graduation_program = '$graduation_program', student_name = '$student_name', 
         institute_name_joined = '$institute_name_joined', program_name_admitted = '$program_name_admitted', year = '$year', WHERE id='$id'  ";
