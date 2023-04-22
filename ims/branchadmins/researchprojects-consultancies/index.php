@@ -11,7 +11,7 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title> Research Projects / Consultancies </title>
+    <title> Research Projects & Consultancies </title>
 
     <link rel="stylesheet" href="styles.css">
     
@@ -121,10 +121,9 @@ session_start();
                                 <td> <?php echo $developer['Type_Govt_NonGovt']; ?> </td>
                                 <td>
                                 <a href="uploadsindex1/<?php echo $developer['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip">
-                            <i class="fa fa-download">
-                            </i>
+                            <i class="fa fa-download"></i>
                         </a>
-                        <td>
+
                         <?php if($developer['STATUS'] == 'PENDING'){ ?>
                             <form method="POST" action="approved.php">
                                 <input type="hidden" name="id" value="<?php echo $developer['id']; ?>">
@@ -135,10 +134,12 @@ session_start();
                             <?php echo $developer['STATUS']; ?>
                         <?php } ?>
                     </td>
-                       
-                            </tr>
-                        </tbody>
-                        <?php           
+     
+
+                </tr>
+            </tbody>
+                        <?php         
+
                     }
                     
                 }
@@ -333,7 +334,7 @@ session_start();
                         <td> <?php echo $row['Type_Govt_NonGovt']; ?> </td>
                         <td>
 
-                            <a href="../../fdpadmins/researchprojects-consultancies/<?php echo $row['pdffile']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+                            <a href="../../fdpadmins/researchprojects-consultancies/<?php echo $row['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
                            
 							
                             
@@ -420,7 +421,7 @@ session_start();
                 $('#Name_Of_The_Funding_Agency').val(data[8]);
                 $('#Funding_Agency_Website_Link').val(data[9]);
                 $('#Type_Govt_NonGovt').val(data[10]);
-                $('#pdffile1').val(data[11]);
+                
             });
         });
     </script>

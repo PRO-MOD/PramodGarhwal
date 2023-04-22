@@ -10,7 +10,7 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>RESEARCH PROJECT / CONSULTANCIES</title>
+    <title>RESEARCH PROJECT & CONSULTANCIES</title>
 
     <link rel="stylesheet" href="styles.css">
     
@@ -187,7 +187,7 @@ session_start();
                 ?>
 
             <div class="card-body mt-5">
-                <h2>Research Projects</h2>
+                <h2>Research Projects / Consultancies</h2>
             </div>
             <div class="card">
                 <div class="card-body btn-group">
@@ -274,7 +274,7 @@ session_start();
                                 <td> <?php echo $developer['Funding_Agency_Website_Link']; ?> </td>
                                 <td> <?php echo $developer['Type_Govt_NonGovt']; ?> </td>
                                 <td>
-                                                    <a href="uploadsindex1/<?php echo $developer['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip">
+                                <a href="uploadsindex1/<?php echo $developer['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip">
                             <i class="fa fa-download"></i>
                         </a>
                         <?php if ($status != "approved") { // If STATUS is not "approved", show the edit and delete buttons ?>
@@ -536,7 +536,7 @@ session_start();
                 $('#Name_Of_The_Funding_Agency').val(data[8]);
                 $('#Funding_Agency_Website_Link').val(data[9]);
                 $('#Type_Govt_NonGovt').val(data[10]);
-                $('#pdffile1').val(data[11]);
+               
                 
             });
         });
