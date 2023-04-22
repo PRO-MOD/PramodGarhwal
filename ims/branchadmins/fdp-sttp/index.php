@@ -31,7 +31,7 @@ session_start();
 
 <?php include('../../header.php'); ?>
 
- <!-- main card -->
+ <!-- main carad -->
  <!-- buttons and search buttoncard -->
             <div class="card">
                 <div class="card-body">
