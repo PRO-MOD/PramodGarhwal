@@ -85,7 +85,7 @@
         <div class="content">
           <h4>COMPETITIVE EXAMS</h4>
           <p>Qualified by Students</p>
-          <a href="competitive_exam/index.php">Go to Criteria</a>
+          <a href="competitive_exams/index.php">Go to Criteria</a>
         </div>
       </div>
     </div>
