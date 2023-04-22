@@ -47,6 +47,15 @@
         </div>
       </div>
     </div>
+    <div class="card">
+      <div class="box">
+        <div class="content">
+          <h4>HIGHER STUDIES</h4>
+          <p>details</p>
+          <a href="higher studies/index.php">Go to Criteria</a>
+        </div>
+      </div>
+    </div>
 
     <div class="card">
       <div class="box">
