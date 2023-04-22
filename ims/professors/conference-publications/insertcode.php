@@ -10,7 +10,7 @@ $queryresult = mysqli_num_rows($query);
             $id = $row['id'];
         }  
     }
-	
+	//hello
 if(isset($_POST['insertdata']))
 {
     $Name_Of_The_Teacher = $_POST['Name_Of_The_Teacher'];
