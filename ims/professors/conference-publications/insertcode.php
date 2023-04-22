@@ -40,7 +40,7 @@ if(isset($_POST['insertdata']))
     $file_tmp3 = $_FILES['pdffile3']['tmp_name'];
     $pdffile4 = $_FILES['pdffile4']['name'];
     $file_tmp4 = $_FILES['pdffile4']['tmp_name'];
-    $id = $_POST['user_id'];
+    $user_id = $_POST['user_id'];
 	
     move_uploaded_file($file_tmp1,"Paper_Details/$pdffile1");
 	move_uploaded_file($file_tmp2,"Conference_Paper/$pdffile2");
