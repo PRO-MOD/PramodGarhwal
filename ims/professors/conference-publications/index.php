@@ -375,7 +375,7 @@ session_start();
                                             ?>
                         <tbody> <!-- change -->
                             <tr>
-                                <td> <?php echo $developer['id']; ?> </td>
+                                <td> <?php echo ($developer['id'];) ?> </td>
                                 <td> <?php echo $developer['Name_Of_The_Teacher']; ?> </td> 
                                 <td> <?php echo $developer['Branch']; ?> </td>
                                 <td> <?php echo $developer['Title_Of_The_Paper']; ?> </td>

@@ -123,10 +123,7 @@ session_start();
                                 <a href="uploadsindex1/<?php echo $developer['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip">
                             <i class="fa fa-download"></i>
                         </a>
-                        <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                        <a class="delete btn-danger deletebtn" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-                    </td>
-                    <td>
+
                         <?php if($developer['STATUS'] == 'PENDING'){ ?>
                             <form method="POST" action="approved.php">
                                 <input type="hidden" name="id" value="<?php echo $developer['id']; ?>">
@@ -137,9 +134,12 @@ session_start();
                             <?php echo $developer['STATUS']; ?>
                         <?php } ?>
                     </td>
+     
+
                 </tr>
             </tbody>
                         <?php         
+
                     }
                     
                 }
