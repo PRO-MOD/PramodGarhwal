@@ -106,7 +106,7 @@ session_start();
                                 <td> <?php echo $developer['Funding_Agency_Website_Link']; ?> </td>
                                 <td> <?php echo $developer['Type_Govt_NonGovt']; ?> </td>
                                 <td>
-                            <a href="../../fdpadmins/uploadsindex1/<?php echo $developer['pdffile']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+                            <a href="../../fdpadmins/uploadsindex1/<?php echo $developer['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
                         </td>
 
                             </tr>
@@ -180,7 +180,7 @@ session_start();
                         <td> <?php echo $row['Type_Govt_NonGovt']; ?> </td>
                         <td>
 
-                            <a href="../../fdpadmins/uploadsindex1/<?php echo $developer['pdffile']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+                            <a href="../../fdpadmins/uploadsindex1/<?php echo $developer['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
 
 							
                             

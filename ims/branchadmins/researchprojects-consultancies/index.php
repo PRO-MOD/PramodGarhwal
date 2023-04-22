@@ -11,7 +11,7 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title> Research Projects / Consultancies </title>
+    <title> Research Projects & Consultancies </title>
 
     <link rel="stylesheet" href="styles.css">
     
@@ -121,17 +121,25 @@ session_start();
                                 <td> <?php echo $developer['Type_Govt_NonGovt']; ?> </td>
                                 <td>
                                 <a href="uploadsindex1/<?php echo $developer['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip">
-                            <i class="fa fa-download">
-                            </i>
+                            <i class="fa fa-download"></i>
                         </a>
-                        <td> <form method="POST" action="approved.php">
-                                    <input type="submit" name="approve" value="approve">&nbsp<input type="submit" name="delete" value="delete">
-                                     <!-- <button type="submit"  id="approve" name="approve" style="background-color: green; color: white; padding: 8px 16px; border: none;">&#10004;</button>
-                                     <button type="submit" id="deny" name="deny" style="background-color: red; color: white; padding: 8px 16px; border: none;">&#10008;</button> -->
-                                        </form>   </td>
-                            </tr>
-                        </tbody>
-                        <?php           
+                        <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                        <a class="delete btn-danger deletebtn" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                    </td>
+                    <td>
+                        <?php if($developer['STATUS'] == 'PENDING'){ ?>
+                            <form method="POST" action="approved.php">
+                                <input type="hidden" name="id" value="<?php echo $developer['id']; ?>">
+                                <input type="submit" name="approve" value="Approve">
+                                <input type="submit" name="delete" value="Delete">
+                            </form>
+                        <?php } else { ?>
+                            <?php echo $developer['STATUS']; ?>
+                        <?php } ?>
+                    </td>
+                </tr>
+            </tbody>
+                        <?php         
                     }
                     
                 }
@@ -145,7 +153,7 @@ session_start();
             <?php
             if(isset($_POST['approve'])){
                 $id=$_POST['id'];
-                $select = "UPDATE fdpsttporganised SET STATUS ='APPROVED' WHERE id='$id'";
+                $select = "UPDATE researchprojectconsultancies SET STATUS ='APPROVED' WHERE id='$id'";
                 $result=mysqli_query($conn,$select);
                 header(("location:index.php"));
             }?>
@@ -326,7 +334,7 @@ session_start();
                         <td> <?php echo $row['Type_Govt_NonGovt']; ?> </td>
                         <td>
 
-                            <a href="../../fdpadmins/researchprojects-consultancies/<?php echo $row['pdffile']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+                            <a href="../../fdpadmins/researchprojects-consultancies/<?php echo $row['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
                            
 							
                             
@@ -413,7 +421,7 @@ session_start();
                 $('#Name_Of_The_Funding_Agency').val(data[8]);
                 $('#Funding_Agency_Website_Link').val(data[9]);
                 $('#Type_Govt_NonGovt').val(data[10]);
-                $('#pdffile1').val(data[11]);
+                
             });
         });
     </script>
