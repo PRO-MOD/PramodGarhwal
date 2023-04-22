@@ -124,11 +124,18 @@ session_start();
                             <i class="fa fa-download">
                             </i>
                         </a>
-                        <td> <form method="POST" action="approved.php">
-                                    <input type="submit" name="approve" value="approve">&nbsp<input type="submit" name="delete" value="delete">
-                                     <!-- <button type="submit"  id="approve" name="approve" style="background-color: green; color: white; padding: 8px 16px; border: none;">&#10004;</button>
-                                     <button type="submit" id="deny" name="deny" style="background-color: red; color: white; padding: 8px 16px; border: none;">&#10008;</button> -->
-                                        </form>   </td>
+                        <td>
+                        <?php if($developer['STATUS'] == 'PENDING'){ ?>
+                            <form method="POST" action="approved.php">
+                                <input type="hidden" name="id" value="<?php echo $developer['id']; ?>">
+                                <input type="submit" name="approve" value="Approve">
+                                <input type="submit" name="delete" value="Delete">
+                            </form>
+                        <?php } else { ?>
+                            <?php echo $developer['STATUS']; ?>
+                        <?php } ?>
+                    </td>
+                       
                             </tr>
                         </tbody>
                         <?php           
@@ -145,7 +152,7 @@ session_start();
             <?php
             if(isset($_POST['approve'])){
                 $id=$_POST['id'];
-                $select = "UPDATE fdpsttporganised SET STATUS ='APPROVED' WHERE id='$id'";
+                $select = "UPDATE researchprojectconsultancies SET STATUS ='APPROVED' WHERE id='$id'";
                 $result=mysqli_query($conn,$select);
                 header(("location:index.php"));
             }?>
