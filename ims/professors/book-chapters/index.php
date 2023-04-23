@@ -256,7 +256,7 @@ session_start();
                                 <th scope="col"> VOLUME ISSUE </th>
                                 
                                 <th scope="col"> ACTION </th>
-                               
+                                <th scope="col"> STATUS </th>
                             </tr>
                         </thead>
                         
@@ -284,6 +284,11 @@ session_start();
                                             ?>
                         <tbody> <!-- change -->
                             <tr>
+                            <?php
+                $status = $developer['STATUS'];
+                $is_disabled = ($status == "approved") ? "disabled" : "";
+                // If STATUS is "approved", set the $is_disabled variable to "disabled"
+                ?>
                                 <td> <?php echo $developer['id']; ?> </td>
                                 <td> <?php echo $developer['Name_Of_The_Teacher']; ?> </td> 
                                 <td> <?php echo $developer['Branch']; ?> </td>
@@ -299,6 +304,10 @@ session_start();
                             <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
                             <a href="uploadsindexit/<?php echo $developer['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
 							<a href="uploadsfrontit/<?php echo $developer['pdffile2']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+                            <?php if ($status != "approved") { // If STATUS is not "approved", show the edit and delete buttons ?>
+                        <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip" <?php echo $is_disabled ?>>
+                            <i class="material-icons">&#xE254;</i>
+                        </a>
                             <a class="delete btn-danger deletebtn" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
 							
                             
@@ -311,11 +320,12 @@ session_start();
                                 <td>
                                     <button type="button" class="btn btn-danger deletebtn"> DELETE </button>
                                 </td> -->
+                                <td> <?php echo $status; ?> </td>
                             </tr>
                         </tbody>
                         <?php           
                     }
-                }
+                }}
                 else 
                 {
                     echo "No Record Found";

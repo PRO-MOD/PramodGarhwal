@@ -123,7 +123,17 @@ session_start();
 
                             <a href="../../professors/book-chapters/uploadsindexit/<?php echo $developer['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
 							<a href="../../professors/book-chapters/uploadsfrontit/<?php echo $developer['pdffile2']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
-
+                            <td>
+                        <?php if($developer['STATUS'] == 'PENDING'){ ?>
+                            <form method="POST" action="approved.php">
+                                <input type="hidden" name="id" value="<?php echo $developer['id']; ?>">
+                                <input type="submit" name="approve" value="Approve">
+                                <input type="submit" name="delete" value="Delete">
+                            </form>
+                        <?php } else { ?>
+                            <?php echo $developer['STATUS']; ?>
+                        <?php } ?>
+                    </td>
 							
                             
                             
@@ -146,6 +156,14 @@ session_start();
                 }
             ?>
                     </table>
+                    <?php
+            if(isset($_POST['approve'])){
+                $id=$_POST['id'];
+                $select = "UPDATE fdpsttporganised SET STATUS ='APPROVED' WHERE id='$id'";
+                $result=mysqli_query($conn,$select);
+                 echo "DATA Approved";
+                header(("location:index.php"));
+            }?>
             
         </div> 
     </div>
