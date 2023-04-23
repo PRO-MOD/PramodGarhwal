@@ -82,6 +82,7 @@ session_start();
                                 <th scope="col"> LINK OF PAPER </th>
                                 <th scope="col"> DETAILS OF PAPER </th>
                                 <th scope="col"> ACTION </th>
+                                <th scope="col"> STATUS </th>
                                
                             </tr>
                         </thead>
@@ -130,7 +131,20 @@ session_start();
                                 <td>
 
                                 <a href="../../professors/journal_publications/JournalPaper/<?php echo $developer['Journal_Paper']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
-                                    </td>
+                                <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                        <a class="delete btn-danger deletebtn" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                            </td>
+                                    <td>
+                        <?php if($developer['STATUS'] == 'PENDING'){ ?>
+                            <form method="POST" action="approved.php">
+                                <input type="hidden" name="id" value="<?php echo $developer['id']; ?>">
+                                <input type="submit" name="approve" value="Approve">
+                                <input type="submit" name="delete" value="Delete">
+                            </form>
+                        <?php } else { ?>
+                            <?php echo $developer['STATUS']; ?>
+                        <?php } ?>
+                    </td>
                             </tr>
                         </tbody>
                         <?php           
@@ -142,6 +156,14 @@ session_start();
                 }
             ?>
                     </table>
+                    <?php
+            if(isset($_POST['approve'])){
+                $id=$_POST['id'];
+                $select = "UPDATE journal_publications SET STATUS ='APPROVED' WHERE id='$id'";
+                $result=mysqli_query($conn,$select);
+                 echo "DATA Approved";
+                header(("location:index.php"));
+            }?>
                 </div>
             </div>
 

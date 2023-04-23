@@ -236,6 +236,7 @@ session_start();
                     <table id="datatableid" class="table table-bordered table-dark mt-2">
                         <thead>
                             <tr>
+                            
                                 <th scope="col"> ID </th>
                                 <th scope="col"> NAME OF FACULTY </th>
                                 <th scope="col"> BRANCH </th>
@@ -253,6 +254,7 @@ session_start();
                                 <th scope="col"> LINK OF PAPER </th>
                                 <th scope="col"> DETAILS OF PAPER </th>
                                 <th scope="col"> ACTION </th>
+                                <th scope="col"> STATUS </th>
                                
                             </tr>
                         </thead>
@@ -271,7 +273,7 @@ session_start();
                                 }  
                             }
 
-                        $table_query = "SELECT * FROM journal_publications WHERE user_id=$id";
+                        $table_query = "SELECT * FROM journal_publications WHERE id=$id";
                         
                         $query_run = mysqli_query($connection, $table_query);
                         $query_result = mysqli_num_rows($query_run); ?>
@@ -282,6 +284,11 @@ session_start();
 
                         <tbody> <!-- change -->
                             <tr>
+                            <?php
+                $status = $developer['STATUS'];
+                $is_disabled = ($status == "approved") ? "disabled" : "";
+                // If STATUS is "approved", set the $is_disabled variable to "disabled"
+                ?>
                                 <td> <?php echo $developer['id']; ?> </td>
                                 <td> <?php echo $developer['Name_Of_Faculty']; ?> </td> 
                                 <td> <?php echo $developer['Branch']; ?> </td> 
@@ -302,9 +309,14 @@ session_start();
                             <!--<a href="read.php?viewid=<?php echo htmlentities ($developer['id']);?>" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>-->
                             <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
                             <a href="JournalPaper/<?php echo $developer['Journal_Paper']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+                            <?php if ($status != "approved") { // If STATUS is not "approved", show the edit and delete buttons ?>
+                        <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip" <?php echo $is_disabled ?>>
+                            <i class="material-icons">&#xE254;</i>
+                        </a>
                             <a class="delete btn-danger deletebtn" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
                             <!-- <button class="btn"><i class="fa fa-download"></i> Download</button> -->
                         </td>
+                        <td> <?php echo $status; ?> </td>
                         </tr>
                     </tbody>
                         <?php           
