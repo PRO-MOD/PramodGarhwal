@@ -366,7 +366,7 @@ session_start();
                                 }  
                             }
 
-                        $table_query = "SELECT * FROM conferencepublication WHERE user_id=$id";  
+                        $table_query = "SELECT * FROM conferencepublication WHERE id=$id";  
                         $query_run = mysqli_query($connection, $table_query);
                         $query_result = mysqli_num_rows($query_run); ?>
 
@@ -375,7 +375,7 @@ session_start();
                                             ?>
                         <tbody> <!-- change -->
                             <tr>
-                                <td> <?php echo ($developer['id'];) ?> </td>
+                                <td> <?php echo ($developer['id']) ?> </td>
                                 <td> <?php echo $developer['Name_Of_The_Teacher']; ?> </td> 
                                 <td> <?php echo $developer['Branch']; ?> </td>
                                 <td> <?php echo $developer['Title_Of_The_Paper']; ?> </td>
@@ -583,7 +583,7 @@ session_start();
     if (isset($_POST["submit"])) {
         $str = mysqli_real_escape_string($connection, $_POST["search"]);
 
-        $sth = "SELECT * FROM `conferencepublication` WHERE user_id=$id AND (Branch LIKE '%$str%' OR Name_Of_The_Teacher LIKE '%$str%' OR Title_Of_The_Paper LIKE '%$str%' OR Title_Of_The_Proceedings LIKE '%$str%' OR  Name_Of_The_Conference LIKE '%$str%' OR National_Or_International LIKE '%$str%' OR Name_Of_Organizing_Institute LIKE '%$str%' OR Year_Of_Publication LIKE '%$str%' OR ISBN_Or_ISSN_Number LIKE '%$str%' OR Affiliating_Institute LIKE '%$str%' OR Name_Of_Publisher LIKE '%$str%' OR Name_Of_Library LIKE '%$str%' OR Paper_Webinar LIKE '%$str%' OR Conference_Proceedings LIKE '%$str%' OR Registration_Amount LIKE '%$str%' OR TA_Received LIKE '%$str%')";
+        $sth = "SELECT * FROM `conferencepublication` WHERE id=$id AND (Branch LIKE '%$str%' OR Name_Of_The_Teacher LIKE '%$str%' OR Title_Of_The_Paper LIKE '%$str%' OR Title_Of_The_Proceedings LIKE '%$str%' OR  Name_Of_The_Conference LIKE '%$str%' OR National_Or_International LIKE '%$str%' OR Name_Of_Organizing_Institute LIKE '%$str%' OR Year_Of_Publication LIKE '%$str%' OR ISBN_Or_ISSN_Number LIKE '%$str%' OR Affiliating_Institute LIKE '%$str%' OR Name_Of_Publisher LIKE '%$str%' OR Name_Of_Library LIKE '%$str%' OR Paper_Webinar LIKE '%$str%' OR Conference_Proceedings LIKE '%$str%' OR Registration_Amount LIKE '%$str%' OR TA_Received LIKE '%$str%')";
         $result = mysqli_query($connection, $sth);
         $queryresult = mysqli_num_rows($result); ?>
 

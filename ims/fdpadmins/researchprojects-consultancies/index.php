@@ -449,7 +449,8 @@ session_start();
                         <td> <?php echo $row['Type_Govt_NonGovt']; ?> </td>
                         <td>
                             <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                            <a href="uploadsindex1/<?php echo $row['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+                            <a href="uploadsindex1/<?php echo $row['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip">
+                            <i class="fa fa-download"></i></a>
                             <a class="delete btn-danger deletebtn" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
 							
                             

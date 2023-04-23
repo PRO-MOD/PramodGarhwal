@@ -11,7 +11,7 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title> HIGHER STUDIES </title>
+    <title> Research Projects & Consultancies </title>
 
     <link rel="stylesheet" href="styles.css">
     
@@ -44,7 +44,7 @@ session_start();
                 ?>
 
             <div class="card-body mt-5">
-                <h2> HIGHER STUDIES </h2>
+                <h2> Research Projects / Consultancies </h2>
             </div>
             <div class="card">
                 <div class="card-body btn-group">
@@ -75,7 +75,6 @@ session_start();
                                 <th scope="col"> Name of Program Admitted </th>
                                 <th scope="col"> Upload Admitcard & Idcard </th>
                                 <th scope="col"> STATUS </th>
-                               
                             </tr>
                         </thead>
                         
@@ -93,6 +92,7 @@ session_start();
                                 }  
                             }
 
+                        
                             $table_query = "SELECT * FROM higher_studies WHERE id=$id";
                             $query_run = mysqli_query($connection, $table_query);
                         $query_result = mysqli_num_rows($query_run); ?>
@@ -100,21 +100,18 @@ session_start();
                         <?php if($query_result > 0){
                                         while($developer = mysqli_fetch_assoc($query_run)){   
                                             ?>
-                        <tbody>
-                <tr>
-                <td> <?php echo $developer['year']; ?> </td>
+                        <tbody> <!-- change -->
+                            <tr>
+                            <td> <?php echo $developer['year']; ?> </td>
                                 <td> <?php echo $developer['graduation_program']; ?> </td> 
                                 <td> <?php echo $developer['student_name']; ?> </td>
                                 <td> <?php echo $developer['institute_name_joined']; ?> </td>
                                 <td> <?php echo $developer['program_name_admitted']; ?> </td>
-                    <td>
-                    <a href="reports/<?php echo $developer['upload_admitcard_idcard']; ?>"  class="download" title="Download" data-toggle="tooltip">
+                                <td>
+                                <a href="reports/<?php echo $developer['upload_admitcard_idcard']; ?>"  class="download" title="Download" data-toggle="tooltip">
                             <i class="fa fa-download"></i>
                         </a>
-                        <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                        <a class="delete btn-danger deletebtn" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-                    </td>
-                    <td>
+
                         <?php if($developer['STATUS'] == 'PENDING'){ ?>
                             <form method="POST" action="approved.php">
                                 <input type="hidden" name="id" value="<?php echo $developer['id']; ?>">
@@ -125,9 +122,12 @@ session_start();
                             <?php echo $developer['STATUS']; ?>
                         <?php } ?>
                     </td>
+     
+
                 </tr>
             </tbody>
-                        <?php           
+                        <?php         
+
                     }
                     
                 }
@@ -143,13 +143,12 @@ session_start();
                 $id=$_POST['id'];
                 $select = "UPDATE higher_studies SET STATUS ='APPROVED' WHERE id='$id'";
                 $result=mysqli_query($conn,$select);
-                 echo "DATA Approved";
                 header(("location:index.php"));
             }?>
             
         </div> 
     </div>
-     <!-- EDIT POP UP FORM  -->
+ <!-- EDIT POP UP FORM  -->
     <!-- this is edit data form Make changes to variables and placeholder, keep same variables -->
     <div class="modal fade" id="editmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
@@ -208,8 +207,6 @@ session_start();
                             <label> Name of Program Admitted </label>
                             <input type="text" name="program_name_admitted"  id="program_name_admitted" class="form-control" placeholder="Enter program_name_admitted">
                         </div>
-						
-                        
 
                     </div>
                     <div class="modal-footer">
@@ -221,7 +218,7 @@ session_start();
             </div>
         </div>
     </div>
-       <!-- DELETE POP UP FORM  -->
+    <!-- DELETE POP UP FORM  -->
     <!-- dont make changes-->
     <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
@@ -251,7 +248,6 @@ session_start();
             </div>
         </div>
     </div>
-
   
 
 <!--Search data -->
@@ -265,7 +261,7 @@ session_start();
                                 <th> Student Name </th>
                                 <th> Name of the Institute Joined </th>
                                 <th> Name of Program Admitted </th>
-                                <th> Upload Admitcard & Idcard </th>   
+                                <th> Upload Admitcard & Idcard </th> 
                         </tr>
                     <thead>       
 <?php 
@@ -379,6 +375,7 @@ session_start();
                 $('#institute_name_joined').val(data[3]);
                 $('#program_name_admitted').val(data[4]);
                 $('#upload_admitcard_idcard').val(data[12]);
+                
             });
         });
     </script>
