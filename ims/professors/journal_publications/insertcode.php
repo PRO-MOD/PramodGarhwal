@@ -30,13 +30,13 @@ $queryresult = mysqli_num_rows($query);
         $Details_Of_Paper = $_POST['Details_Of_Paper'];
         $Journal_Paper = $_FILES['Journal_Paper']['name'];
         $file_tmp = $_FILES['Journal_Paper']['tmp_name'];
-        $user_id = $_POST['user_id'];
+        $user_id = $_POST['id'];
  
         move_uploaded_file($file_tmp,"JournalPaper/$Journal_Paper");
 
         $query = "INSERT INTO journal_publications
-        (`Name_Of_Faculty`, `Branch`, `Title_Of_Paper`, `Name_Of_Author`, `Name_Of_Journal`, `Journal_Citation_Index`, `Journal_Impact_Factor`, `Publisher`, `Year_Of_Publication`, `Publication_Date`, `Volume_Issue`, `ISSN_ISBN`, `Paper_Weblink`, `Link_Of_Paper`, `Details_Of_Paper`, `Journal_Paper`, `user_id`) 
-        VALUES ('$Name_Of_Faculty', '$Branch', '$Title_Of_Paper', '$Name_Of_Author', '$Name_Of_Journal', '$Journal_Citation_Index', '$Journal_Impact_Factor', '$Publisher', '$Year_Of_Publication', '$Publication_Date', '$Volume_Issue', '$ISSN_ISBN', '$Paper_Weblink', '$Link_Of_Paper', '$Details_Of_Paper', '$Journal_Paper', '$id')";
+        (`Name_Of_Faculty`, `Branch`, `Title_Of_Paper`, `Name_Of_Author`, `Name_Of_Journal`, `Journal_Citation_Index`, `Journal_Impact_Factor`, `Publisher`, `Year_Of_Publication`, `Publication_Date`, `Volume_Issue`, `ISSN_ISBN`, `Paper_Weblink`, `Link_Of_Paper`, `Details_Of_Paper`, `Journal_Paper`, `user_id`,`STATUS`) 
+        VALUES ('$Name_Of_Faculty', '$Branch', '$Title_Of_Paper', '$Name_Of_Author', '$Name_Of_Journal', '$Journal_Citation_Index', '$Journal_Impact_Factor', '$Publisher', '$Year_Of_Publication', '$Publication_Date', '$Volume_Issue', '$ISSN_ISBN', '$Paper_Weblink', '$Link_Of_Paper', '$Details_Of_Paper', '$Journal_Paper', '$id','PENDING')";
         
     
         $query_run = mysqli_query($connection, $query);

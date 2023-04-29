@@ -20,13 +20,13 @@ if(isset($_POST['insertdata']))
     $program_name_admitted = $_POST['program_name_admitted'];
     $upload_admitcard_idcard = $_FILES['upload_admitcard_idcard']['name'];
     $file_tmp1 = $_FILES['upload_admitcard_idcard']['tmp_name'];
-    $user_id = $_POST['id'];
+    $id = $_POST['id'];
 	
     move_uploaded_file($file_tmp1,"reports/$upload_admitcard_idcard");
 
     $query = "INSERT INTO higher_studies
-    (`year`,`graduation_program`, `student_name`, `institute_name_joined`, `program_name_admitted`,`upload_admitcard_idcard`, `id`) 
-    VALUES ('$year','$graduation_program', '$student_name', '$institute_name_joined', '$program_name_admitted', '$upload_admitcard_idcard', '$id')";
+    (`year`,`graduation_program`, `student_name`, `institute_name_joined`, `program_name_admitted`,`upload_admitcard_idcard`, `id`,`STATUS`) 
+    VALUES ('$year','$graduation_program', '$student_name', '$institute_name_joined', '$program_name_admitted', '$upload_admitcard_idcard', '$id','PENDING')";
     
     $query_run = mysqli_query($connection, $query);
 

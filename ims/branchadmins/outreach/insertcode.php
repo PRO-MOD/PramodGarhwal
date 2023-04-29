@@ -48,8 +48,8 @@ if(isset($_POST['insertdata']))
 
 
     $query = "INSERT INTO outreached_program
-    (`Name_of_Activity`, `Organizing_Unit`, `Name_of_Coordinators`, `Name_of_Scheme`, `Others`, `Dates_Conducted`, `Year_of_Activity`, `No_of_Student_Volunteer_for_Activity`, `No_of_People_benefitted_by_Activity`, `pdffile1`, `user_id`) 
-    VALUES (' $Name_of_Activity', ' $Organizing_Unit', '$Name_of_Coordinators', '$Name_of_Scheme', ' $Others', '$Dates_Conducted', '$Year_of_Activity', '$No_of_Student_Volunteer_for_Activity', '$No_of_People_benefitted_by_Activity', '$pdffile1','$id')";
+    (`Name_of_Activity`, `Organizing_Unit`, `Name_of_Coordinators`, `Name_of_Scheme`, `Others`, `Dates_Conducted`, `Year_of_Activity`, `No_of_Student_Volunteer_for_Activity`, `No_of_People_benefitted_by_Activity`, `pdffile1`, `user_id`,`STATUS`) 
+    VALUES (' $Name_of_Activity', ' $Organizing_Unit', '$Name_of_Coordinators', '$Name_of_Scheme', ' $Others', '$Dates_Conducted', '$Year_of_Activity', '$No_of_Student_Volunteer_for_Activity', '$No_of_People_benefitted_by_Activity', '$pdffile1','$id','PENDING')";
     
     $query_run = mysqli_query($connection, $query);
 

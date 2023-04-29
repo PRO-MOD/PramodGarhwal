@@ -11,7 +11,7 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title> Book Chapters Published </title>
+    <title> workshop </title>
 
     <link rel="stylesheet" href="styles.css">
     
@@ -248,7 +248,7 @@ session_start();
                         <?php
                         $user = $_SESSION["role"];
                         
-                        $result = "SELECT * FROM clubs WHERE username = '$user'";
+                        $result = "SELECT * FROM ecell WHERE username = '$user'";
 
                         $query = mysqli_query($connection, $result);
                         $queryresult = mysqli_num_rows($query); 
@@ -259,7 +259,7 @@ session_start();
                                 }  
                             }
 
-                        $table_query = "SELECT * FROM workshop WHERE user_id=$id";
+                        $table_query = "SELECT * FROM workshops WHERE id=$id";
                         
                         $query_run = mysqli_query($connection, $table_query);
                         $query_result = mysqli_num_rows($query_run); ?>
@@ -420,7 +420,7 @@ session_start();
     if (isset($_POST["submit"])) {
         $str = mysqli_real_escape_string($connection, $_POST["search"]);
 
-        $sth = "SELECT * FROM `aditya` WHERE id=$id AND (Year LIKE '%$str%' OR Workshop LIKE '%$str%' OR Branch LIKE '%$str%' OR Coordinator LIKE '%$str%' OR Title LIKE '%$str%' OR Category LIKE '$str' OR Others LIKE '%$str%' OR Participants LIKE '%$str%' OR Startingdate LIKE '%$str%' OR Endingdate LIKE '%$str%') ";
+        $sth = "SELECT * FROM `workshops` WHERE id=$id AND (Year LIKE '%$str%' OR Workshop LIKE '%$str%' OR Branch LIKE '%$str%' OR Coordinator LIKE '%$str%' OR Title LIKE '%$str%' OR Category LIKE '$str' OR Others LIKE '%$str%' OR Participants LIKE '%$str%' OR Startingdate LIKE '%$str%' OR Endingdate LIKE '%$str%') ";
         
         $result = mysqli_query($connection, $sth);
         $queryresult = mysqli_num_rows($result); ?>

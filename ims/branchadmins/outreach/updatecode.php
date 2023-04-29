@@ -13,8 +13,7 @@ $queryresult = mysqli_num_rows($query);
     }
 
     if(isset($_POST['updatedata']))
-    {   
-        $id = $_POST['update_id'];
+    {   $id = $_POST['update_id'];
        
         $Name_of_Activity = $_POST['Name_of_Activity'];
         $Organizing_Unit = $_POST['Organizing_Unit'];

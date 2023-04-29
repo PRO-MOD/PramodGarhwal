@@ -227,7 +227,7 @@ session_start();
                 $is_disabled = ($status == "approved") ? "disabled" : "";
                 // If STATUS is "approved", set the $is_disabled variable to "disabled"
                 ?>
-                                <td> <?php echo $developer['year']; ?> </td>
+                        <td> <?php echo $developer['year']; ?> </td>
                                 <td> <?php echo $developer['graduation_program']; ?> </td> 
                                 <td> <?php echo $developer['student_name']; ?> </td>
                                 <td> <?php echo $developer['institute_name_joined']; ?> </td>
@@ -247,22 +247,28 @@ session_start();
                             <i class="material-icons">&#xE872;</i>
                         </a>
                     <?php } ?>
-                        </td>
-                                
-                                <td> <?php echo $status; ?> </td>
-                            </tr>
-                        </tbody>
-                        <?php          
-                    }
-                }
-                else 
-                {
-                    echo "No Record Found";
-                }
-            ?>
+                </td>
+
+                <td> <?php echo $status; ?> </td>
+            </tr>
+        </tbody>
+        <?php           
+    }
+}
+else 
+{
+    
+    echo "No Record Found";
+}
+?>
+
+
+
                     </table>
+            
         </div> 
     </div>
+
 
     <!-- EDIT POP UP FORM  -->
     <!-- this is edit data form Make changes to variables and placeholder, keep same variables -->
