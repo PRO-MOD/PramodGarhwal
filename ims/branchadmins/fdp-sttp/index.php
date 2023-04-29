@@ -99,7 +99,7 @@ session_start();
                                 }  
                             }
 
-                        $table_query = "SELECT * FROM fdpsttporganised WHERE branch LIKE '%$branch%' ORDER BY id ASC";  
+                        $table_query = "SELECT * FROM fdpsttporganised ORDER BY id ASC";  
                         $query_run = mysqli_query($connection, $table_query);
                         $query_result = mysqli_num_rows($query_run); ?>
 
@@ -131,7 +131,7 @@ session_start();
                             <form method="POST" action="approved.php">
                                 <input type="hidden" name="id" value="<?php echo $developer['id']; ?>">
                                 <input type="submit" name="approve" value="Approve">
-                                <input type="submit" name="delete" value="Delete">
+                                <!-- <input type="submit" name="delete" value="Delete"> -->
                             </form>
                         <?php } else { ?>
                             <?php echo $developer['STATUS']; ?>

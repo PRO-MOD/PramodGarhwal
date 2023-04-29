@@ -19,7 +19,7 @@ if (isset($_POST['deny'])) {
     }
      if (isset($_POST['approve'])) {
 
-     $query = "UPDATE fdpsttporganised SET STATUS = 'approved'";
+     $query = "UPDATE bookschapter SET STATUS = 'approved'";
      $mysqli->query($query);
      header("Location: " . $_SERVER['PHP_SELF']);
      echo "<script>alert('Data has been approved.')</script>";

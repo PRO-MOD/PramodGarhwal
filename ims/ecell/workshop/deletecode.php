@@ -19,7 +19,7 @@ if(isset($_POST['deletedata']))
     $id = $_POST['delete_id'];
 
 
-        $query = "DELETE FROM aditya";
+        $query = "DELETE FROM workshops";
 
     
     $query_run = mysqli_query($connection, $query);

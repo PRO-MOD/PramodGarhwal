@@ -81,6 +81,7 @@ session_start();
                                 <th scope="col"> NO OF STUDENTS ENROLLED </th>
                                 <th scope="col"> NO OF STUDENTS COMPLETING </th>
                                 <th scope="col"> ACTION </th>
+                                <th scope="col"> STATUS</th>
                                
                             </tr>
                         </thead>
@@ -108,6 +109,11 @@ session_start();
                                             ?>
                         <tbody> <!-- change -->
                             <tr>
+                            <?php
+                $status = $developer['STATUS'];
+                $is_disabled = ($status == "approved") ? "disabled" : "";
+                // If STATUS is "approved", set the $is_disabled variable to "disabled"
+                ?>
                                 <td> <?php echo $developer['id']; ?> </td>
                                 <td> <?php echo $developer['Department']; ?> </td> 
                                 <td> <?php echo $developer['Course_coordinator']; ?> </td>
@@ -130,26 +136,31 @@ session_start();
                             <a href="reports/<?php echo $developer['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
 							<!-- <a href="uploadsfrontit/<?php echo $developer['pdffile2']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a> -->
 							
-                            
-                            
-                            <!-- <button class="btn"><i class="fa fa-download"></i> Download</button> -->
-                        </td>
-                                <!-- <td>
-                                    <button type="button" class="btn btn-success editbtn"> EDIT </button>
-                                </td>
-                                <td>
-                                    <button type="button" class="btn btn-danger deletebtn"> DELETE </button>
-                                </td> -->
-                            </tr>
-                        </tbody>
-                        <?php           
-                    }
-                }
-                else 
-                {
-                    echo "No Record Found";
-                }
-            ?>
+                            <?php if ($status != "approved") { // If STATUS is not "approved", show the edit and delete buttons ?>
+                        <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip" <?php echo $is_disabled ?>>
+                            <i class="material-icons">&#xE254;</i>
+                        </a>
+
+                        <a class="delete btn-danger deletebtn" title="Delete" data-toggle="tooltip" <?php echo $is_disabled ?>>
+                            <i class="material-icons">&#xE872;</i>
+                        </a>
+                    <?php } ?>
+                </td>
+
+                <td> <?php echo $status; ?> </td>
+            </tr>
+        </tbody>
+        <?php           
+    }
+}
+else 
+{
+    
+    echo "No Record Found";
+}
+?>
+
+
                     </table>
             
         </div> 

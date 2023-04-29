@@ -247,11 +247,11 @@ session_start();
                                 }  
                             }
 
-                        $table_query = "SELECT * FROM fdpsttporganised WHERE branch = '$branch' ORDER BY id ASC";  
+                        $table_query = "SELECT * FROM fdpsttporganised  ORDER BY id ASC";  
                         $query_run = mysqli_query($connection, $table_query);
                         $query_result = mysqli_num_rows($query_run); ?>
 
-...
+
 <?php if($query_result > 0){
     while($developer = mysqli_fetch_assoc($query_run)){   
         ?>
@@ -299,10 +299,11 @@ session_start();
 }
 else 
 {
+    
     echo "No Record Found";
 }
 ?>
-...
+
 
                     </table>
             
@@ -404,13 +405,14 @@ else
                             <th> END DATE </th>
                             <th> NO OF DAYS </th>
                             <th> PARTICIPANTS</th>
+                            <th>Action</th>
                         </tr>
                     <thead>       
 <?php 
     if (isset($_POST["submit"])) {
         $str = mysqli_real_escape_string($connection, $_POST["search"]);
 
-        $sth = "SELECT * FROM `fdpsttporganised` WHERE Branch LIKE '%$branch%' AND (Academic_year LIKE '%$str%' OR Approving_Body LIKE '%$str%' OR Title_Of_Program LIKE '%$str%' OR Convener_Of_FDP_STTP LIKE '%$str%')";
+        $sth = "SELECT * FROM `fdpsttporganised` WHERE Academic_year LIKE '%$str%' OR Approving_Body LIKE '%$str%' OR Title_Of_Program LIKE '%$str%' OR Convener_Of_FDP_STTP LIKE '%$str%'";
         $result = mysqli_query($connection, $sth);
         $queryresult = mysqli_num_rows($result); ?>
 

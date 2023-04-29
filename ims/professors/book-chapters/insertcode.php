@@ -34,9 +34,9 @@ if(isset($_POST['insertdata']))
     $query = "INSERT INTO bookschapter
     (`Name_Of_The_Teacher`, `Branch`, `Title_Of_The_Book_Published`, `Title_Of_The_Chapter_Published_In_The_Book`,
      `Name_Of_The_Publisher`, `National_Or_International`, `ISBN_Or_ISSN_Number`, `Year_Of_Publication`, 
-     `Volume_Issue`, `pdffile1`, `pdffile2`, `user_id`) 
+     `Volume_Issue`, `pdffile1`, `pdffile2`, `user_id`,`STATUS`) 
     VALUES ('$Name_Of_The_Teacher', '$Branch', '$Title_Of_The_Book_Published', '$Title_Of_The_Chapter_Published_In_The_Book', 
-    '$Name_Of_The_Publisher', '$National_Or_International', '$ISBN_Or_ISSN_Number', '$Year_Of_Publication', '$Volume_Issue', '$pdffile1', '$pdffile2', '$id')";
+    '$Name_Of_The_Publisher', '$National_Or_International', '$ISBN_Or_ISSN_Number', '$Year_Of_Publication', '$Volume_Issue', '$pdffile1', '$pdffile2', '$id','PENDING')";
     
     
     $query_run = mysqli_query($connection, $query);

@@ -134,7 +134,7 @@ session_start();
                                 <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
                         <a class="delete btn-danger deletebtn" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
                             </td>
-                                    <td>
+                            <td>
                         <?php if($developer['STATUS'] == 'PENDING'){ ?>
                             <form method="POST" action="approved.php">
                                 <input type="hidden" name="id" value="<?php echo $developer['id']; ?>">
@@ -145,10 +145,11 @@ session_start();
                             <?php echo $developer['STATUS']; ?>
                         <?php } ?>
                     </td>
-                            </tr>
-                        </tbody>
+                </tr>
+            </tbody>
                         <?php           
                     }
+                    
                 }
                 else 
                 {
@@ -156,7 +157,8 @@ session_start();
                 }
             ?>
                     </table>
-                    <?php
+
+            <?php
             if(isset($_POST['approve'])){
                 $id=$_POST['id'];
                 $select = "UPDATE journal_publications SET STATUS ='APPROVED' WHERE id='$id'";
@@ -164,9 +166,9 @@ session_start();
                  echo "DATA Approved";
                 header(("location:index.php"));
             }?>
-                </div>
-            </div>
-
+            
+        </div> 
+    </div>
 
 
 

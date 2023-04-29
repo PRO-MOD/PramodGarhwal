@@ -66,25 +66,23 @@ session_start();
                 <div class="card-body">
                       <!-- th change -->
                     <table id="datatableid" class="table table-bordered table-dark mt-2">
-                        <thead>
+                    <thead>
                             <tr>
-                            <th scope="col"> S.N </th> 
-                            <th scope="col"> DEPARTMENT </th>
-                            <th scope="col"> COURSE COORDINATOR </th>
-                            <th scope="col"> PROGRAMS OFFERED </th>
-                            <th scope="col"> COURSE CODE(IF ANY) </th>
-                            <th scope="col"> YEAR OF OFFERING </th>
-                            <th scope="col"> NO.OF TIMES OFFERED </th>
-                            <th scope="col"> START DATE </th>
-                            <th scope="col"> END DATE </th>
-                            <th scope="col"> DURATION(HRS) </th>
-                            <th scope="col"> NO.OF STUDENTS(ENROLLED) </th>
-                            <th scope="col"> NO.OF STUDENTS(COMPLETING) </th>
-                            <th scope="col"> UPLOAD REPORT </th>
+                                <th scope="col"> ID </th>
+                                <th scope="col"> NAME OF TEACHER </th>
+                                <th scope="col"> BRANCH </th>
+                                <th scope="col"> TITLE OF BOOK </th>
+                                <th scope="col"> TITLE OF CHAPTER </th>
+                                <th scope="col"> NAME OF PUBLISHER </th>
+                                <th scope="col"> NATIONAL </th>
+								<th scope="col"> ISBN/ISSN </th>
+                                <th scope="col"> PUBLICATION YEAR </th>
+                                <th scope="col"> VOLUME ISSUE </th>
+                                
+                                <th scope="col"> ACTION </th>
                                
                             </tr>
                         </thead>
-                        
                         <?php
                         $user = $_SESSION["role"];
                         
@@ -123,8 +121,13 @@ session_start();
 
                             <a href="../../professors/book-chapters/uploadsindexit/<?php echo $developer['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
 							<a href="../../professors/book-chapters/uploadsfrontit/<?php echo $developer['pdffile2']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
-                            <td>
-                        <?php if($developer['STATUS'] == 'PENDING'){ ?>
+
+							
+                            
+                            
+                            <!-- <button class="btn"><i class="fa fa-download"></i> Download</button> -->
+                        </td>
+                        <td> <?php if($developer['STATUS'] == 'PENDING'){ ?>
                             <form method="POST" action="approved.php">
                                 <input type="hidden" name="id" value="<?php echo $developer['id']; ?>">
                                 <input type="submit" name="approve" value="Approve">
@@ -134,21 +137,11 @@ session_start();
                             <?php echo $developer['STATUS']; ?>
                         <?php } ?>
                     </td>
-							
-                            
-                            
-                            <!-- <button class="btn"><i class="fa fa-download"></i> Download</button> -->
-                        </td>
-                                <!-- <td>
-                                    <button type="button" class="btn btn-success editbtn"> EDIT </button>
-                                </td>
-                                <td>
-                                    <button type="button" class="btn btn-danger deletebtn"> DELETE </button>
-                                </td> -->
-                            </tr>
-                        </tbody>
+                </tr>
+            </tbody>
                         <?php           
                     }
+                    
                 }
                 else 
                 {
@@ -156,7 +149,8 @@ session_start();
                 }
             ?>
                     </table>
-                    <?php
+
+            <?php
             if(isset($_POST['approve'])){
                 $id=$_POST['id'];
                 $select = "UPDATE fdpsttporganised SET STATUS ='APPROVED' WHERE id='$id'";
@@ -167,6 +161,7 @@ session_start();
             
         </div> 
     </div>
+     <!-- EDIT
 
    
 <!--Search data -->
@@ -174,22 +169,24 @@ session_start();
                 <h4> Search Data </h4>
                     <table class="table table-bordered ">
                     <thead>
-                        <tr>
-                            <th> S.N </th> 
-                            <th> DEPARTMENT </th>
-                            <th> COURSE COORDINATOR </th>
-                            <th> PROGRAMS OFFERED </th>
-                            <th> COURSE CODE(IF ANY) </th>
-                            <th> YEAR OF OFFERING </th>
-                            <th> NO.OF TIMES OFFERED </th>
-                            <th> START DATE </th>
-                            <th> END DATE </th>
-                            <th> DURATION(HRS) </th>
-                            <th> NO.OF STUDENTS(ENROLLED) </th>
-                            <th> NO.OF STUDENTS(COMPLETING) </th>
-                            <th> UPLOAD REPORT </th>
-                        </tr>
-                    <thead>       
+                            <tr>
+                                <th scope="col"> ID </th>
+                                <th scope="col"> NAME OF TEACHER </th>
+                                <th scope="col"> BRANCH </th>
+                                <th scope="col"> TITLE OF BOOK </th>
+                                <th scope="col"> TITLE OF CHAPTER </th>
+                                <th scope="col"> NAME OF PUBLISHER </th>
+                                <th scope="col"> NATIONAL </th>
+								<th scope="col"> ISBN/ISSN </th>
+                                <th scope="col"> PUBLICATION YEAR </th>
+                                <th scope="col"> VOLUME ISSUE </th>
+                                
+                                <th scope="col"> ACTION </th>
+                               
+
+                               
+                            </tr>
+                        </thead>   
 <?php 
     if (isset($_POST["submit"])) {
         $str = mysqli_real_escape_string($connection, $_POST["search"]);
@@ -226,6 +223,7 @@ session_start();
 
                             <a href="../../professors/book-chapters/uploadsindexit/<?php echo $row['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
 							<a href="../../professors/book-chapters/uploadsfrontit/<?php echo $row['pdffile2']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+                            
 
 							
                             

@@ -246,6 +246,8 @@ session_start();
 								<th scope="col"> NUMBER OF STUDENT VOLUNTEERS FOR THE ACTIVITY </th>
                                 <th scope="col"> NUMBER OF PEOPLE BENEFITTED BY THE ACTIVITY </th>
                                 <th scope="col"> ACTION </th>
+                                <th scope="col"> STATUS </th>
+                                
                                
                             </tr>
                         </thead>
@@ -284,27 +286,31 @@ session_start();
                                 <td> <?php echo $developer['Year_of_Activity']; ?> </td>
                                 <td> <?php echo $developer['No_of_Student_Volunteer_for_Activity']; ?> </td>
                                 <td> <?php echo $developer['No_of_People_benefitted_by_Activity']; ?> </td>
+                                
+
                                 <td>
-                            <!-- <a href="read.php?viewid=<?php echo htmlentities ($developer['id']);?>" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a> -->
-                            <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                            <a href="Reports/<?php echo $developer['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
-							<!-- <a href="uploadsfrontit/<?php echo $developer['pdffile2']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a> -->
-                            <a class="delete btn-danger deletebtn" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-							
-                            
-                            
-                            <!-- <button class="btn"><i class="fa fa-download"></i> Download</button>
-                        </td>
-                                <td>
-                                    <button type="button" class="btn btn-success editbtn"> EDIT </button>
-                                </td>
-                                <td>
-                                    <button type="button" class="btn btn-danger deletebtn"> DELETE </button>
-                                </td>
-                            </tr>
-                        </tbody> -->
+                                <a href="../../professors/fdp-sttp/uploadsfdporganised/<?php echo $developer['pdffile']; ?>" class="download" title="Download" data-toggle="tooltip">
+                            <i class="fa fa-download"></i>
+                        </a>
+                        <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                        <a class="delete btn-danger deletebtn" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                    </td>
+                    <td>
+                        <?php if($developer['STATUS'] == 'PENDING'){ ?>
+                            <form method="POST" action="approved.php">
+                                <input type="hidden" name="id" value="<?php echo $developer['id']; ?>">
+                                <input type="submit" name="approve" value="Approve">
+                                <input type="submit" name="delete" value="Delete">
+                            </form>
+                        <?php } else { ?>
+                            <?php echo $developer['STATUS']; ?>
+                        <?php } ?>
+                    </td>
+                </tr>
+            </tbody>
                         <?php           
                     }
+                    
                 }
                 else 
                 {
@@ -336,6 +342,7 @@ session_start();
 
                         <input type="hidden" name="update_id" id="update_id">
 
+                        
                         <div class="form-group">
                             <label> Name of the activity </label>
                             <input type="text" name="Name_of_Activity" class="form-control" placeholder="Enter Activity Name" required>

@@ -34,7 +34,7 @@ $queryresult = mysqli_num_rows($query);
 		// move_uploaded_file($file_tmp2,"uploadsfrontit/$pdffile2");
         
  
-            $query = "UPDATE aditya SET Year = '$Year', Branch = '$Branch', 
+            $query = "UPDATE workshops SET Year = '$Year', Branch = '$Branch', 
         Workshop = '$Workshop', Coordinator = '$Coordinator', Title = '$Title', 
         Category = '$Category', Others = '$Others', Participants = '$Participants', 
         Startingdate = '$Startingdate',Endingdate = '$Endingdate' ";

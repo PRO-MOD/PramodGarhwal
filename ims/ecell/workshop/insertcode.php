@@ -2,7 +2,7 @@
 include('../../config.php');
 session_start();
 $user = $_SESSION["role"];
-$result = "SELECT * FROM clubs WHERE username = '$user'";
+$result = "SELECT * FROM ecell WHERE username = '$user'";
 $query = mysqli_query($connection, $result);
 $queryresult = mysqli_num_rows($query); 
     if($queryresult > 0){
@@ -32,7 +32,7 @@ if(isset($_POST['insertdata']))
         move_uploaded_file($file_tmp1,"uploadsindexit/$pdffile1");
 	    // move_uploaded_file($file_tmp2,"uploadsfrontit/$pdffile2");
 
-    $query = "INSERT INTO aditya
+    $query = "INSERT INTO workshops
     (`Year`, `Workshop`, `Branch`, `Coordinator`,
      `Title`, `Category`, `Others`, `Participants`, 
      `Startingdate`, `Endingdate`,`pdffile1`, `id`) 
