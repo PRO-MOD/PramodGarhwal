@@ -120,7 +120,7 @@ session_start();
                     <td><?php echo $developer['Total_No_Of_Days']; ?></td>
                     <td><?php echo $developer['No_Of_Participants']; ?></td>
                     <td>
-                        <a href="../../professors/fdp-sttp/uploadsfdporganised/<?php echo $developer['pdffile']; ?>" class="download" title="Download" data-toggle="tooltip">
+                        <a href="../../fdpadmins/fdp-sttp/uploadsfdporganised/<?php echo $developer['pdffile']; ?>" class="download" title="Download" data-toggle="tooltip">
                             <i class="fa fa-download"></i>
                         </a>
                         <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
@@ -288,13 +288,14 @@ session_start();
                             <th> END DATE </th>
                             <th> NO OF DAYS </th>
                             <th> PARTICIPANTS</th>
+                            <th> Action</th>
                         </tr>
                     <thead>       
 <?php 
     if (isset($_POST["submit"])) {
         $str = mysqli_real_escape_string($connection, $_POST["search"]);
 
-        $sth = "SELECT * FROM `fdpsttporganised` WHERE Branch LIKE '%$branch%' AND (Academic_year LIKE '%$str%' OR Approving_Body LIKE '%$str%' OR Title_Of_Program LIKE '%$str%' OR Convener_Of_FDP_STTP LIKE '%$str%')";
+        $sth = "SELECT * FROM `fdpsttporganised` WHERE  (Academic_year LIKE '%$str%' OR Approving_Body LIKE '%$str%' OR Title_Of_Program LIKE '%$str%' OR Convener_Of_FDP_STTP LIKE '%$str%')";
         $result = mysqli_query($connection, $sth);
         $queryresult = mysqli_num_rows($result); ?>
 
@@ -323,14 +324,13 @@ session_start();
                         <td> <?php echo $row['Total_No_Of_Days']; ?> </td>
                         <td> <?php echo $row['No_Of_Participants']; ?> </td>
                         <td>
-
-                            <a href="../../professors/fdp-sttp/<?php echo $row['pdffile']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
-                           
-							
-                            
-                            
-                            <!-- <button class="btn"><i class="fa fa-download"></i> Download</button> -->
-                        </td>
+                        <a href="../../fdpadmins/fdp-sttp/uploadsfdporganised/<?php echo $row['pdffile']; ?>" class="download" title="Download" data-toggle="tooltip">
+                            <i class="fa fa-download"></i>
+                        </a>
+                        <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                        <a class="delete btn-danger deletebtn" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                    </td>
+                    <td>
                     </tr> 
                     <tbody>
                     <?php 

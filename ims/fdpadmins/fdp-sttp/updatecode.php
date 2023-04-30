@@ -35,6 +35,7 @@ if(isset($_POST['updatedata']))
     Title_Of_Program = '$Title_Of_Program', Approving_Body = '$Approving_Body', Grant_Amount = '$Grant_Amount', 
     Convener_Of_FDP_STTP = '$Convener_Of_FDP_STTP', Dates_From = '$Dates_From', Dates_To = '$Dates_To', 
     Total_No_Of_Days = '$Total_No_Of_Days', No_Of_Participants = '$No_Of_Participants',  pdffile= '$pdffile' WHERE id='$id'  ";
+    
     $query_run = mysqli_query($connection, $query);
 
     if($query_run)

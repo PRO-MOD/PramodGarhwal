@@ -399,7 +399,7 @@ else
     if (isset($_POST["submit"])) {
         $str = mysqli_real_escape_string($connection, $_POST["search"]);
 
-        $sth = "SELECT * FROM `competitiveexams` WHERE id=$id AND (Department LIKE '%$str%' OR Registration_number LIKE '%$str%' OR Name_of_student LIKE '%$str%' OR Name_of_exam LIKE '%$str%' OR Year LIKE '%$str%' OR other LIKE '%$str%' ) ";
+        $sth = "SELECT * FROM `competitiveexams` WHERE (Department LIKE '%$str%' OR Registration_number LIKE '%$str%' OR Name_of_student LIKE '%$str%' OR Name_of_exam LIKE '%$str%' OR Year LIKE '%$str%' OR other LIKE '%$str%' )";
         
         $result = mysqli_query($connection, $sth);
         $queryresult = mysqli_num_rows($result); ?>
@@ -423,12 +423,12 @@ else
                                 <td> <?php echo $row['Registration_number']; ?> </td>
                                 <td> <?php echo $row['Name_of_student']; ?> </td>
                                 <td> <?php echo $row['Name_of_exam']; ?> </td>
-                                <td> <?php echo $row['other']; ?> </td>
+                                <td> <?php echo $row['OTHER']; ?> </td>
                                 
                                 <td>
                             <!--<a href="read.php?viewid=<?php echo htmlentities ($row['id']);?>" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>-->
                             <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                            <a href="exams/<?php echo $row['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+                            <a href="../../fdpadmins/competitive_exams/exams/<?php echo $row['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
 							<!-- <a href="uploadsfrontit/<?php echo $row['pdffile2']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a> -->
                             <a class="delete btn-danger deletebtn" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
 							
