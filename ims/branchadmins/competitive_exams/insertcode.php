@@ -19,9 +19,12 @@ if(isset($_POST['insertdata']))
     $Name_of_student= $_POST['Name_of_student'];
     $Name_of_exam = $_POST['Name_of_exam'];
     $other = $_POST['other'];
+    $pdffile1 = $_FILES['pdffile1']['name'];
+    $file_tmp1 = $_FILES['pdffile1']['tmp_name'];
+
     $id= $_POST['id'];
 	
-    move_uploaded_file($file_tmp1,"reports/$pdffile1");
+    move_uploaded_file($file_tmp1,"branchexams/$pdffile1");
 
     $query = "INSERT INTO competitiveexams
     (`Year`, `Department`, `Registration_number`, `Name_of_student`, `Name_of_exam`, `other`,  `pdffile1`, `id`) 

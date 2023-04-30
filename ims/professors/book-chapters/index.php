@@ -331,7 +331,6 @@ else
     echo "No Record Found";
 }
 ?>
-...
 
                     </table>
             

@@ -25,7 +25,7 @@ $queryresult = mysqli_num_rows($query);
 		// $pdffile2 = $_FILES['pdffile2']['name2'];
         // $file_tmp2 = $_FILES['pdffile2']['tmp_name2'];
 
-        move_uploaded_file($file_tmp1,"uploadsindexit/$pdffile1");
+        move_uploaded_file($file_tmp1,"exams/$pdffile1");
 		// move_uploaded_file($file_tmp2,"uploadsfrontit/$pdffile2");
         
  
