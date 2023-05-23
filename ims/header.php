@@ -34,7 +34,7 @@
     padding-top: 5px;
   }
   
-  .navbar h3{
+  .navbar h5{
     float: left;
     color: #f2f2f2;
     letter-spacing: normal;
@@ -97,8 +97,10 @@
 <body>
 <div class="navbar mb-5">
     <img class="logo"src="https://i.postimg.cc/wvDjdZdp/logo.png" alt="image" width="3%">
-    <h3 class="name">Fr. Conceicao Rodrigues Institute Of Technology</h3>
-    <a href='../logout.php'>Logout</a>
+    <h5 class="name">AGNEL CHARITIES' <br>
+FR. C. RODRIGUES INSTITUTE OF TECHNOLOGY <br>
+Agnel Technical Education Complex Sector 9-A, Vashi, Navi Mumbai, Maharashtra, India PIN - 400703</h5>
+    <a href='../../logout.php'>Logout</a>
 </div>
 
 
