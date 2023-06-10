@@ -61,105 +61,128 @@ session_start();
             </div>
             </div>
 
-             <!-- table -->
-            <div id="tabledataid" class="card">
-                <div class="card-body">
-                      <!-- th change -->
-                    <table id="datatableid" class="table table-bordered table-dark mt-2">
-                    <thead>
-                            <tr>
-                                <th scope="col"> ID </th>
-                                <th scope="col"> NAME OF TEACHER </th>
-                                <th scope="col"> BRANCH </th>
-                                <th scope="col"> TITLE OF BOOK </th>
-                                <th scope="col"> TITLE OF CHAPTER </th>
-                                <th scope="col"> NAME OF PUBLISHER </th>
-                                <th scope="col"> NATIONAL </th>
-								<th scope="col"> ISBN/ISSN </th>
-                                <th scope="col"> PUBLICATION YEAR </th>
-                                <th scope="col"> VOLUME ISSUE </th>
-                                
-                                <th scope="col"> ACTION </th>
-                                <th scope="col"> STATUS</th>
-                               
-                            </tr>
-                        </thead>
-                        <?php
-                        $user = $_SESSION["role"];
-                        
-                        $result = "SELECT * FROM branchadmins WHERE username = '$user'";
-
-                        $query = mysqli_query($connection, $result);
-                        $queryresult = mysqli_num_rows($query); 
-                            if($queryresult > 0){
-                                while($row = mysqli_fetch_assoc($query)){ 
-                                    $id = $row['id'];
-                                    $branch = trim($row['branch']);
-                                }  
-                            }
-
-                        $table_query = "SELECT * FROM bookschapter WHERE branch = '$branch' ORDER BY id ASC";
-                        
-                        $query_run = mysqli_query($connection, $table_query);
-                        $query_result = mysqli_num_rows($query_run); ?>
-
-                        <?php if($query_result > 0){
-                                        while($developer = mysqli_fetch_assoc($query_run)){   
-                                            ?>
-                        <tbody> <!-- change -->
-                            <tr>
-                                <td> <?php echo $developer['id']; ?> </td>
-                                <td> <?php echo $developer['Name_Of_The_Teacher']; ?> </td> 
-                                <td> <?php echo $developer['Branch']; ?> </td>
-                                <td> <?php echo $developer['Title_Of_The_Book_Published']; ?> </td>
-                                <td> <?php echo $developer['Title_Of_The_Chapter_Published_In_The_Book']; ?> </td>
-                                <td> <?php echo $developer['Name_Of_The_Publisher']; ?> </td>
-                                <td> <?php echo $developer['National_Or_International']; ?> </td>
-                                <td> <?php echo $developer['ISBN_Or_ISSN_Number']; ?> </td>
-                                <td> <?php echo $developer['Year_Of_Publication']; ?> </td>
-                                <td> <?php echo $developer['Volume_Issue']; ?> </td>
-                                <td>
-
-                            <a href="../../professors/book-chapters/uploadsindexit/<?php echo $developer['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
-							<a href="../../professors/book-chapters/uploadsfrontit/<?php echo $developer['pdffile2']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
-                            <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                        <a class="delete btn-danger deletebtn" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-                    </td>
-                    <td>
-                        <?php if($developer['STATUS'] == 'PENDING'){ ?>
-                            <form method="POST" action="approved.php">
-                                <input type="hidden" name="id" value="<?php echo $developer['id']; ?>">
-                                <input type="submit" name="approve" value="Approve">
-                                <!-- <input type="submit" name="delete" value="Delete"> -->
-                            </form>
-                        <?php } else { ?>
-                            <?php echo $developer['STATUS']; ?>
-                        <?php } ?>
-                    </td>
+           <!-- table -->
+<div id="tabledataid" class="card">
+    <div class="card-body">
+        <!-- th change -->
+        <table id="datatableid" class="table table-bordered table-dark mt-2">
+            <thead>
+                <tr>
+                    <th scope="col"> ID </th>
+                    <th scope="col"> NAME OF TEACHER </th>
+                    <th scope="col"> BRANCH </th>
+                    <th scope="col"> TITLE OF BOOK </th>
+                    <th scope="col"> TITLE OF CHAPTER </th>
+                    <th scope="col"> NAME OF PUBLISHER </th>
+                    <th scope="col"> NATIONAL </th>
+                    <th scope="col"> ISBN/ISSN </th>
+                    <th scope="col"> PUBLICATION YEAR </th>
+                    <th scope="col"> VOLUME ISSUE </th>
+                    <th scope="col"> ACTION </th>
+                    <th scope="col"> STATUS</th>
                 </tr>
-            </tbody>
-                        <?php           
-                    }
-                    
-                }
-                else 
-                {
-                    echo "No Record Found";
-                }
-            ?>
-                    </table>
-
+            </thead>
             <?php
-            if(isset($_POST['approve'])){
-                $id=$_POST['id'];
-                $select = "UPDATE bookschapter SET STATUS ='APPROVED' WHERE id='$id'";
-                $result=mysqli_query($conn,$select);
-                 echo "DATA Approved";
-                header(("location:index.php"));
-            }?>
-            
-        </div> 
+            $user = $_SESSION["role"];
+
+            $result = "SELECT * FROM branchadmins WHERE username = '$user'";
+
+            $query = mysqli_query($connection, $result);
+            $queryresult = mysqli_num_rows($query);
+            if ($queryresult > 0) {
+                while ($row = mysqli_fetch_assoc($query)) {
+                    $id = $row['id'];
+                    $branch = trim($row['branch']);
+                }
+            }
+
+            $table_query = "SELECT * FROM bookschapter WHERE branch = '$branch' ORDER BY id ASC";
+
+            $query_run = mysqli_query($connection, $table_query);
+            $query_result = mysqli_num_rows($query_run); ?>
+
+            <?php if ($query_result > 0) {
+                while ($developer = mysqli_fetch_assoc($query_run)) {
+                    ?>
+                    <tbody> <!-- change -->
+                        <tr>
+                            <td> <?php echo $developer['id']; ?> </td>
+                            <td> <?php echo $developer['Name_Of_The_Teacher']; ?> </td>
+                            <td> <?php echo $developer['Branch']; ?> </td>
+                            <td> <?php echo $developer['Title_Of_The_Book_Published']; ?> </td>
+                            <td> <?php echo $developer['Title_Of_The_Chapter_Published_In_The_Book']; ?> </td>
+                            <td> <?php echo $developer['Name_Of_The_Publisher']; ?> </td>
+                            <td> <?php echo $developer['National_Or_International']; ?> </td>
+                            <td> <?php echo $developer['ISBN_Or_ISSN_Number']; ?> </td>
+                            <td> <?php echo $developer['Year_Of_Publication']; ?> </td>
+                            <td> <?php echo $developer['Volume_Issue']; ?> </td>
+                            <td>
+                                <a href="../../professors/book-chapters/uploadsindexit/<?php echo $developer['pdffile1']; ?>" class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+                                <a href="../../professors/book-chapters/uploadsfrontit/<?php echo $developer['pdffile2']; ?>" class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+                                <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                                <a class="delete btn-danger deletebtn" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                            </td>
+                            <td>
+                                <?php if ($developer['STATUS'] == 'PENDING') { ?>
+                                    <form method="POST" action="approved.php">
+                                        <input type="hidden" name="id" value="<?php echo $developer['id']; ?>">
+                                        <input type="submit" name="approve" value="Approve">
+                                    </form>
+                                    <form method="post" action="reject.php">
+                                        <input type="hidden" name="id" value="<?php echo $developer['id']; ?>">
+                                        <button type="submit" name="reject" class="btn btn-danger">Reject</button>
+                                    </form>
+                                <?php } elseif ($developer['STATUS'] == 'rejected') { ?>
+                                    <?php echo $developer['STATUS']; ?>
+                                    <form method="POST" action="approve-now.php">
+                                        <input type="hidden" name="id" value="<?php echo $developer['id']; ?>">
+                                        <input type="submit" name="approve_now" value="Approve Now">
+                                    </form>
+                                <?php } else { ?>
+                                    <?php echo $developer['STATUS']; ?>
+                                <?php } ?>
+                            </td>
+                        </tr>
+                    </tbody>
+                <?php
+                }
+            } else {
+                echo "No Record Found";
+            }
+            ?>
+        </table>
+
+        <?php
+        // Approve button logic
+        if (isset($_POST['approve'])) {
+            $id = $_POST['id'];
+            $select = "UPDATE bookschapter SET STATUS ='APPROVED' WHERE id='$id'";
+            $result = mysqli_query($connection, $select);
+            echo "Data Approved";
+            header("Location: index.php");
+        }
+
+        // Reject button logic
+        if (isset($_POST['reject'])) {
+            $id = $_POST['id'];
+            $select = "UPDATE bookschapter SET STATUS ='REJECTED' WHERE id='$id'";
+            $result = mysqli_query($connection, $select);
+            echo "Data Rejected";
+            header("Location: index.php");
+        }
+
+        // Approve Now button logic
+if (isset($_POST['approve_now'])) {
+    $id = $_POST['id'];
+    $select = "UPDATE bookschapter SET STATUS ='APPROVED' WHERE id='$id'";
+    $result = mysqli_query($connection, $select);
+    echo "Data Approved";
+    header("Location: index.php");
+}
+        ?>
     </div>
+</div>
+
       <!-- DELETE POP UP FORM  -->
     <!-- dont make changes-->
     <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -214,11 +237,24 @@ session_start();
                             <label> Academic Year </label>
                             <input type="text"  id="Year_Of_Publication" name="Year_Of_Publication" class="form-control" required>
                         </div>
-
                         <div class="form-group">
-                            <label> Department/Branch Name </label>
-                            <input type="text"  id="Branch" name="Branch" value="$branch" class="form-control" required>
-                        </div>
+    <label>Branch</label>
+    <select name="Branch" class="form-control" required >
+        <option value="">--Select Department--</option>
+        <?php
+        // Retrieve the department information from the session or any other method
+        $branch = $_SESSION['branch']; 
+
+       $branches = array("IT", "EXTC", "Mechanical", "Computers", "Electrical", "Humanities");
+foreach ($branches as $branchOption) {
+    $selected = ($branchOption == $branch) ? 'selected="selected"' : '';
+    echo '<option value="' . $branchOption . '" ' . $selected . '>' . $branchOption . '</option>';
+}
+
+        ?>
+    </select>
+</div>
+
 
                         <div class="form-group">
                             <label> Title of the Book Published </label>
@@ -339,9 +375,28 @@ session_start();
                             <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
                         <a class="delete btn-danger deletebtn" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
                     </td>
-                    <td> <?php echo $row['STATUS']; ?> </td>
-                    </tr> 
-                    <tbody>
+                    <td>
+                                <?php if ($row['STATUS'] == 'PENDING') { ?>
+                                    <form method="POST" action="approved.php">
+                                        <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
+                                        <input type="submit" name="approve" value="Approve">
+                                    </form>
+                                    <form method="post" action="reject.php">
+                                        <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
+                                        <button type="submit" name="reject" class="btn btn-danger">Reject</button>
+                                    </form>
+                                <?php } elseif ($row['STATUS'] == 'rejected') { ?>
+                                    <?php echo $row['STATUS']; ?>
+                                    <form method="POST" action="approve-now.php">
+                                        <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
+                                        <input type="submit" name="approve_now" value="Approve Now">
+                                    </form>
+                                <?php } else { ?>
+                                    <?php echo $row['STATUS']; ?>
+                                <?php } ?>
+                            </td>
+                        </tr>
+                    </tbody>
                     <?php 
             }
 

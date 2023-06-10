@@ -61,19 +61,23 @@ session_start();
                                 <option name="Year_Of_Publication" value="2021-22">2022-23</option>
                             </select>
                         </div>
-
                         <div class="form-group">
-                            <label>Branch</label>
-                            <select name="Branch" class="form-control" required>
-                                <option value="">--Select Department--</option>
-                                <option name="Branch" value="IT">IT</option>
-                                <option name="Branch" value="EXTC">EXTC</option>
-                                <option name="Branch" value="Mechanical">Mechanical</option>
-                                <option name="Branch" value="Computers">Computers</option>
-                                <option name="Branch" value="Electrical">Electrical</option>
-                                <option name="Branch" value="Humanities">Humanities</option>
-                            </select>
-                        </div>
+    <label>Branch</label>
+    <select name="Branch" class="form-control" required disabled>
+        <option value="">--Select Department--</option>
+        <?php
+        // Retrieve the department information from the session or any other method
+        $branch = $_SESSION['branch']; 
+
+       $branches = array("IT", "EXTC", "Mechanical", "Computers", "Electrical", "Humanities");
+foreach ($branches as $branchOption) {
+    $selected = ($branchOption == $branch) ? 'selected="selected"' : '';
+    echo '<option value="' . $branchOption . '" ' . $selected . '>' . $branchOption . '</option>';
+}
+
+        ?>
+    </select>
+</div>
 
                         <div class="form-group">
                             <label> Title of the Book Published </label>
@@ -275,7 +279,7 @@ session_start();
                                 }  
                             }
 
-                        $table_query = "SELECT * FROM bookschapter WHERE user_id=$id  AND branch = '$branch'";
+                        $table_query = "SELECT * FROM bookschapter WHERE user_id=$id";
                         
                         $query_run = mysqli_query($connection, $table_query);
                         $query_result = mysqli_num_rows($query_run); ?>
@@ -364,9 +368,23 @@ else
                         </div>
 
                         <div class="form-group">
-                            <label> Department/Branch Name </label>
-                            <input type="text"  id="Branch" name="Branch" value="$branch" class="form-control" required>
-                        </div>
+    <label>Branch</label>
+    <select name="Branch" class="form-control" required >
+        <option value="">--Select Department--</option>
+        <?php
+        // Retrieve the department information from the session or any other method
+        $branch = $_SESSION['branch']; 
+
+       $branches = array("IT", "EXTC", "Mechanical", "Computers", "Electrical", "Humanities");
+foreach ($branches as $branchOption) {
+    $selected = ($branchOption == $branch) ? 'selected="selected"' : '';
+    echo '<option value="' . $branchOption . '" ' . $selected . '>' . $branchOption . '</option>';
+}
+
+        ?>
+    </select>
+</div>
+
 
                         <div class="form-group">
                             <label> Title of the Book Published </label>
@@ -441,11 +459,13 @@ else
                             <th> STATUS </th>
                         </tr>
                     <thead>       
+
+
 <?php 
     if (isset($_POST["submit"])) {
         $str = mysqli_real_escape_string($connection, $_POST["search"]);
 
-        $sth = "SELECT * FROM `bookschapter`  WHERE branch = '$branch'  AND (Branch LIKE '%$str%' OR Name_Of_The_Teacher LIKE '%$str%' OR Title_Of_The_Book_Published LIKE '%$str%' OR Title_Of_The_Chapter_Published_In_The_Book LIKE '%$str%' OR Name_Of_The_Publisher LIKE '%$str%' OR National_Or_International LIKE '$str' OR ISBN_Or_ISSN_Number LIKE '%$str%' OR Year_Of_Publication LIKE '%$str%' OR Volume_Issue LIKE '%$str%' OR STATUS LIKE '$str' ) ";
+        $sth = "SELECT * FROM `bookschapter` WHERE user_id=$id AND (Branch LIKE '%$str%' OR Name_Of_The_Teacher LIKE '%$str%' OR Title_Of_The_Book_Published LIKE '%$str%' OR Title_Of_The_Chapter_Published_In_The_Book LIKE '%$str%' OR Name_Of_The_Publisher LIKE '%$str%' OR National_Or_International LIKE '$str' OR ISBN_Or_ISSN_Number LIKE '%$str%' OR Year_Of_Publication LIKE '%$str%' OR Volume_Issue LIKE '%$str%' OR STATUS LIKE '$str' ) ";
         
         $result = mysqli_query($connection, $sth);
         $queryresult = mysqli_num_rows($result); ?>
@@ -462,7 +482,12 @@ else
                     ?>
                     <tbody id="srch"> 
              
-                    <tr>                
+                    <tr>              
+                    <?php
+                $status = $row['STATUS'];
+                $is_disabled = ($status == "approved") ? "disabled" : "";
+                // If STATUS is "approved", set the $is_disabled variable to "disabled"
+                ?>  
                         <td> <?php echo $row['id']; ?> </td>
                         <td> <?php echo $row['Name_Of_The_Teacher']; ?> </td> 
                         <td> <?php echo $row['Branch']; ?> </td>
@@ -475,15 +500,26 @@ else
                         <td> <?php echo $row['Volume_Issue']; ?> </td>
                         <td>
                             <!--<a href="read.php?viewid=<?php echo htmlentities ($row['id']);?>" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>-->
-                            <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                            <!-- <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a> -->
                             <a href="uploadsindexit/<?php echo $row['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
 							<a href="uploadsfrontit/<?php echo $row['pdffile2']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
-                            <a class="delete btn-danger deletebtn" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                            <!-- <a class="delete btn-danger deletebtn" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a> -->
 							
                             
                             
                             <!-- <button class="btn"><i class="fa fa-download"></i> Download</button> -->
-                        </td>
+
+                             
+                            <?php if ($status != "approved") { // If STATUS is not "approved", show the edit and delete buttons ?>
+                        <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip" <?php echo $is_disabled ?>>
+                            <i class="material-icons">&#xE254;</i>
+                        </a>
+
+                        <a class="delete btn-danger deletebtn" title="Delete" data-toggle="tooltip" <?php echo $is_disabled ?>>
+                            <i class="material-icons">&#xE872;</i>
+                        </a>
+                    <?php } ?>
+                            </td>
                         <td> <?php echo $row['STATUS']; ?> </td>
                     </tr> 
                     <tbody>
