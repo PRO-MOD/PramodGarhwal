@@ -1,7 +1,29 @@
+<div class="form-group">
+    <label>Branch</label>
+    <select name="Branch" class="form-control" required disabled>
+        <option value="">--Select Department--</option>
+        <?php
+        // Retrieve the department information from the session or any other method
+        $branch = $_SESSION['branch']; 
+
+       $branches = array("IT", "EXTC", "Mechanical", "Computer", "Electrical", "Humanities");
+foreach ($branches as $branchOption) {
+    $selected = ($branchOption == $branch) ? 'selected="selected"' : '';
+    echo '<option value="' . $branchOption . '" ' . $selected . '>' . $branchOption . '</option>';
+}
+
+        ?>
+    </select>
+</div>
+
+
+
+
 <?php 
 include('../../config.php');
 session_start();
 ?>
+
 <!DOCTYPE html> 
 
 <html lang="en">
@@ -10,7 +32,7 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title> FDP / STTP </title>
+    <title> Book Chapters Published </title>
 
     <link rel="stylesheet" href="styles.css">
     
@@ -27,6 +49,8 @@ session_start();
 
 
 <body>
+
+
     <?php include('../../header.php'); ?>
 
     <!-- Modal -->
@@ -48,14 +72,14 @@ session_start();
 
                         <div class="form-group">
                             <label>Year</label>
-                            <select name="Academic_year" class="form-control" required>
+                            <select name="Year_Of_Publication" class="form-control" required>
                                 <option value="">--Select Year--</option>
-                                <option name="Academic_year" value="2017-18">2017-18</option>
-                                <option name="Academic_year" value="2018-19">2018-19</option>
-                                <option name="Academic_year" value="2019-20">2019-20</option>
-                                <option name="Academic_year" value="2020-21">2020-21</option>
-                                <option name="Academic_year" value="2021-22">2021-22</option>
-                                <option name="Academic_year" value="2021-22">2022-23</option>
+                                <option name="Year_Of_Publication" value="2017-18">2017-18</option>
+                                <option name="Year_Of_Publication" value="2018-19">2018-19</option>
+                                <option name="Year_Of_Publication" value="2019-20">2019-20</option>
+                                <option name="Year_Of_Publication" value="2020-21">2020-21</option>
+                                <option name="Year_Of_Publication" value="2021-22">2021-22</option>
+                                <option name="Year_Of_Publication" value="2021-22">2022-23</option>
                             </select>
                         </div>
 
@@ -65,9 +89,9 @@ session_start();
         <option value="">--Select Department--</option>
         <?php
         // Retrieve the department information from the session or any other method
-        $branch = $_SESSION['branch']; // Modify this based on your code
+        $branch = $_SESSION['branch']; 
 
-       $branches = array("it", "extc", "mechanical", "computer", "electrical", "humanities");
+       $branches = array("IT", "EXTC", "Mechanical", "Computer", "Electrical", "Humanities");
 foreach ($branches as $branchOption) {
     $selected = ($branchOption == $branch) ? 'selected="selected"' : '';
     echo '<option value="' . $branchOption . '" ' . $selected . '>' . $branchOption . '</option>';
@@ -77,50 +101,53 @@ foreach ($branches as $branchOption) {
     </select>
 </div>
 
+
+
                         <div class="form-group">
-                            <label> Title of the professional development program </label>
-                            <input type="text" name="Title_Of_Program" class="form-control" placeholder="Enter Title" required>
+                            <label> Title of the Book Published </label>
+                            <input type="text" name="Title_Of_The_Book_Published" class="form-control" placeholder="Enter Title" required>
                         </div>
 
                         <div class="form-group">
-                            <label> Mention Approving Body Name (Eg - AICTE, ISTE, etc.)</label>
-                            <input type="text" name="Approving_Body" class="form-control" placeholder="Mention Approving Body Name" required>
+                            <label> Name of the Teacher </label>
+                            <input type="text" name="Name_Of_The_Teacher" class="form-control" placeholder="Name of the teacher" required>
                         </div>
 
                         <div class="form-group">
-                            <label> If Sponsored, Enter Grant Amount </label>
-                            <input type="number" name="Grant_Amount" class="form-control" placeholder="Enter Grant Amount">
+                            <label> Enter title of chapter published in book </label>
+                            <input type="text" name="Title_Of_The_Chapter_Published_In_The_Book" class="form-control" placeholder="Enter Title of Chapter">
                         </div>
 
                         <div class="form-group">
-                            <label> Convener of FDP/STTP </label>
-                            <input type="text" name="Convener_Of_FDP_STTP" class="form-control" placeholder="Enter Name of Convener" required>
+                            <label> Name of publisher </label>
+                            <input type="text" name="Name_Of_The_Publisher" class="form-control" placeholder="Enter Name of Publisher" required>
                         </div>
 
                         <div class="form-group">
-                            <label> Starting Date </label>
-                            <input type="date" id="Dates_From" name="Dates_From" class="form-control" placeholder="Enter Start Date" required>
+                            <label>Select National/International</label>
+                            <select name="National_Or_International" class="form-control" required>
+                                <option value="">--Select Type of Publication--</option>
+                                <option name="National_Or_International" value="National">National</option>
+                                <option name="National_Or_International" value="International">International</option>
+                            </select>
                         </div>
 
                         <div class="form-group">
-                            <label> Ending Date </label>
-                            <input type="date" id="Dates_To" name="Dates_To" class="form-control" placeholder="Enter Ending Date" required>
+                            <label> Enter ISBN/ISSN number </label>
+                            <input type="number" name="ISBN_Or_ISSN_Number" class="form-control" placeholder="Enter ISBN/ISSN number" required>
                         </div>
 
                         <div class="form-group">
-                            <label> Total Number of days of FDP/STTP </label>
-                            <input type="number" name="Total_No_Of_Days" class="form-control" placeholder="Total Number of Days" required>
+                            <label> Enter Volume Issue </label>
+                            <input type="text" name="Volume_Issue" class="form-control" placeholder="Enter Volume" required>
                         </div>
 
-                        <div class="form-group">
-                            <label> Number of Participants </label>
-                            <input type="number" name="No_Of_Participants" class="form-control" placeholder="Enter Number of Participants" required>
-                        </div>
+                        
 
                         <div class="form-group">
-                            <label> Submit Report </label>
-                            <input type="file" name="pdffile" id="pdf-file" required/><br>
-                                    <img src="" id="pdf-file-tag" width="100px" />
+                            <label> Submit Index page of book showing list of author </label>
+                            <input type="file" name="pdffile1" id="pdffile1" required/><br>
+                                    <img src="" id="pdf-file1-tag" width="100px" />
 
                                     <script type="text/javascript">
                                         function readURL(input) {
@@ -128,16 +155,38 @@ foreach ($branches as $branchOption) {
                                                 var reader = new FileReader();
                                                 
                                                 reader.onload = function (e) {
-                                                    $('#pdf-file-tag').attr('src', e.target.result);
+                                                    $('#pdf-file1-tag').attr('src', e.target.result);
                                                 }
                                                 reader.readAsDataURL(input.files[0]);
                                             }
                                         }
-                                        $("#pdf-file").change(function(){
+                                        $("#pdffile1").change(function(){
                                             readURL(this);
                                         });
                                     </script><br>
-                        </div>
+						</div>
+                        <div class="form-group">
+                            <label> Submit front page of book </label>						
+						    <input type="file" name="pdffile2" id="pdffile2" required/><br>
+                                    <img src="" id="pdf-file2-tag" width="100px" />
+
+                                    <script type="text/javascript">
+                                        function readURL(input) {
+                                            if (input.files && input.files[0]) {
+                                                var reader = new FileReader();
+                                                
+                                                reader.onload = function (e) {
+                                                    $('#pdf-file2-tag').attr('src', e.target.result);
+                                                }
+                                                reader.readAsDataURL(input.files[0]);
+                                            }
+                                        }
+                                        $("#pdffile2").change(function(){
+                                            readURL(this);
+                                        });
+                                    </script><br>
+						</div>			
+
 
                     </div>
                     <div class="modal-footer">
@@ -194,7 +243,7 @@ foreach ($branches as $branchOption) {
                 ?>
 
             <div class="card-body mt-5">
-                <h2> FDP / STTP Organised </h2>
+                <h2> Book Chapters/Books Published</h2>
             </div>
             <div class="card">
                 <div class="card-body btn-group">
@@ -224,25 +273,26 @@ foreach ($branches as $branchOption) {
                         <thead>
                             <tr>
                                 <th scope="col"> ID </th>
-                                <th scope="col"> YEAR </th>
-                                <th scope="col"> Branch </th>
-                                <th scope="col"> TITLE </th>
-                                <th scope="col"> APPROVING BODY </th>
-                                <th scope="col"> GRANT AMOUNT </th>
-                                <th scope="col"> CONVENER </th>
-                                <th scope="col"> FROM DATE </th>
-                                <th scope="col"> END DATE </th>
-                                <th scope="col"> NO OF DAYS </th>
-                                <th scope="col"> PARTICIPANTS</th>
+                                <th scope="col"> NAME OF TEACHER </th>
+                                <th scope="col"> BRANCH </th>
+                                <th scope="col"> TITLE OF BOOK </th>
+                                <th scope="col"> TITLE OF CHAPTER </th>
+                                <th scope="col"> NAME OF PUBLISHER </th>
+                                <th scope="col"> NATIONAL </th>
+								<th scope="col"> ISBN/ISSN </th>
+                                <th scope="col"> PUBLICATION YEAR </th>
+                                <th scope="col"> VOLUME ISSUE </th>
+                                
                                 <th scope="col"> ACTION </th>
-                                <th scope="col"> STATUS </th>
+                                <th scope="col"> STATUS</th>
                                
                             </tr>
                         </thead>
                         
                         <?php
-                        $user = $_SESSION["role"];                        
-                        $result = "SELECT * FROM fdpadmins WHERE username = '$user'";
+                        $user = $_SESSION["role"];
+                        
+                        $result = "SELECT * FROM credentials WHERE username = '$user'";
 
                         $query = mysqli_query($connection, $result);
                         $queryresult = mysqli_num_rows($query); 
@@ -253,40 +303,40 @@ foreach ($branches as $branchOption) {
                                 }  
                             }
 
-                        $table_query = "SELECT * FROM fdpsttporganised  ORDER BY id ASC";  
+                        $table_query = "SELECT * FROM bookschapter WHERE user_id=$id  AND branch = '$branch'";
+                        
                         $query_run = mysqli_query($connection, $table_query);
                         $query_result = mysqli_num_rows($query_run); ?>
 
-
-<?php if($query_result > 0){
-    while($developer = mysqli_fetch_assoc($query_run)){   
-        ?>
-        <tbody>
-            <tr>
-                <!-- table columns -->
-                <?php
+                        <?php if($query_result > 0){
+                                        while($developer = mysqli_fetch_assoc($query_run)){   
+                                            ?>
+                        <tbody> <!-- change -->
+                            <tr>
+                            <?php
                 $status = $developer['STATUS'];
                 $is_disabled = ($status == "approved") ? "disabled" : "";
                 // If STATUS is "approved", set the $is_disabled variable to "disabled"
                 ?>
-
-                <td> <?php echo $developer['id']; ?> </td>
-                <td> <?php echo $developer['Academic_year']; ?> </td> 
-                <td> <?php echo $developer['Branch']; ?> </td>
-                <td> <?php echo $developer['Title_Of_Program']; ?> </td>
-                <td> <?php echo $developer['Approving_Body']; ?> </td>
-                <td> <?php echo $developer['Grant_Amount']; ?> </td>
-                <td> <?php echo $developer['Convener_Of_FDP_STTP']; ?> </td>
-                <td> <?php echo $developer['Dates_From']; ?> </td>
-                <td> <?php echo $developer['Dates_To']; ?> </td>
-                <td> <?php echo $developer['Total_No_Of_Days']; ?> </td>
-                <td> <?php echo $developer['No_Of_Participants']; ?> </td>
-                <td>
-                    <a href="uploadsfdporganised/<?php echo $developer['pdffile']; ?>" class="download" title="Download" data-toggle="tooltip">
-                        <i class="fa fa-download"></i>
-                    </a>
-
-                    <?php if ($status != "approved") { // If STATUS is not "approved", show the edit and delete buttons ?>
+                                <td> <?php echo $developer['id']; ?> </td>
+                                <td> <?php echo $developer['Name_Of_The_Teacher']; ?> </td> 
+                                <td> <?php echo $developer['Branch']; ?> </td>
+                                <td> <?php echo $developer['Title_Of_The_Book_Published']; ?> </td>
+                                <td> <?php echo $developer['Title_Of_The_Chapter_Published_In_The_Book']; ?> </td>
+                                <td> <?php echo $developer['Name_Of_The_Publisher']; ?> </td>
+                                <td> <?php echo $developer['National_Or_International']; ?> </td>
+                                <td> <?php echo $developer['ISBN_Or_ISSN_Number']; ?> </td>
+                                <td> <?php echo $developer['Year_Of_Publication']; ?> </td>
+                                <td> <?php echo $developer['Volume_Issue']; ?> </td>
+                                <td>
+                            <!--<a href="read.php?viewid=<?php echo htmlentities ($developer['id']);?>" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>-->
+                            <!-- <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a> -->
+                            <a href="uploadsindexit/<?php echo $developer['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+							<a href="uploadsfrontit/<?php echo $developer['pdffile2']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+                            <!-- <a class="delete btn-danger deletebtn" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a> -->
+							
+                            
+                            <?php if ($status != "approved") { // If STATUS is not "approved", show the edit and delete buttons ?>
                         <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip" <?php echo $is_disabled ?>>
                             <i class="material-icons">&#xE254;</i>
                         </a>
@@ -310,11 +360,11 @@ else
 }
 ?>
 
-
                     </table>
             
         </div> 
     </div>
+
 
     <!-- EDIT POP UP FORM  -->
     <!-- this is edit data form Make changes to variables and placeholder, keep same variables -->
@@ -337,51 +387,70 @@ else
                         <input type="hidden" name="update_id" id="update_id">
 
                         <div class="form-group">
-                            <label> Academic Year</label>
-                            <input id='Academic_year' type="text" name="Academic_year" class="form-control" placeholder="Enter Title" required>
+                            <label> Academic Year </label>
+                            <input type="text"  id="Year_Of_Publication" name="Year_Of_Publication" class="form-control" required>
                         </div>
+
                         
                         <div class="form-group">
-                            <label> Branch/Department Name </label>
-                            <input id='Branch' type="text" name="Branch" class="form-control" placeholder="Enter Title" required>
+    <label>Branch</label>
+    <select name="Branch" class="form-control" required disabled>
+        <option value="">--Select Department--</option>
+        <?php
+        // Retrieve the department information from the session or any other method
+        $branch = $_SESSION['branch']; 
+
+       $branches = array("IT", "EXTC", "Mechanical", "Computer", "Electrical", "Humanities");
+foreach ($branches as $branchOption) {
+    $selected = ($branchOption == $branch) ? 'selected="selected"' : '';
+    echo '<option value="' . $branchOption . '" ' . $selected . '>' . $branchOption . '</option>';
+}
+
+        ?>
+    </select>
+</div>
+
+                        <div class="form-group">
+                            <label> Title of the Book Published </label>
+                            <input type="text"  id="Title_Of_The_Book_Published" name="Title_Of_The_Book_Published" class="form-control" placeholder="Enter Title" required>
                         </div>
 
                         <div class="form-group">
-                            <label> Approving Body </label>
-                            <input id="Approving_Body" type="text" name="Approving Body" class="form-control" placeholder="AICTE/ISTE/Others" required>
+                            <label> Name of the Teacher </label>
+                            <input type="text" name="Name_Of_The_Teacher" id="Name_Of_The_Teacher" class="form-control" placeholder="Name of the teacher" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label> Enter title of chapter published in book </label>
+                            <input type="text" name="Title_Of_The_Chapter_Published_In_The_Book"  id="Title_Of_The_Chapter_Published_In_The_Book" class="form-control" placeholder="Enter Title of Chapter">
+                        </div>
+
+                        <div class="form-group">
+                            <label> Name of publisher </label>
+                            <input type="text" name="Name_Of_The_Publisher" id="Name_Of_The_Publisher" class="form-control" placeholder="Enter Name of Publisher" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Select National/International</label>
+                            <select id="National_or_International" name="National_Or_International" class="form-control" required>
+                                <option id="National_or_International" name="National_Or_International" value="National">National</option>
+                                <option id="National_or_International" name="National_Or_International" value="International">International</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label> Enter ISBN/ISSN number </label>
+                            <input type="text" name="ISBN_Or_ISSN_Number" id="ISBN_Or_ISSN_Number" class="form-control" placeholder="Enter ISBN/ISSN number" required >
+                        </div>
+
+                        <div class="form-group">
+                            <label> Enter Volume Issue </label>
+                            <input type="text" name="Volume_Issue" id="Volume_Issue" class="form-control" placeholder="Enter Volume" required>
                         </div>
                         
-                        <div class="form-group">
-                            <label> If Sponsored, Enter Grant Amount </label>
-                            <input id='Grant_Amount' type="text" name="Grant_Amount" class="form-control" placeholder="Enter Grant Amount">
-                        </div>
-
-                        <div class="form-group">
-                            <label> Convener of FDP/STTP </label>
-                            <input id='Convener_Of_FDP_STTP' type="text" name="Convener_Of_FDP_STTP" class="form-control" placeholder="Enter Name of Convener">
-                        </div>
-
-                        <div class="form-group">
-                            <label> Starting Date </label>
-                            <input type="date" id="Dates_From" name="Dates_From" class="form-control" placeholder="Enter Start Date" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label> Ending Date </label>
-                            <input type="date" id="Dates_To" name="Dates_To" class="form-control" placeholder="Enter End Date" required >
-                        </div>
-
-                        <div class="form-group">
-                            <label> Total Number of days of FDP/STTP </label>
-                            <input id='Total_No_Of_Days' type="text" name="Total_No_Of_Days" class="form-control" placeholder="Enter no of Days" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label> Number of Participants </label>
-                            <input id= "No_Of_Participants" type="text" name="No_Of_Participants" class="form-control" placeholder="Enter Number of Participants" required>
-                        </div>
 						
-                        
+
+                            
 
                     </div>
                     <div class="modal-footer">
@@ -401,31 +470,32 @@ else
                     <thead>
                         <tr>
                             <th> ID </th> 
-                            <th> YEAR </th>
-                            <th> Branch </th>
-                            <th> TITLE </th>
-                            <th> APPROVING BODY </th>
-                            <th> GRANT AMOUNT </th>
-                            <th> CONVENER </th>
-                            <th> FROM DATE </th>
-                            <th> END DATE </th>
-                            <th> NO OF DAYS </th>
-                            <th> PARTICIPANTS</th>
-                            <th>Action</th>
+                            <th> NAME OF TEACHER </th>
+                            <th> BRANCH </th>
+                            <th> TITLE OF BOOK </th>
+                            <th> TITLE OF CHAPTER </th>
+                            <th> NAME OF PUBLISHER </th>
+                            <th> NATIONAL </th>
+                            <th> ISBN/ISSN </th>
+                            <th> PUBLICATION YEAR </th>
+                            <th> VOLUME ISSUE </th>
+                            <th> ACTION </th>
+                            <th> STATUS </th>
                         </tr>
                     <thead>       
 <?php 
     if (isset($_POST["submit"])) {
         $str = mysqli_real_escape_string($connection, $_POST["search"]);
 
-        $sth = "SELECT * FROM `fdpsttporganised` WHERE Academic_year LIKE '%$str%' OR Approving_Body LIKE '%$str%' OR Title_Of_Program LIKE '%$str%' OR Convener_Of_FDP_STTP LIKE '%$str%'";
+        $sth = "SELECT * FROM `bookschapter`  WHERE branch = '$branch'  AND (Branch LIKE '%$str%' OR Name_Of_The_Teacher LIKE '%$str%' OR Title_Of_The_Book_Published LIKE '%$str%' OR Title_Of_The_Chapter_Published_In_The_Book LIKE '%$str%' OR Name_Of_The_Publisher LIKE '%$str%' OR National_Or_International LIKE '$str' OR ISBN_Or_ISSN_Number LIKE '%$str%' OR Year_Of_Publication LIKE '%$str%' OR Volume_Issue LIKE '%$str%' OR STATUS LIKE '$str' ) ";
+        
         $result = mysqli_query($connection, $sth);
         $queryresult = mysqli_num_rows($result); ?>
 
                     <div class="card">
                         <div class="card-body btn-group">
                         <div> Results- </div> &nbsp; &nbsp;
-                        <button class="btn btn-success" onclick="exportTableToCSV('Search_Data.csv')"> Export Data </button>
+                        <button class="btn btn-success" onclick="exportTableToCSV('Search_data.csv')"> Export Data </button>
                         </div>
                     </div>
                     
@@ -436,26 +506,27 @@ else
              
                     <tr>                
                         <td> <?php echo $row['id']; ?> </td>
-                        <td> <?php echo $row['Academic_year']; ?> </td> 
-                        <td> <?php echo $row['Branch']; ?> </td> 
-                        <td> <?php echo $row['Title_Of_Program']; ?> </td>
-                        <td> <?php echo $row['Approving_Body']; ?> </td>
-                        <td> <?php echo $row['Grant_Amount']; ?> </td>
-                        <td> <?php echo $row['Convener_Of_FDP_STTP']; ?> </td>
-                        <td> <?php echo $row['Dates_From']; ?> </td>
-                        <td> <?php echo $row['Dates_To']; ?> </td>
-                        <td> <?php echo $row['Total_No_Of_Days']; ?> </td>
-                        <td> <?php echo $row['No_Of_Participants']; ?> </td>
+                        <td> <?php echo $row['Name_Of_The_Teacher']; ?> </td> 
+                        <td> <?php echo $row['Branch']; ?> </td>
+                        <td> <?php echo $row['Title_Of_The_Book_Published']; ?> </td>
+                        <td> <?php echo $row['Title_Of_The_Chapter_Published_In_The_Book']; ?> </td>
+                        <td> <?php echo $row['Name_Of_The_Publisher']; ?> </td>
+                        <td> <?php echo $row['National_Or_International']; ?> </td>
+                        <td> <?php echo $row['ISBN_Or_ISSN_Number']; ?> </td>
+                        <td> <?php echo $row['Year_Of_Publication']; ?> </td>
+                        <td> <?php echo $row['Volume_Issue']; ?> </td>
                         <td>
-                            <!--<a href="read.php?viewid=<?php echo htmlentities ($developer['id']);?>" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>-->
+                            <!--<a href="read.php?viewid=<?php echo htmlentities ($row['id']);?>" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>-->
                             <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                            <a href="uploadsfdporganised/<?php echo $row['pdffile']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+                            <a href="uploadsindexit/<?php echo $row['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+							<a href="uploadsfrontit/<?php echo $row['pdffile2']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
                             <a class="delete btn-danger deletebtn" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
 							
                             
                             
                             <!-- <button class="btn"><i class="fa fa-download"></i> Download</button> -->
                         </td>
+                        <td> <?php echo $row['STATUS']; ?> </td>
                     </tr> 
                     <tbody>
                     <?php 
@@ -526,15 +597,17 @@ else
                 console.log(data);
                 //chnage this keep same variable as above
                 $('#update_id').val(data[0]);
-                $('#Academic_year').val(data[1]);
+                $('#Name_Of_The_Teacher').val(data[1]);
                 $('#Branch').val(data[2]);
-                $('#Title_Of_Program').val(data[3]);
-                $('#Approving_Body').val(data[4]);
-                $('#Grant_Amount').val(data[5]);
-                $('#Convener_Of_FDP_STTP').val(data[6]);
-                $('#Dates_From').val(data[7]);
-                $('#Dates_To').val(data[8]);
-                $('#No_Of_Participants').val(data[9]);
+                $('#Title_Of_The_Book_Published').val(data[3]);
+                $('#Title_Of_The_Chapter_Published_In_The_Book').val(data[4]);
+                $('#Name_Of_The_Publisher').val(data[5]);
+                $('#National_Or_International').val(data[6]);
+                $('#ISBN_Or_ISSN_Number').val(data[7]);
+                $('#Year_Of_Publication').val(data[8]);
+                $('#Volume_Issue').val(data[9]);
+                $('#pdffile1').val(data[10]);
+                $('#pdffile2').val(data[10]);
             });
         });
     </script>
@@ -619,5 +692,95 @@ else
     }  
 </script> 
 
+
 </body>
 </html>
+
+
+
+
+<?php
+include('../../config.php');
+$user = $_SESSION["role"];
+
+$result = "SELECT * FROM credentials WHERE username = '$user'";
+$query = mysqli_query($connection, $result);
+$queryresult = mysqli_num_rows($query); 
+    if($queryresult > 0){
+        while($row = mysqli_fetch_assoc($query)){ 
+            $id = $row['id'];
+            // $branch = $row['branch'];
+
+        }  
+    }
+
+    if(isset($_POST['updatedata']))
+    {   
+        $id = $_POST['update_id'];
+       
+        $Name_Of_The_Teacher = $_POST['Name_Of_The_Teacher'];
+        $Branch = $_POST['Branch'];
+        $Title_Of_The_Book_Published= $_POST['Title_Of_The_Book_Published'];
+        $Title_Of_The_Chapter_Published_In_The_Book = $_POST['Title_Of_The_Chapter_Published_In_The_Book'];
+        $Name_Of_The_Publisher = $_POST['Name_Of_The_Publisher'];
+        $National_Or_International = $_POST['National_Or_International'];
+        $ISBN_Or_ISSN_Number = $_POST['ISBN_Or_ISSN_Number'];
+        $Year_Of_Publication = $_POST['Year_Of_Publication'];
+        $Volume_Issue = $_POST['Volume_Issue'];
+        $pdffile1 = $_FILES['pdffile1']['name1'];
+        $file_tmp1 = $_FILES['pdffile1']['tmp_name1'];
+		$pdffile2 = $_FILES['pdffile2']['name2'];
+        $file_tmp2 = $_FILES['pdffile2']['tmp_name2'];
+
+        move_uploaded_file($file_tmp1,"uploadsindexit/$pdffile1");
+		move_uploaded_file($file_tmp2,"uploadsfrontit/$pdffile2");
+        
+ 
+            $query = "UPDATE bookschapter SET Name_Of_The_Teacher = '$Name_Of_The_Teacher', Branch = '$Branch', 
+        Title_Of_The_Book_Published = '$Title_Of_The_Book_Published', Title_Of_The_Chapter_Published_In_The_Book = '$Title_Of_The_Chapter_Published_In_The_Book', Name_Of_The_Publisher = '$Name_Of_The_Publisher', 
+        National_Or_International = '$National_Or_International', ISBN_Or_ISSN_Number = '$ISBN_Or_ISSN_Number', Year_Of_Publication = '$Year_Of_Publication', 
+        Volume_Issue = '$Volume_Issue' WHERE id ='$id' ";
+
+        $query_run = mysqli_query($connection, $query);
+        
+//         if($query_run)
+//         {
+//             echo '<script> alert("Data Updated"); </script>';
+//             header("Location:index.php");
+//         }
+//         else
+//         {
+//             echo '<script> alert("Data Not Updated"); </script>';
+//         }
+//     }
+// 
+// Retrieve the updated data from the database
+$query = "SELECT * FROM bookschapter WHERE id = '$id'";
+$result = mysqli_query($connection, $query);
+$row = mysqli_fetch_assoc($result);
+
+// Display the updated data on the frontend
+echo "ID: " . $row['id'] . "<br>";
+echo "Name of the Teacher: " . $row['Name_Of_The_Teacher'] . "<br>";
+echo "Branch: " . $row['Branch'] . "<br>";
+echo "Title of the Book Published: " . $row['Title_Of_The_Book_Published'] . "<br>";
+echo "Title of the Chapter Published in the Book: " . $row['Title_Of_The_Chapter_Published_In_The_Book'] . "<br>";
+echo "Name of the Publisher: " . $row['Name_Of_The_Publisher'] . "<br>";
+echo "National or International: " . $row['National_Or_International'] . "<br>";
+echo "ISBN or ISSN Number: " . $row['ISBN_Or_ISSN_Number'] . "<br>";
+echo "Year of Publication: " . $row['Year_Of_Publication'] . "<br>";
+echo "Volume Issue: " . $row['Volume_Issue'] . "<br>";
+
+
+if ($query_run) {
+        // Data updated successfully
+        echo "<script>alert('Data updated successfully.')</script>";
+        echo "<script>window.location.href = 'index.php';</script>";
+    } else {
+        // Error occurred while updating the data
+        echo "<script>alert('Error: Unable to update data.')</script>";
+        echo "<script>window.location.href = 'index.php';</script>";
+    }
+    }
+?>
+
