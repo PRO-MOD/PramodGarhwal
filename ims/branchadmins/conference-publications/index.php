@@ -11,7 +11,7 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title> Conference Publication </title>
+    <title> Book Chapters Published </title>
 
     <link rel="stylesheet" href="styles.css">
     
@@ -44,13 +44,13 @@ session_start();
                 ?>
 
             <div class="card-body mt-5">
-                <h2> Conference Publication </h2>
+                <h2> Conference Publication</h2>
             </div>
             <div class="card">
                 <div class="card-body btn-group">
 
             <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">					
-				<button type="submit" onclick="exportTableToCSVuser('USerData_ConferencePublication.csv')" class="btn btn-success">Export to excel</button>
+				<button type="submit" onclick="exportTableToCSVuser('USerData_BookChapters.csv')" class="btn btn-success">Export to excel</button>
 			</form> &nbsp; &nbsp; 
         
             <form method="post">
@@ -61,14 +61,14 @@ session_start();
             </div>
             </div>
 
-             <!-- table -->
-            <div id="tabledataid" class="card">
-                <div class="card-body">
-                      <!-- th change -->
-                    <table id="datatableid" class="table table-bordered table-dark mt-2">
-                        <thead>
-                            <tr>
-                                <th scope="col"> ID </th>
+           <!-- table -->
+<div id="tabledataid" class="card">
+    <div class="card-body">
+        <!-- th change -->
+        <table id="datatableid" class="table table-bordered table-dark mt-2">
+            <thead>
+                <tr>
+                <th scope="col"> ID </th>
                                 <th scope="col"> NAME OF TEACHER </th>
                                 <th scope="col"> BRANCH </th>
                                 <th scope="col"> TITLE OF PAPER </th>
@@ -90,35 +90,33 @@ session_start();
                                 
                                 <th scope="col"> ACTION </th>
                                  <th scope="col">STATUS </th>
-                               
-                            </tr>
-                        </thead>
-                        
-                        <?php
-                        $user = $_SESSION["role"];
-                        
-                        $result = "SELECT * FROM branchadmins WHERE username = '$user'";
+                </tr>
+            </thead>
+            <?php
+            $user = $_SESSION["role"];
 
-                        $query = mysqli_query($connection, $result);
-                        $queryresult = mysqli_num_rows($query); 
-                            if($queryresult > 0){
-                                while($row = mysqli_fetch_assoc($query)){ 
-                                    $id = $row['id'];
-                                    $branch = trim($row['branch']);
-                                }  
-                            }
+            $result = "SELECT * FROM branchadmins WHERE username = '$user'";
 
-                        $table_query = "SELECT * FROM conferencepublication WHERE branch = '$branch' ORDER BY id ASC";
-                        
-                        $query_run = mysqli_query($connection, $table_query);
-                        $query_result = mysqli_num_rows($query_run); ?>
+            $query = mysqli_query($connection, $result);
+            $queryresult = mysqli_num_rows($query);
+            if ($queryresult > 0) {
+                while ($row = mysqli_fetch_assoc($query)) {
+                    $id = $row['id'];
+                    $branch = trim($row['branch']);
+                }
+            }
 
-                        <?php if($query_result > 0){
-                                        while($developer = mysqli_fetch_assoc($query_run)){   
-                                            ?>
-                        <tbody> <!-- change -->
-                            <tr>
-                                <td> <?php echo $developer['id']; ?> </td>
+            $table_query = "SELECT * FROM conferencepublication WHERE branch = '$branch' ORDER BY id ASC";
+
+            $query_run = mysqli_query($connection, $table_query);
+            $query_result = mysqli_num_rows($query_run); ?>
+
+            <?php if ($query_result > 0) {
+                while ($developer = mysqli_fetch_assoc($query_run)) {
+                    ?>
+                    <tbody> <!-- change -->
+                        <tr>
+                        <td> <?php echo $developer['id']; ?> </td>
                                 <td> <?php echo $developer['Name_Of_The_Teacher']; ?> </td> 
                                 <td> <?php echo $developer['Branch']; ?> </td>
                                 <td> <?php echo $developer['Title_Of_The_Paper']; ?> </td>
@@ -137,24 +135,15 @@ session_start();
                                 <td> <?php echo $developer['Conference_Proceedings']; ?> </td>
                                 <td> <?php echo $developer['Registration_Amount']; ?> </td>
                                 <td> <?php echo $developer['TA_Received']; ?> </td>
-                                <td>
-
+                            <td>
                             <a href="../../professors/conference-publications/Paper_Details/<?php echo $row['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
 							<a href="../../professors/conference-publications/Conference_Paper/<?php echo $row['pdffile2']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
                             <a href="../../professors/conference-publications/Conference_Certificate/<?php echo $row['pdffile3']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
 							<a href="../../professors/conference-publications/Application_Letter/<?php echo $row['pdffile4']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
-                            <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                            <a class="delete btn-danger deletebtn" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-                            
-                            <!-- <button class="btn"><i class="fa fa-download"></i> Download</button> -->
-                        </td>
-                                <!-- <td>
-                                    <button type="button" class="btn btn-success editbtn"> EDIT </button>
-                                </td>
-                                <td>
-                                    <button type="button" class="btn btn-danger deletebtn"> DELETE </button>
-                                </td> -->
-                                <td>
+                                <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                                <a class="delete btn-danger deletebtn" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                            </td>
+                            <td>
                                 <?php if ($developer['Status'] == 'PENDING') { ?>
                                     <form method="POST" action="approved.php">
                                         <input type="hidden" name="id" value="<?php echo $developer['id']; ?>">
@@ -174,18 +163,17 @@ session_start();
                                     <?php echo $developer['Status']; ?>
                                 <?php } ?>
                             </td>
-                            </tr>
-                        </tbody>
-                        <?php           
-                    }
+                        </tr>
+                    </tbody>
+                <?php
                 }
-                else 
-                {
-                    echo "No Record Found";
-                }
+            } else {
+                echo "No Record Found";
+            }
             ?>
-                    </table>
-                    <?php
+        </table>
+
+        <?php
         // Approve button logic
         if (isset($_POST['approve'])) {
             $id = $_POST['id'];
@@ -213,10 +201,10 @@ if (isset($_POST['approve_now'])) {
     header("Location: index.php");
 }
         ?>
-        </div> 
     </div>
+</div>
 
-    <!-- DELETE POP UP FORM  -->
+      <!-- DELETE POP UP FORM  -->
     <!-- dont make changes-->
     <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
@@ -246,7 +234,7 @@ if (isset($_POST['approve_now'])) {
             </div>
         </div>
     </div>
-     <!-- EDIT POP UP FORM  -->
+    <!-- EDIT POP UP FORM  -->
     <!-- this is edit data form Make changes to variables and placeholder, keep same variables -->
     <div class="modal fade" id="editmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
@@ -383,39 +371,38 @@ foreach ($branches as $branchOption) {
         </div>
     </div>
    
+
+
+   
 <!--Search data -->
 <div id="srch" class="card-body">
                 <h4> Search Data </h4>
                     <table class="table table-bordered ">
                     <thead>
-                        <tr>
-                            <th> ID </th>
-                            <th> NAME OF TEACHER </th>
-                            <th> BRANCH </th>
-                            <th> TITLE OF PAPER </th>
-                            <th> TITLE OF THE PROCEEDINGS OF THE CONFERENCE </th>
-                            <th> NAME OF THE CONFERENCE </th>
-                            <th> NATIONAL/INTERNATIONAL </th>
-                            <th> NAME OF ORGANIZING INSTITUTE WITH PLACE </th>
-					        <th> YEAR OF PUBLICATION </th>
-                            <th> ISBN/ISSN </th>
-                            <th> AFFILIATING INSTITUTE AT TIME OF PUBLICATION </th>
-                            <th> NAME OF PUBLISHER </th>
-                            <th> CONFERENCE DATE(FROM) </th>
-                            <th> CONFERENCE DATE(TO) </th>
-                            <th> NAME OF DIGITAL LIBRARY HOSTING THE PAPER(IF ANY) </th>
-                            <th> PAPER WEBINAR/DOI </th>
-                            <th> CONFERENCE PROCEEDINGS </th>
-                            <th> REGISTRATION AMOUNT RECEIVED FROM FCRIT </th>
-                            <th> TA RECEIVED FROM FRCIT </th>
-                            <th> ACTION </th>
-                        </tr>
-                    <thead>       
+                            <tr>
+                                <th scope="col"> ID </th>
+                                <th scope="col"> NAME OF TEACHER </th>
+                                <th scope="col"> BRANCH </th>
+                                <th scope="col"> TITLE OF BOOK </th>
+                                <th scope="col"> TITLE OF CHAPTER </th>
+                                <th scope="col"> NAME OF PUBLISHER </th>
+                                <th scope="col"> NATIONAL </th>
+								<th scope="col"> ISBN/ISSN </th>
+                                <th scope="col"> PUBLICATION YEAR </th>
+                                <th scope="col"> VOLUME ISSUE </th>
+                                
+                                <th scope="col"> ACTION </th>
+                                <th scope="col"> STATUS </th>
+                               
+
+                               
+                            </tr>
+                        </thead>   
 <?php 
     if (isset($_POST["submit"])) {
         $str = mysqli_real_escape_string($connection, $_POST["search"]);
 
-        $sth = "SELECT * FROM `conferencepublication` WHERE Branch LIKE '%$branch%' AND (Name_Of_The_Teacher LIKE '%$str%' OR Title_Of_The_Paper LIKE '%$str%' OR Title_Of_The_Proceedings LIKE '%$str%' OR  Name_Of_The_Conference LIKE '%$str%' OR National_Or_International LIKE '%$str%' OR Name_Of_Organizing_Institute LIKE '%$str%' OR Year_Of_Publication LIKE '%$str%' OR ISBN_Or_ISSN_Number LIKE '%$str%' OR Affiliating_Institute LIKE '%$str%' OR Name_Of_Publisher LIKE '%$str%' OR Name_Of_Library LIKE '%$str%' OR Paper_Webinar LIKE '%$str%' OR Conference_Proceedings LIKE '%$str%' OR Registration_Amount LIKE '%$str%' OR TA_Received LIKE '%$str%')";
+        $sth = "SELECT * FROM `bookschapter` WHERE branch = '$branch' AND (Name_Of_The_Teacher LIKE '%$str%' OR Title_Of_The_Book_Published LIKE '%$str%' OR Title_Of_The_Chapter_Published_In_The_Book LIKE '%$str%' OR Name_Of_The_Publisher LIKE '%$str%' OR National_Or_International LIKE '$str' OR ISBN_Or_ISSN_Number LIKE '%$str%' OR Year_Of_Publication LIKE '%$str%' OR Volume_Issue LIKE '%$str%' OR STATUS LIKE '$str')";
         
         $result = mysqli_query($connection, $sth);
         $queryresult = mysqli_num_rows($result); ?>
@@ -436,35 +423,21 @@ foreach ($branches as $branchOption) {
                         <td> <?php echo $row['id']; ?> </td>
                         <td> <?php echo $row['Name_Of_The_Teacher']; ?> </td> 
                         <td> <?php echo $row['Branch']; ?> </td>
-                        <td> <?php echo $row['Title_Of_The_Paper']; ?> </td>
-                        <td> <?php echo $row['Title_Of_The_Proceedings']; ?> </td>
-                        <td> <?php echo $row['Name_Of_The_Conference']; ?> </td>
+                        <td> <?php echo $row['Title_Of_The_Book_Published']; ?> </td>
+                        <td> <?php echo $row['Title_Of_The_Chapter_Published_In_The_Book']; ?> </td>
+                        <td> <?php echo $row['Name_Of_The_Publisher']; ?> </td>
                         <td> <?php echo $row['National_Or_International']; ?> </td>
-                        <td> <?php echo $row['Name_Of_Organizing_Institute']; ?> </td>
-						<td> <?php echo $row['Year_Of_Publication']; ?> </td>
                         <td> <?php echo $row['ISBN_Or_ISSN_Number']; ?> </td>
-                        <td> <?php echo $row['Affiliating_Institute']; ?> </td>
-                        <td> <?php echo $row['Name_Of_Publisher']; ?> </td>
-                        <td> <?php echo $row['Conference_Date_From']; ?> </td>
-                        <td> <?php echo $row['Conference_Date_To']; ?> </td>
-                        <td> <?php echo $row['Name_Of_Library']; ?> </td>
-                        <td> <?php echo $row['Paper_Webinar']; ?> </td>
-                        <td> <?php echo $row['Conference_Proceedings']; ?> </td>
-                        <td> <?php echo $row['Registration_Amount']; ?> </td>
-                        <td> <?php echo $row['TA_Received']; ?> </td>
+                        <td> <?php echo $row['Year_Of_Publication']; ?> </td>
+                        <td> <?php echo $row['Volume_Issue']; ?> </td>
                         <td>
 
-                            <a href="../../professors/conference-publications/Paper_Details/<?php echo $developer['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
-							<a href="../../professors/conference-publications/Conference_Paper/<?php echo $developer['pdffile2']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
-                            <a href="../../professors/conference-publications/Conference_Certificate/<?php echo $developer['pdffile3']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
-							<a href="../../professors/conference-publications/Application_Letter/<?php echo $developer['pdffile4']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
-
-							
-                            
-                            
-                            <!-- <button class="btn"><i class="fa fa-download"></i> Download</button> -->
-                        </td>
-                        <td>
+                            <a href="../../professors/book-chapters/uploadsindexit/<?php echo $row['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+							<a href="../../professors/book-chapters/uploadsfrontit/<?php echo $row['pdffile2']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+                            <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                        <a class="delete btn-danger deletebtn" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                    </td>
+                    <td>
                                 <?php if ($row['STATUS'] == 'PENDING') { ?>
                                     <form method="POST" action="approved.php">
                                         <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
@@ -484,8 +457,8 @@ foreach ($branches as $branchOption) {
                                     <?php echo $row['STATUS']; ?>
                                 <?php } ?>
                             </td>
-                    </tr> 
-                    <tbody>
+                        </tr>
+                    </tbody>
                     <?php 
             }
 
@@ -507,7 +480,54 @@ foreach ($branches as $branchOption) {
     <script src="https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js"></script>
 
 
+    <script>
+        $(document).ready(function () {
 
+            $('.deletebtn').on('click', function () {
+
+                $('#deletemodal').modal('show');
+
+                $tr = $(this).closest('tr');
+
+                var data = $tr.children("td").map(function () {
+                    return $(this).text();
+                }).get();
+
+                console.log(data);
+
+                $('#delete_id').val(data[0]);
+
+            });
+        });
+    </script>
+     <script>
+        $(document).ready(function () {
+
+            $('.editbtn').on('click', function () {
+
+                $('#editmodal').modal('show');
+
+                $tr = $(this).closest('tr');
+
+                var data = $tr.children("td").map(function () {
+                    return $(this).text();
+                }).get();
+
+                console.log(data);
+                //chnage this keep same variable as above
+                $('#update_id').val(data[0]);
+                $('#Name_Of_The_Teacher').val(data[1]);
+                $('#Branch').val(data[2]);
+                $('#Title_Of_The_Book_Published').val(data[3]);
+                $('#Title_Of_The_Chapter_Published_In_The_Book').val(data[4]);
+                $('#Name_Of_The_Publisher').val(data[5]);
+                $('#National_Or_International').val(data[6]);
+                $('#ISBN_Or_ISSN_Number').val(data[7]);
+                $('#Year_Of_Publication').val(data[8]);
+                $('#Volume_Issue').val(data[9]);
+            });
+        });
+    </script>
 <script>  
     //user-defined function to download CSV file  
     function downloadCSVuser(csv, filename) {  
