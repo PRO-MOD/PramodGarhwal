@@ -380,19 +380,27 @@ foreach ($branches as $branchOption) {
                     <table class="table table-bordered ">
                     <thead>
                             <tr>
-                                <th scope="col"> ID </th>
-                                <th scope="col"> NAME OF TEACHER </th>
-                                <th scope="col"> BRANCH </th>
-                                <th scope="col"> TITLE OF BOOK </th>
-                                <th scope="col"> TITLE OF CHAPTER </th>
-                                <th scope="col"> NAME OF PUBLISHER </th>
-                                <th scope="col"> NATIONAL </th>
-								<th scope="col"> ISBN/ISSN </th>
-                                <th scope="col"> PUBLICATION YEAR </th>
-                                <th scope="col"> VOLUME ISSUE </th>
-                                
-                                <th scope="col"> ACTION </th>
-                                <th scope="col"> STATUS </th>
+                            <th> ID </th>
+                            <th> NAME OF TEACHER </th>
+                            <th> BRANCH </th>
+                            <th> TITLE OF PAPER </th>
+                            <th> TITLE OF THE PROCEEDINGS OF THE CONFERENCE </th>
+                            <th> NAME OF THE CONFERENCE </th>
+                            <th> NATIONAL/INTERNATIONAL </th>
+                            <th> NAME OF ORGANIZING INSTITUTE WITH PLACE </th>
+					        <th> YEAR OF PUBLICATION </th>
+                            <th> ISBN/ISSN </th>
+                            <th> AFFILIATING INSTITUTE AT TIME OF PUBLICATION </th>
+                            <th> NAME OF PUBLISHER </th>
+                            <th> CONFERENCE DATE(FROM) </th>
+                            <th> CONFERENCE DATE(TO) </th>
+                            <th> NAME OF DIGITAL LIBRARY HOSTING THE PAPER(IF ANY) </th>
+                            <th> PAPER WEBINAR/DOI </th>
+                            <th> CONFERENCE PROCEEDINGS </th>
+                            <th> REGISTRATION AMOUNT RECEIVED FROM FCRIT </th>
+                            <th> TA RECEIVED FROM FRCIT </th>
+                            <th> ACTION </th>
+                            <th> STATUS </th>
                                
 
                                
@@ -402,7 +410,7 @@ foreach ($branches as $branchOption) {
     if (isset($_POST["submit"])) {
         $str = mysqli_real_escape_string($connection, $_POST["search"]);
 
-        $sth = "SELECT * FROM `bookschapter` WHERE branch = '$branch' AND (Name_Of_The_Teacher LIKE '%$str%' OR Title_Of_The_Book_Published LIKE '%$str%' OR Title_Of_The_Chapter_Published_In_The_Book LIKE '%$str%' OR Name_Of_The_Publisher LIKE '%$str%' OR National_Or_International LIKE '$str' OR ISBN_Or_ISSN_Number LIKE '%$str%' OR Year_Of_Publication LIKE '%$str%' OR Volume_Issue LIKE '%$str%' OR STATUS LIKE '$str')";
+        $sth = "SELECT * FROM `conferencepublication` WHERE Branch LIKE '%$branch%' AND (Name_Of_The_Teacher LIKE '%$str%' OR Title_Of_The_Paper LIKE '%$str%' OR Title_Of_The_Proceedings LIKE '%$str%' OR  Name_Of_The_Conference LIKE '%$str%' OR National_Or_International LIKE '%$str%' OR Name_Of_Organizing_Institute LIKE '%$str%' OR Year_Of_Publication LIKE '%$str%' OR ISBN_Or_ISSN_Number LIKE '%$str%' OR Affiliating_Institute LIKE '%$str%' OR Name_Of_Publisher LIKE '%$str%' OR Name_Of_Library LIKE '%$str%' OR Paper_Webinar LIKE '%$str%' OR Conference_Proceedings LIKE '%$str%' OR Registration_Amount LIKE '%$str%' OR TA_Received LIKE '%$str%')";
         
         $result = mysqli_query($connection, $sth);
         $queryresult = mysqli_num_rows($result); ?>
@@ -420,16 +428,25 @@ foreach ($branches as $branchOption) {
                     <tbody id="srch"> 
              
                     <tr>                
-                        <td> <?php echo $row['id']; ?> </td>
+                    <td> <?php echo $row['id']; ?> </td>
                         <td> <?php echo $row['Name_Of_The_Teacher']; ?> </td> 
                         <td> <?php echo $row['Branch']; ?> </td>
-                        <td> <?php echo $row['Title_Of_The_Book_Published']; ?> </td>
-                        <td> <?php echo $row['Title_Of_The_Chapter_Published_In_The_Book']; ?> </td>
-                        <td> <?php echo $row['Name_Of_The_Publisher']; ?> </td>
+                        <td> <?php echo $row['Title_Of_The_Paper']; ?> </td>
+                        <td> <?php echo $row['Title_Of_The_Proceedings']; ?> </td>
+                        <td> <?php echo $row['Name_Of_The_Conference']; ?> </td>
                         <td> <?php echo $row['National_Or_International']; ?> </td>
+                        <td> <?php echo $row['Name_Of_Organizing_Institute']; ?> </td>
+						<td> <?php echo $row['Year_Of_Publication']; ?> </td>
                         <td> <?php echo $row['ISBN_Or_ISSN_Number']; ?> </td>
-                        <td> <?php echo $row['Year_Of_Publication']; ?> </td>
-                        <td> <?php echo $row['Volume_Issue']; ?> </td>
+                        <td> <?php echo $row['Affiliating_Institute']; ?> </td>
+                        <td> <?php echo $row['Name_Of_Publisher']; ?> </td>
+                        <td> <?php echo $row['Conference_Date_From']; ?> </td>
+                        <td> <?php echo $row['Conference_Date_To']; ?> </td>
+                        <td> <?php echo $row['Name_Of_Library']; ?> </td>
+                        <td> <?php echo $row['Paper_Webinar']; ?> </td>
+                        <td> <?php echo $row['Conference_Proceedings']; ?> </td>
+                        <td> <?php echo $row['Registration_Amount']; ?> </td>
+                        <td> <?php echo $row['TA_Received']; ?> </td>
                         <td>
 
                             <a href="../../professors/book-chapters/uploadsindexit/<?php echo $row['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
@@ -438,7 +455,7 @@ foreach ($branches as $branchOption) {
                         <a class="delete btn-danger deletebtn" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
                     </td>
                     <td>
-                                <?php if ($row['STATUS'] == 'PENDING') { ?>
+                                <?php if ($row['Status'] == 'PENDING') { ?>
                                     <form method="POST" action="approved.php">
                                         <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
                                         <input type="submit" name="approve" value="Approve">
@@ -447,14 +464,14 @@ foreach ($branches as $branchOption) {
                                         <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
                                         <button type="submit" name="reject" class="btn btn-danger">Reject</button>
                                     </form>
-                                <?php } elseif ($row['STATUS'] == 'rejected') { ?>
+                                <?php } elseif ($row['Status'] == 'rejected') { ?>
                                     <?php echo $row['STATUS']; ?>
                                     <form method="POST" action="approve-now.php">
                                         <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
                                         <input type="submit" name="approve_now" value="Approve Now">
                                     </form>
                                 <?php } else { ?>
-                                    <?php echo $row['STATUS']; ?>
+                                    <?php echo $row['Status']; ?>
                                 <?php } ?>
                             </td>
                         </tr>

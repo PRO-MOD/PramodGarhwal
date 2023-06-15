@@ -4,7 +4,7 @@ session_start();
 
 $user = $_SESSION["role"];
 
-$result = "SELECT * FROM credentials WHERE username = '$user'";
+$result = "SELECT * FROM branchadmins WHERE username = '$user'";
 $query = mysqli_query($connection, $result);
 $queryresult = mysqli_num_rows($query); 
     if($queryresult > 0){
@@ -17,7 +17,11 @@ $queryresult = mysqli_num_rows($query);
 if(isset($_POST['deletedata']))
 {
     $id = $_POST['delete_id'];
-    $query = "DELETE FROM fdpsttpattendedit WHERE id='$id'";
+
+
+        $query = "DELETE FROM journal_publications WHERE id='$id'";
+
+    
     $query_run = mysqli_query($connection, $query);
 
     if($query_run)

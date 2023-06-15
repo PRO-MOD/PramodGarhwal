@@ -64,18 +64,23 @@ session_start();
                             <input type="text"  name="Name_Of_The_Teacher" class="form-control" placeholder="Enter Name of Teacher" required>
                         </div>
 
-                        <div class="form-group">
-                            <label>Branch</label>
-                            <select name="Branch" class="form-control" required>
-                                <option value="">--Select Branch--</option>
-                                <option name="Branch" value="IT">IT</option>
-                                <option name="Branch" value="EXTC">EXTC</option>
-                                <option name="Branch" value="Mechanical">Mechanical</option>
-                                <option name="Branch" value="Computers">Computers</option>
-                                <option name="Branch" value="Electrical">Electrical</option>
-                                <option name="Branch" value="Humanities">Humanities</option>
-                            </select>
-                        </div>
+                         <div class="form-group">
+    <label>Branch</label>
+    <select name="Branch" class="form-control" required disabled>
+        <option value="">--Select Department--</option>
+        <?php
+        // Retrieve the department information from the session or any other method
+        $branch = $_SESSION['branch']; 
+
+       $branches = array("IT", "EXTC", "Mechanical", "Computers", "Electrical", "Humanities");
+foreach ($branches as $branchOption) {
+    $selected = ($branchOption == $branch) ? 'selected="selected"' : '';
+    echo '<option value="' . $branchOption . '" ' . $selected . '>' . $branchOption . '</option>';
+}
+
+        ?>
+    </select>
+</div>cc
 
                         <div class="form-group">
                             <label> Title of Program </label>
@@ -263,7 +268,8 @@ session_start();
                                 <th scope="col"> DURATION </th>
                                 <th scope="col"> TA RECEIVED </th>
                                 <th scope="col"> REGISTRATION AMOUNT</th>
-                               
+                                <th scope="col"> ACTION</th>
+                                <th scope="col"> STATUS</th>
                             </tr>
                         </thead>
                         
@@ -281,7 +287,7 @@ session_start();
                                  }  
                              }
 
-                        $table_query = "SELECT * FROM fdpsttpattendedit WHERE id=$id";  
+                        $table_query = "SELECT * FROM fdpsttpattendedit WHERE user_id=$id";  
                         $query_run = mysqli_query($connection, $table_query);
                         $query_result = mysqli_num_rows($query_run); ?>
 
@@ -290,6 +296,11 @@ session_start();
                                             ?>
                         <tbody> <!-- change -->
                             <tr>
+                                 <?php
+                $status = $developer['STATUS'];
+                $is_disabled = ($status == "approved") ? "disabled" : "";
+                // If STATUS is "approved", set the $is_disabled variable to "disabled"
+                ?>
                                 <td> <?php echo $developer['id']; ?> </td>
                                 <td> <?php echo $developer['Academic_year']; ?> </td> 
                                 <td> <?php echo $developer['Name_Of_The_Teacher']; ?> </td> 
@@ -306,15 +317,26 @@ session_start();
 
                                 <td>
                                     <!-- <a href="read.php?viewid=" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a> -->
-                                    <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                                    <!-- <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a> -->
 
                                     <a href="uploadsfdpattended1/<?php echo $developer['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
 
                                     <a href="uploadsfdpattended2/<?php echo $developer['pdffile2']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
                                     
-                                    <a class="delete btn-danger deletebtn" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>       
+                                     <?php if ($status != "approved") { // If STATUS is not "approved", show the edit and delete buttons ?>
+                        <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip" <?php echo $is_disabled ?>>
+                            <i class="material-icons">&#xE254;</i>
+                        </a>
+
+                        <a class="delete btn-danger deletebtn" title="Delete" data-toggle="tooltip" <?php echo $is_disabled ?>>
+                            <i class="material-icons">&#xE872;</i>
+                        </a>
+                    <?php } ?>
+                                    <!-- <a class="delete btn-danger deletebtn" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>        -->
                                     <!-- <button class="btn"><i class="fa fa-download"></i> Download</button> -->
                                 </td>
+
+                                <td> <?php echo $status; ?> </td>
                                 <!-- <td>
                                     <button type="button" class="btn btn-success editbtn"> EDIT </button>
                                 </td>
@@ -370,9 +392,22 @@ session_start();
                         </div>
 
                         <div class="form-group">
-                            <label>Branch </label>
-                            <input type="text"  id="Branch" name="Branch" value="$Branch" class="form-control" required>
-                        </div>
+    <label>Branch</label>
+    <select name="Branch" class="form-control" required >
+        <option value="">--Select Department--</option>
+        <?php
+        // Retrieve the department information from the session or any other method
+        $branch = $_SESSION['branch']; 
+
+       $branches = array("IT", "EXTC", "Mechanical", "Computers", "Electrical", "Humanities");
+foreach ($branches as $branchOption) {
+    $selected = ($branchOption == $branch) ? 'selected="selected"' : '';
+    echo '<option value="' . $branchOption . '" ' . $selected . '>' . $branchOption . '</option>';
+}
+
+        ?>
+    </select>
+</div>
                         
                         <div class="form-group">
                             <label> Title of Program </label>
@@ -454,6 +489,8 @@ session_start();
             <th scope="col"> DURATION </th>
             <th scope="col"> TA RECEIVED </th>
             <th scope="col"> REGISTRATION AMOUNT</th>
+            <th scope="col"> ACTION</th>
+             <th> STATUS </th>
         </tr>
     <thead>  
 
@@ -462,7 +499,7 @@ session_start();
     {
         $str = mysqli_real_escape_string($connection, $_POST["search"]);
 
-        $sth = "SELECT * FROM `fdpsttpattended` WHERE user_id=$id AND (Academic_Year LIKE '%$str%' OR Name_Of_The_Teacher LIKE '%$str%' OR Branch LIKE '%$str%' OR Title_Of_Program LIKE '%$str%' OR Professional_Body_Or_Organization_Associated LIKE '%$str%' OR Course_Type LIKE '%$str%'  OR Organizing_Institute_And_Location LIKE '%$str%' OR Duration LIKE '%$str%' OR TA_Received LIKE '%$str%' OR Registration_Amount LIKE '%$str%')";
+        $sth = "SELECT * FROM `fdpsttpattendedit` WHERE user_id=$id AND (Academic_Year LIKE '%$str%' OR Name_Of_The_Teacher LIKE '%$str%' OR Branch LIKE '%$str%' OR Title_Of_Program LIKE '%$str%' OR Professional_Body_Or_Organization_Associated LIKE '%$str%' OR Course_Type LIKE '%$str%'  OR Organizing_Institute_And_Location LIKE '%$str%' OR Duration LIKE '%$str%' OR TA_Received LIKE '%$str%' OR Registration_Amount LIKE '%$str%')";
         $result = mysqli_query($connection, $sth);
         $queryresult = mysqli_num_rows($result); ?>
 
@@ -479,6 +516,11 @@ session_start();
                     <tbody id="srch"> 
              
                         <tr>
+                            <?php
+                $status = $row['STATUS'];
+                $is_disabled = ($status == "approved") ? "disabled" : "";
+                // If STATUS is "approved", set the $is_disabled variable to "disabled"
+                ?>  
                             <td> <?php echo $row['id']; ?> </td>
                             <td> <?php echo $row['Academic_year']; ?> </td> 
                             <td> <?php echo $row['Name_Of_The_Teacher']; ?> </td> 
@@ -492,13 +534,24 @@ session_start();
                             <td> <?php echo $row['Duration']; ?> </td>
                             <td> <?php echo $row['TA_Received']; ?> </td>
                             <td> <?php echo $row['Registration_Amount']; ?> </td>
+                            
                             <td>
                                 <!--<a href="read.php?viewid=<?php echo htmlentities ($row['id']);?>" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>-->
-                                <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                                <!-- <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a> -->
                                 <a href="uploadsfdpattended1/<?php echo $row['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
                                 <a href="uploadsfdpattended2/<?php echo $row['pdffile2']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
                                 
-                                <a class="delete btn-danger deletebtn" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>       
+                                 <?php if ($status != "approved") { // If STATUS is not "approved", show the edit and delete buttons ?>
+                        <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip" <?php echo $is_disabled ?>>
+                            <i class="material-icons">&#xE254;</i>
+                        </a>
+
+                        <a class="delete btn-danger deletebtn" title="Delete" data-toggle="tooltip" <?php echo $is_disabled ?>>
+                            <i class="material-icons">&#xE872;</i>
+                        </a>
+                    <?php } ?>
+                    <td> <?php echo $row['STATUS']; ?> </td>
+                                <!-- <a class="delete btn-danger deletebtn" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>        -->
                                 <!-- <button class="btn"><i class="fa fa-download"></i> Download</button> -->
                             </td>
                             <!-- <td>
