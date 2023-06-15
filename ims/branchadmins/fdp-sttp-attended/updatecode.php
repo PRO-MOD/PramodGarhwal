@@ -8,7 +8,6 @@ $queryresult = mysqli_num_rows($query);
     if($queryresult > 0){
         while($row = mysqli_fetch_assoc($query)){ 
             $id = $row['id'];
-            $branch = $row['branch'];
         }  
     }
     
@@ -36,6 +35,15 @@ $queryresult = mysqli_num_rows($query);
         Title_Of_Program = '$Title_Of_Program', Professional_Body_Or_Organization_Associated = '$Professional_Body_Or_Organization_Associated', Course_Type = '$Course_Type', 
         Organizing_Institute_And_Location = '$Organizing_Institute_And_Location', Dates_From = '$Dates_From', Dates_To = '$Dates_To', 
         Duration = '$Duration', TA_Received = '$TA_Received', Registration_Amount='$Registration_Amount' WHERE id='$id'  ";
+        $query_check_run = mysqli_query($connection, $query_check);
+        $data = mysqli_fetch_assoc($query_check_run);
+        $status = $data['STATUS'];
+        if($status == 'APPROVED'){
+            echo '<script> alert("Data has already been approved and cannot be updated."); </script>';
+            header("Location:index.php");
+            exit();
+        }
+
         $query_run = mysqli_query($connection, $query);
 
         if($query_run)

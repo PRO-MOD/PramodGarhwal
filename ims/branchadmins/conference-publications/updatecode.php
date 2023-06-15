@@ -2,13 +2,13 @@
 include('../../config.php');
 $user = $_SESSION["role"];
 
-$result = "SELECT * FROM credentials WHERE username = '$user'";
+$result = "SELECT * FROM branchadmins WHERE username = '$user'";
 $query = mysqli_query($connection, $result);
 $queryresult = mysqli_num_rows($query); 
     if($queryresult > 0){
         while($row = mysqli_fetch_assoc($query)){ 
             $id = $row['id'];
-            $branch = $row['branch'];
+           
         }  
     }
 	
@@ -55,6 +55,14 @@ $queryresult = mysqli_num_rows($query);
         Affiliating_Institute = '$Affiliating_Institute',Name_Of_Publisher = '$Name_Of_Publisher',Conference_Date_From = '$Conference_Date_From', Conference_Date_To = '$Conference_Date_To', 
         Name_Of_Library = '$Name_Of_Library',Paper_Webinar = '$Paper_Webinar',Conference_Proceedings = '$Conference_Proceedings',Registration_Amount = '$Registration_Amount',
         TA_Received = '$TA_Received' WHERE id='$id' ";
+         $query_check_run = mysqli_query($connection, $query_check);
+         $data = mysqli_fetch_assoc($query_check_run);
+         $status = $data['STATUS'];
+         if($status == 'APPROVED'){
+             echo '<script> alert("Data has already been approved and cannot be updated."); </script>';
+             header("Location:index.php");
+             exit();
+         }
         $query_run = mysqli_query($connection, $query);
 
         if($query_run)
