@@ -2,7 +2,7 @@
 include('../../config.php');
 $user = $_SESSION["role"];
 
-$result = "SELECT * FROM branchadmins WHERE username = '$user'";
+$result = "SELECT * FROM fdpadmins WHERE username = '$user'";
 $query = mysqli_query($connection, $result);
 $queryresult = mysqli_num_rows($query); 
     if($queryresult > 0){
@@ -26,14 +26,12 @@ $queryresult = mysqli_num_rows($query);
         $Duration = $_POST['Duration'];
         $No_of_students_enrolled = $_POST['No_of_students_enrolled'];
         $No_of_students_completing = $_POST['No_of_students_completing'];
-        $pdffile1 = $_FILES['pdffile1']['name1'];
-        $file_tmp1 = $_FILES['pdffile1']['tmp_name1'];
-		// $pdffile2 = $_FILES['pdffile2']['name2'];
-        // $file_tmp2 = $_FILES['pdffile2']['tmp_name2'];;
+        $pdffile1 = $_FILES['pdffile1']['name'];
+        $file_tmp1 = $_FILES['pdffile1']['tmp_name'];
+		
 
         move_uploaded_file($file_tmp1,"reports/$pdffile1");
-		// move_uploaded_file($file_tmp2,"uploadsfrontit/$pdffile2");
-        
+		
  
             $query = "UPDATE certificates SET Department = '$Department', Course_coordinator = '$Course_coordinator', 
         Programs_offered = '$Programs_offered', Course_code = '$Course_code', Year_of_offering = '$Year_of_offering', 
@@ -41,14 +39,7 @@ $queryresult = mysqli_num_rows($query);
         Duration = '$Duration',No_of_students_enrolled='$No_of_students_enrolled',
         No_of_students_completing = '$No_of_students_completing' WHERE id='$id'  ";
         
-         $query_check_run = mysqli_query($connection, $query_check);
-         $data = mysqli_fetch_assoc($query_check_run);
-         $status = $data['STATUS'];
-         if($status == 'APPROVED'){
-             echo '<script> alert("Data has already been approved and cannot be updated."); </script>';
-             header("Location:index.php");
-             exit();
-         }
+         
 
         $query_run = mysqli_query($connection, $query);
         

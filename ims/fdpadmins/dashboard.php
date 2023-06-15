@@ -70,6 +70,15 @@
         </div>
       </div>
     </div>
+    <div class="card">
+      <div class="box">
+        <div class="content">
+          <h4>CERTIFICATE PROGRAM</h4>
+          <p>Organised by the Department</p>
+          <a href="certificate-programs/index.php">Go to Criteria</a>
+        </div>
+      </div>
+    </div>
 
 
   
