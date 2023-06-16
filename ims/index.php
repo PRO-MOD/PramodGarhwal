@@ -27,6 +27,7 @@
             <option value="iqacadmins/login.php">IQAC Admin</option>
             <option value="superadmin/login.php">Super Admin</option>
             <option value="clubs_index.php">Clubs</option>
+            <option value="student/login.php">Student</option>
         </select>
     </div>
   </div>
