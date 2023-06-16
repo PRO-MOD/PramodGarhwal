@@ -4,12 +4,13 @@ session_start();
 
 $user = $_SESSION["role"];
 
-$result = "SELECT * FROM uba WHERE username = '$user'";
+$result = "SELECT * FROM fdpadmins WHERE username = '$user'";
 $query = mysqli_query($connection, $result);
 $queryresult = mysqli_num_rows($query); 
     if($queryresult > 0){
         while($row = mysqli_fetch_assoc($query)){ 
             $id = $row['id'];
+            $branch = $row['branch'];
          
         }  
     }

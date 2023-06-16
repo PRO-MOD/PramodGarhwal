@@ -65,14 +65,22 @@ session_start();
                         </div>
 
                         <div class="form-group">
-                            <label>Name of the scheme/ department</label>
-                            <select name="Name_of_Scheme" class="form-control" required>
-                                <option value="">--Select--</option>
-                                <option name="Name_of_Scheme" value="NSS">NSS</option>
-                                <option name="Name_of_Scheme" value="UBA">UBA</option>
-                                <option name="Name_of_Scheme" value="Eco-club">Eco-club</option>
-                            </select>
-                        </div>
+    <label>Branch</label>
+    <select name="Branch" class="form-control" required disabled>
+        <option value="">--Select Department--</option>
+        <?php
+        // Retrieve the department information from the session or any other method
+        $branch = $_SESSION['branch']; 
+
+       $branches = array("IT", "EXTC", "Mechanical", "Computers", "Electrical", "Humanities");
+foreach ($branches as $branchOption) {
+    $selected = ($branchOption == $branch) ? 'selected="selected"' : '';
+    echo '<option value="' . $branchOption . '" ' . $selected . '>' . $branchOption . '</option>';
+}
+
+        ?>
+    </select>
+</div>
                         
                         
                         <div class="form-group">
@@ -227,7 +235,7 @@ session_start();
                                 <th scope="col"> NAME OF ACTIVITY </th>
                                 <th scope="col"> ORGANIZING UNIT/AGENCY/COLLABORATING AGENCY </th>
                                 <th scope="col"> NAME OF THE COORDINATORS </th>
-                                <th scope="col"> NAME OF THE SCHEME</th>
+                                <th scope="col"> NAME OF THE DEPARTMENT</th>
                                 <th scope="col"> DATE/ DATES CONDUCTED </th>
                                 <th scope="col"> YEAR OF THE ACTIVITY</th>
 								<th scope="col"> NUMBER OF STUDENT VOLUNTEERS FOR THE ACTIVITY </th>
@@ -241,7 +249,7 @@ session_start();
                         <?php
                         $user = $_SESSION["role"];
                         
-                        $result = "SELECT * FROM uba WHERE username = '$user'";
+                        $result = "SELECT * FROM fdpadmins WHERE username = '$user'";
 
                         $query = mysqli_query($connection, $result);
                         $queryresult = mysqli_num_rows($query); 
@@ -358,16 +366,22 @@ else
                         </div>
 
                         <div class="form-group">
-                            <label>Name of the scheme/ department</label>
-                            <select name="Name_of_Scheme" class="form-control" required>
-                                <option value="">--Select Year--</option>
-                                <option name="Name_of_Scheme" value="NSS">NSS</option>
-                                <option name="Name_of_Scheme" value="UBA">UBA</option>
-                                <option name="Name_of_Scheme" value="EBSB">EBSB</option>
-                                <option name="Name_of_Scheme" value="Eco-club">Eco-club</option>
-                              
-                            </select>
-                        </div>
+    <label>Branch</label>
+    <select name="Branch" class="form-control" required >
+        <option value="">--Select Department--</option>
+        <?php
+        // Retrieve the department information from the session or any other method
+        $branch = $_SESSION['branch']; 
+
+       $branches = array("IT", "EXTC", "Mechanical", "Computers", "Electrical", "Humanities");
+foreach ($branches as $branchOption) {
+    $selected = ($branchOption == $branch) ? 'selected="selected"' : '';
+    echo '<option value="' . $branchOption . '" ' . $selected . '>' . $branchOption . '</option>';
+}
+
+        ?>
+    </select>
+</div>
                         
                         
 
@@ -416,7 +430,7 @@ else
                             <th> NAME OF ACTIVITY </th>
                             <th> ORGANIZING UNIT/ AGENCY/ COLLABORATING AGENCY</th>
                             <th> NAME OF THE COORDINATORS </th>
-                            <th> NAME OF THE SCHEME </th>
+                            <th> NAME OF THE DEPARTMENT </th>
                             <th> DATE/ DATES CONDUCTED </th>
                             <th> YEAR OF THE ACTIVITY</th>
                             <th> NUMBER OF THE STUDENT VOLUNTEERS FOR THE ACTIVITY </th>

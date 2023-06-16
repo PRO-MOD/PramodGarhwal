@@ -10,7 +10,7 @@ $queryresult = mysqli_num_rows($query);
     if($queryresult > 0){
         while($row = mysqli_fetch_assoc($query)){ 
             $id = $row['id'];
-            $branch = $row['branch'];
+         
         }  
     }
 
@@ -19,7 +19,7 @@ if(isset($_POST['deletedata']))
     $id = $_POST['delete_id'];
 
 
-        $query = "DELETE FROM outreached_program WHERE id='$id'";
+        $query = "DELETE FROM outreachprogram WHERE id='$id'";
 
     
     $query_run = mysqli_query($connection, $query);
