@@ -8,13 +8,14 @@ $queryresult = mysqli_num_rows($query);
     if($queryresult > 0){
         while($row = mysqli_fetch_assoc($query)){ 
             $id = $row['id'];
+            $branch = $row['branch']; 
         }  
     }
 	//hello
 if(isset($_POST['insertdata']))
 {
     $Name_Of_The_Teacher = $_POST['Name_Of_The_Teacher'];
-    $Branch = $_POST['Branch'];
+    // $Branch = $_POST['Branch'];
     $Title_Of_The_Paper= $_POST['Title_Of_The_Paper'];
     $Title_Of_The_Proceedings = $_POST['Title_Of_The_Proceedings'];
     $Name_Of_The_Conference = $_POST['Name_Of_The_Conference'];
@@ -40,7 +41,7 @@ if(isset($_POST['insertdata']))
     $file_tmp3 = $_FILES['pdffile3']['tmp_name'];
     $pdffile4 = $_FILES['pdffile4']['name'];
     $file_tmp4 = $_FILES['pdffile4']['tmp_name'];
-    $user_id = $_POST['id'];
+    $user_id = $_POST['user_id'];
 	
     move_uploaded_file($file_tmp1,"Paper_Details/$pdffile1");
 	move_uploaded_file($file_tmp2,"Conference_Paper/$pdffile2");
@@ -49,8 +50,8 @@ if(isset($_POST['insertdata']))
 
 
     $query = "INSERT INTO conferencepublication
-    (`Name_Of_The_Teacher`, `Branch`, `Title_Of_The_Paper`, `Title_Of_The_Proceedings`, `Name_Of_The_Conference`, `National_Or_International`, `Name_Of_Organizing_Institute`, `Year_Of_Publication`, `ISBN_Or_ISSN_Number`, `Affiliating_Institute`, `Name_Of_Publisher`, `Conference_Date_From`, `Conference_Date_To`, `Name_Of_Library`, `Paper_Webinar`, `Conference_Proceedings`, `Registration_Amount`, `TA_Received`, `pdffile1`, `pdffile2`, `pdffile3`, `pdffile4`,`id`) 
-    VALUES ('$Name_Of_The_Teacher', '$Branch', '$Title_Of_The_Paper', '$Title_Of_The_Proceedings', '$Name_Of_The_Conference', '$National_Or_International', '$Name_Of_Organizing_Institute', '$Year_Of_Publication', '$ISBN_Or_ISSN_Number', '$Affiliating_Institute', '$Name_Of_Publisher', '$Conference_Date_From', '$Conference_Date_To', '$Name_Of_Library', '$Paper_Webinar', '$Conference_Proceedings', '$Registration_Amount', '$TA_Received', '$pdffile1', '$pdffile2', '$pdffile3', '$pdffile4','$user_id')";
+    (`Name_Of_The_Teacher`, `Branch`, `Title_Of_The_Paper`, `Title_Of_The_Proceedings`, `Name_Of_The_Conference`, `National_Or_International`, `Name_Of_Organizing_Institute`, `Year_Of_Publication`, `ISBN_Or_ISSN_Number`, `Affiliating_Institute`, `Name_Of_Publisher`, `Conference_Date_From`, `Conference_Date_To`, `Name_Of_Library`, `Paper_Webinar`, `Conference_Proceedings`, `Registration_Amount`, `TA_Received`, `pdffile1`, `pdffile2`, `pdffile3`, `pdffile4`,`user_id`,`STATUS`) 
+    VALUES ('$Name_Of_The_Teacher', '$branch', '$Title_Of_The_Paper', '$Title_Of_The_Proceedings', '$Name_Of_The_Conference', '$National_Or_International', '$Name_Of_Organizing_Institute', '$Year_Of_Publication', '$ISBN_Or_ISSN_Number', '$Affiliating_Institute', '$Name_Of_Publisher', '$Conference_Date_From', '$Conference_Date_To', '$Name_Of_Library', '$Paper_Webinar', '$Conference_Proceedings', '$Registration_Amount', '$TA_Received', '$pdffile1', '$pdffile2', '$pdffile3', '$pdffile4','$id','PENDING')";
     
     $query_run = mysqli_query($connection, $query);
 
