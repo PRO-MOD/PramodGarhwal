@@ -20,9 +20,9 @@
     <div class="card">
       <div class="box">
         <div class="content">
-          <h4>BOOK CHAPTERS</h4>
-          <p>in edited volumes/books published</p>
-          <a href="book-chapters/index.php">Go to Criteria</a>
+          <h4>WORKSHOP/SEMINAR</h4>
+          <p>conducted by faculty</p>
+          <a href="workshop/index.php">Go to Criteria</a>
         </div>
       </div>
     </div>
