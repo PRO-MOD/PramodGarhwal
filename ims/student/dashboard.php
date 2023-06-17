@@ -24,7 +24,7 @@
         <div class="content">
           <h4>STUDENTS COURSES AND WORKSHOPS</h4>
           <p>details</p>
-          <a href="conference-publications/index.php">Go to Criteria</a>
+          <a href="courses_workshops/index.php">Go to Criteria</a>
         </div>
       </div>
     </div>

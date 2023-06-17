@@ -128,6 +128,16 @@
         </div>
       </div>
     </div>
+
+    <div class="card">
+      <div class="box">
+        <div class="content">
+          <h4> STUDENT COURSES AND WORKSHOPS</h4>
+          <p></p>
+          <a href="courses_workshops/index.php">Go to Criteria</a>
+        </div>
+      </div>
+    </div>
     
   <div class="footer">
   <a href="developer-page.php">Developers</a>
