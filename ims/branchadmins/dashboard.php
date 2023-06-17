@@ -119,6 +119,16 @@
       </div>
     </div>
   
+    <div class="card">
+      <div class="box">
+        <div class="content">
+          <h4> STUDENT ACHIEVEMENT ACTIVITIES </h4>
+          <p></p>
+          <a href="student_achievements/index.php">Go to Criteria</a>
+        </div>
+      </div>
+    </div>
+    
   <div class="footer">
   <a href="developer-page.php">Developers</a>
   <p>IMS-FCRIT</p>

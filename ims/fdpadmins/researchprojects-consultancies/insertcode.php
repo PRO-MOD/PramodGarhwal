@@ -2,7 +2,7 @@
 include('../../config.php');
 session_start();
 $user = $_SESSION["role"];
-$result = "SELECT * FROM ecell WHERE username = '$user'";
+$result = "SELECT * FROM fdpadmins WHERE username = '$user'";
 $query = mysqli_query($connection, $result);
 $queryresult = mysqli_num_rows($query); 
     if($queryresult > 0){
@@ -33,9 +33,9 @@ if(isset($_POST['insertdata']))
     $query = "INSERT INTO researchprojectconsultancies
     (`Type_Research_Project_Consultancy`,`Name_Of_Project_Endownment`, `Name_Of_Principal_Investigator_CoInvestigator`, `Department_Of_Principal_Investigator`, `Year_Of_Award`,
      `Amount_Sanctioned`, `Duration_Of_The_Project`, `Name_Of_The_Funding_Agency`, `Funding_Agency_Website_Link`, 
-     `Type_Govt_NonGovt`, `pdffile1`, `id`) 
+     `Type_Govt_NonGovt`, `pdffile1`, `id`, `STATUS`) 
     VALUES ('$Type_Research_Project_Consultancy','$Name_Of_Project_Endownment', '$Name_Of_Principal_Investigator_CoInvestigator', '$Department_Of_Principal_Investigator', '$Year_Of_Award', 
-    '$Amount_Sanctioned', '$Duration_Of_The_Project', '$Name_Of_The_Funding_Agency', '$Funding_Agency_Website_Link', '$Type_Govt_NonGovt', '$pdffile1', '$id')";
+    '$Amount_Sanctioned', '$Duration_Of_The_Project', '$Name_Of_The_Funding_Agency', '$Funding_Agency_Website_Link', '$Type_Govt_NonGovt', '$pdffile1', '$id','PENDING')";
     
     
     $query_run = mysqli_query($connection, $query);
