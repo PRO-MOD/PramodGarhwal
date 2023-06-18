@@ -11,7 +11,7 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title> Book Chapters Published </title>
+    <title>Journal Publications</title>
 
     <link rel="stylesheet" href="styles.css">
     
@@ -44,7 +44,7 @@ session_start();
                 ?>
 
             <div class="card-body mt-5">
-                <h2> Book Chapters/Books Published</h2>
+                <h2> Journal Publications</h2>
             </div>
             <div class="card">
                 <div class="card-body btn-group">

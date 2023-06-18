@@ -3,17 +3,21 @@ include('../../config.php');
 session_start();
 ?>
 
-<!DOCTYPE html>
+<!DOCTYPE html> 
+
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Journal Publications</title>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title> Journal Publications </title>
 
     <link rel="stylesheet" href="styles.css">
+    
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css">
+
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -21,12 +25,14 @@ session_start();
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 </head>
+
+
 <body>
 
 <?php include('../../header.php'); ?>
-    
-<!-- main card -->
-<!-- buttons and search buttoncard -->
+
+ <!-- main card -->
+ <!-- buttons and search buttoncard -->
             <div class="card">
                 <div class="card-body">
                 <?php 
@@ -36,18 +42,15 @@ session_start();
                     header("Location:index.php"); 
                 }
                 ?>
-                </div>
-                </div>
 
             <div class="card-body mt-5">
-                <h2> Journal Publications</h2>
+                <h2> Journal Publications </h2>
             </div>
-
             <div class="card">
                 <div class="card-body btn-group">
 
             <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">					
-				<button type="submit" onclick="exportTableToCSVuser('USerData_JournalPublications.csv')" class="btn btn-success">Export to excel</button>
+				<button type="submit" onclick="exportTableToCSVuser('USerData_BookChapters.csv')" class="btn btn-success">Export to excel</button>
 			</form> &nbsp; &nbsp; 
         
             <form method="post">
@@ -58,14 +61,14 @@ session_start();
             </div>
             </div>
 
-            <!-- table -->
-            <div id="tabledataid" class="card">
-                <div class="card-body">
-                      <!-- th change -->
-                    <table id="datatableid" class="table table-bordered table-dark mt-2">
-                        <thead>
-                            <tr>
-                                <th scope="col"> ID </th>
+           <!-- table -->
+<div id="tabledataid" class="card">
+    <div class="card-body">
+        <!-- th change -->
+        <table id="datatableid" class="table table-bordered table-dark mt-2">
+            <thead>
+                <tr>
+                <th scope="col"> ID </th>
                                 <th scope="col"> NAME OF FACULTY </th>
                                 <th scope="col"> BRANCH </th>
                                 <th scope="col"> TITLE OF PAPER </th>
@@ -82,37 +85,36 @@ session_start();
                                 <th scope="col"> LINK OF PAPER </th>
                                 <th scope="col"> DETAILS OF PAPER </th>
                                 <th scope="col"> ACTION </th>
-                               
-                            </tr>
-                        </thead>
+                                <!-- <th scope="col"> STATUS </th> -->
+                </tr>
+            </thead>
+            <?php
+            $user = $_SESSION["role"];
 
-                        <?php
-                        $user = $_SESSION["role"];
-                        
-                        $result = "SELECT * FROM superadmin WHERE username = '$user'";
+            $result = "SELECT * FROM branchadmins WHERE username = '$user'";
 
-                        $query = mysqli_query($connection, $result);
-                        $queryresult = mysqli_num_rows($query); 
-                            if($queryresult > 0){
-                                while($row = mysqli_fetch_assoc($query)){ 
-                                    $id = $row['id'];
-                                }  
-                            }
+            $query = mysqli_query($connection, $result);
+            $queryresult = mysqli_num_rows($query);
+            if ($queryresult > 0) {
+                while ($row = mysqli_fetch_assoc($query)) {
+                    $id = $row['id'];
+                    $branch = trim($row['branch']);
+                }
+            }
 
+            $table_query = "SELECT * FROM journal_publications WHERE STATUS = 'approved' ORDER BY id ASC";
 
-                        $table_query = "SELECT * FROM journal_publications ORDER BY id ASC";
-                        $query_run = mysqli_query($connection, $table_query);
-                        $query_result = mysqli_num_rows($query_run); ?>
+            $query_run = mysqli_query($connection, $table_query);
+            $query_result = mysqli_num_rows($query_run); ?>
 
-                        <?php if($query_result > 0){
-                                        while($developer = mysqli_fetch_assoc($query_run)){   
-                                            ?>
-
-<tbody> <!-- change -->
-                            <tr>
-                                <td> <?php echo $developer['id']; ?> </td>
+            <?php if ($query_result > 0) {
+                while ($developer = mysqli_fetch_assoc($query_run)) {
+                    ?>
+                    <tbody> <!-- change -->
+                        <tr>
+                        <td> <?php echo $developer['id']; ?> </td>
                                 <td> <?php echo $developer['Name_Of_Faculty']; ?> </td> 
-                                <td> <?php echo $developer['Branch']; ?> </td> 
+                                <td> <?php echo trim($developer['Branch']); ?> </td> 
                                 <td> <?php echo $developer['Title_Of_Paper']; ?> </td>
                                 <td> <?php echo $developer['Name_Of_Author']; ?> </td>
                                 <td> <?php echo $developer['Name_Of_Journal']; ?> </td>
@@ -126,34 +128,231 @@ session_start();
                                 <td> <?php echo $developer['Paper_Weblink']; ?> </td>
                                 <td> <?php echo $developer['Link_Of_Paper']; ?> </td>
                                 <td> <?php echo $developer['Details_Of_Paper']; ?> </td>
-                                <td>
-
-                                <a href="../../professors/journal_publications/JournalPaper/<?php echo $developer['Journal_Paper']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
-                                    </td>
-                            </tr>
-                        </tbody>
-                        <?php           
-                    }
+                            <td>
+                                <a href="../../professors/book-chapters/uploadsindexit/<?php echo $developer['pdffile1']; ?>" class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+                                <a href="../../professors/book-chapters/uploadsfrontit/<?php echo $developer['pdffile2']; ?>" class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+                                <!-- <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a> -->
+                                <!-- <a class="delete btn-danger deletebtn" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a> -->
+                            </td>
+                            <td>
+                                <?php if ($developer['STATUS'] == 'PENDING') { ?>
+                                    <form method="POST" action="approved.php">
+                                        <input type="hidden" name="id" value="<?php echo $developer['id']; ?>">
+                                        <input type="submit" name="approve" value="Approve">
+                                    </form>
+                                    <form method="post" action="reject.php">
+                                        <input type="hidden" name="id" value="<?php echo $developer['id']; ?>">
+                                        <button type="submit" name="reject" class="btn btn-danger">Reject</button>
+                                    </form>
+                                <?php } elseif ($developer['STATUS'] == 'rejected') { ?>
+                                    <?php echo $developer['STATUS']; ?>
+                                    <form method="POST" action="approve-now.php">
+                                        <input type="hidden" name="id" value="<?php echo $developer['id']; ?>">
+                                        <input type="submit" name="approve_now" value="Approve Now">
+                                    </form>
+                                <?php } else { ?>
+                                    <!-- <?php echo $developer['STATUS']; ?> -->
+                                <?php } ?>
+                            </td>
+                        </tr>
+                    </tbody>
+                <?php
                 }
-                else 
-                {
-                    echo "No Record Found";
-                }
+            } else {
+                echo "No Record Found";
+            }
             ?>
-                    </table>
+        </table>
+
+        <?php
+        // Approve button logic
+        if (isset($_POST['approve'])) {
+            $id = $_POST['id'];
+            $select = "UPDATE bookschapter SET STATUS ='APPROVED' WHERE id='$id'";
+            $result = mysqli_query($connection, $select);
+            echo "Data Approved";
+            header("Location: index.php");
+        }
+
+        // Reject button logic
+        if (isset($_POST['reject'])) {
+            $id = $_POST['id'];
+            $select = "UPDATE bookschapter SET STATUS ='REJECTED' WHERE id='$id'";
+            $result = mysqli_query($connection, $select);
+            echo "Data Rejected";
+            header("Location: index.php");
+        }
+
+        // Approve Now button logic
+if (isset($_POST['approve_now'])) {
+    $id = $_POST['id'];
+    $select = "UPDATE bookschapter SET STATUS ='APPROVED' WHERE id='$id'";
+    $result = mysqli_query($connection, $select);
+    echo "Data Approved";
+    header("Location: index.php");
+}
+        ?>
+    </div>
+</div>
+
+      <!-- DELETE POP UP FORM  -->
+    <!-- dont make changes-->
+    <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"> Delete Student Data </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
+
+                <form action="deletecode.php" method="POST">
+
+                    <div class="modal-body">
+
+                        <input type="hidden" name="delete_id" id="delete_id">
+
+                        <h4> Do you want to Delete this Data ??</h4>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"> NO </button>
+                        <button type="submit" name="deletedata" class="btn btn-primary"> Yes, Delete it. </button>
+                    </div>
+                </form>
+
             </div>
+        </div>
+    </div>
+    <!-- EDIT POP UP FORM  -->
+    <!-- this is edit data form Make changes to variables and placeholder, keep same variables -->
+    <div class="modal fade" id="editmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"> Edit Data </h5> &nbsp;
+                    <h5 class="modal-title" id="exampleModalLabel"> (Please enter the dates again)</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <form action="updatecode.php" method="POST">
+
+                    <div class="modal-body">
+
+                        <input type="hidden" name="update_id" id="update_id">
+
+                        <div class="form-group">
+                            <label> Name of Faculty </label>
+                            <input type="text" id="Name_Of_Faculty" name="Name_Of_Faculty" class="form-control" placeholder="Enter Name of Faculty" required>
+                        </div>
+
+                        <div class="form-group">
+    <label>Branch</label>
+    <select name="Branch" class="form-control" required >
+        <option value="">--Select Department--</option>
+        <?php
+        // Retrieve the department information from the session or any other method
+        $branch = $_SESSION['branch']; 
+
+       $branches = array("IT", "EXTC", "Mechanical", "Computers", "Electrical", "Humanities");
+foreach ($branches as $branchOption) {
+    $selected = ($branchOption == $branch) ? 'selected="selected"' : '';
+    echo '<option value="' . $branchOption . '" ' . $selected . '>' . $branchOption . '</option>';
+}
+
+        ?>
+    </select>
+</div>
+
+                        <div class="form-group">
+                            <label> Title of the paper </label>
+                            <input type="text" id="Title_Of_Paper" name="Title_Of_Paper" class="form-control" placeholder="Enter Title" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label> Name of Author/s</label>
+                            <input type="text" id="Name_Of_Author" name="Name_Of_Author" class="form-control" placeholder="Enter Name of Author" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label> Name of Journal </label>
+                            <input type="text" id="Name_Of_Journal" name="Name_Of_Journal" class="form-control" placeholder="Enter Name of Journal">
+                        </div>
+
+                        <div class="form-group">
+                            <label> Journal Citation Index </label>
+                            <input type="text" id="Journal_Citation_Index" name="Journal_Citation_Index" class="form-control" placeholder="Mention scopus index/web of science/UGC approved/Indian citation Index/others" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label> Journal Impact Factor </label>
+                            <input type="text" id="Journal_Impact_Factor" name="Journal_Impact_Factor" class="form-control" placeholder="Enter Journal Impact Factor" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label> Publisher </label>
+                            <input type="text" id="Publisher" name="Publisher" class="form-control" placeholder="Enter Publisher" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label> Year of Publication </label>
+                            <input type="text" id="Year_Of_Publication" name="Year_Of_Publication" class="form-control" placeholder="Enter Year of Publication" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label> Publication Date </label>
+                            <input type="date" id="Publication_Date" name="Publication_Date" class="form-control" placeholder="Enter Publication Date" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label> Volume,Issue </label>
+                            <input type="text" id="Volume_Issue" name="Volume_Issue" class="form-control" placeholder="Enter Volume, Issue" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label> ISSN/ISBN </label>
+                            <input type="text" id="ISSN_ISBN" name="ISSN_ISBN" class="form-control" placeholder="ISSN/ISBN" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label> Paper Weblink/ DOI </label>
+                            <input type="text" id="Paper_Weblink" name="Paper_Weblink" class="form-control" placeholder="Enter Paper weblink/ DOI" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label> Link to recognition in UGC enlistment of Journal </label>
+                            <input type="text" id="Link_Of_Paper" name="Link_Of_Paper" class="form-control" placeholder="Paste link of journal in scopus site/ web of science site/ UGC approved list" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label> Datails of Paper Published(IEEE Format) </label>
+                            <input type="text" id="Details_Of_Paper" name="Details_Of_Paper" class="form-control" placeholder="Enter details of paper" required>
+                        </div>
+
+                        </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" name="updatedata" class="btn btn-primary">Update Data</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
 
 
-
+   
 <!--Search data -->
 <div id="srch" class="card-body">
                 <h4> Search Data </h4>
                     <table class="table table-bordered ">
                     <thead>
-                    <tr>
-                                <th scope="col"> ID </th>
+                            <tr>
+                            <th scope="col"> ID </th>
                                 <th scope="col"> NAME OF FACULTY </th>
                                 <th scope="col"> BRANCH </th>
                                 <th scope="col"> TITLE OF PAPER </th>
@@ -170,14 +369,17 @@ session_start();
                                 <th scope="col"> LINK OF PAPER </th>
                                 <th scope="col"> DETAILS OF PAPER </th>
                                 <th scope="col"> ACTION </th>
+                                <!-- <th scope="col"> STATUS </th> -->
+                               
+
                                
                             </tr>
-                    <thead>       
+                        </thead>   
 <?php 
     if (isset($_POST["submit"])) {
         $str = mysqli_real_escape_string($connection, $_POST["search"]);
 
-        $sth = "SELECT * FROM `journal_publications` WHERE Branch LIKE '%$str%' OR Name_Of_Faculty LIKE '%$str%' OR Title_Of_Paper LIKE '%$str%' OR Name_Of_Author LIKE '%$str%' OR Name_Of_Journal LIKE '%$str%' OR Journal_Citation_Index LIKE '$str' OR Journal_Impact_Factor LIKE '%$str%' OR Publisher LIKE '%$str%' OR Year_Of_Publication LIKE '%$str%' OR Publication_Date LIKE '%$str%' OR Volume_Issue LIKE '$str' OR ISSN_ISBN LIKE '%$str%'";
+        $sth = "SELECT * FROM `journal_publications` WHERE Branch LIKE '%$branch%' AND (Name_Of_Faculty LIKE '%$str%' OR Branch LIKE '%$branch%' OR Title_Of_Paper LIKE '%$str%' OR Name_Of_Author LIKE '%$str%' OR Name_Of_Journal LIKE '%$str%' OR Journal_Citation_Index LIKE '$str' OR Journal_Impact_Factor LIKE '%$str%' OR Publisher LIKE '%$str%' OR Year_Of_Publication LIKE '%$str%' OR Publication_Date LIKE '%$str%' OR Volume_Issue LIKE '$str' OR ISSN_ISBN LIKE '%$str%')";
         
         $result = mysqli_query($connection, $sth);
         $queryresult = mysqli_num_rows($result); ?>
@@ -194,8 +396,8 @@ session_start();
                     ?>
                     <tbody id="srch"> 
              
-                    <tr>
-                                <td> <?php echo $row['id']; ?> </td>
+                    <tr>                
+                    <td> <?php echo $row['id']; ?> </td>
                                 <td> <?php echo $row['Name_Of_Faculty']; ?> </td> 
                                 <td> <?php echo $row['Branch']; ?> </td> 
                                 <td> <?php echo $row['Title_Of_Paper']; ?> </td>
@@ -211,14 +413,35 @@ session_start();
                                 <td> <?php echo $row['Paper_Weblink']; ?> </td>
                                 <td> <?php echo $row['Link_Of_Paper']; ?> </td>
                                 <td> <?php echo $row['Details_Of_Paper']; ?> </td>
-                                <td>
+                        <td>
 
-                            <a href="../../professors/journal_publications/JournalPaper/<?php echo $row['Journal_Paper']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
-				                                                        
-                            <!-- <button class="btn"><i class="fa fa-download"></i> Download</button> -->
-                        </td>
-                    </tr> 
-                    <tbody>
+                            <a href="../../professors/book-chapters/uploadsindexit/<?php echo $row['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+							<a href="../../professors/book-chapters/uploadsfrontit/<?php echo $row['pdffile2']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+                            <!-- <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a> -->
+                        <!-- <a class="delete btn-danger deletebtn" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a> -->
+                    </td>
+                    <td>
+                                <?php if ($row['STATUS'] == 'PENDING') { ?>
+                                    <form method="POST" action="approved.php">
+                                        <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
+                                        <input type="submit" name="approve" value="Approve">
+                                    </form>
+                                    <form method="post" action="reject.php">
+                                        <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
+                                        <button type="submit" name="reject" class="btn btn-danger">Reject</button>
+                                    </form>
+                                <?php } elseif ($row['STATUS'] == 'rejected') { ?>
+                                    <?php echo $row['STATUS']; ?>
+                                    <form method="POST" action="approve-now.php">
+                                        <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
+                                        <input type="submit" name="approve_now" value="Approve Now">
+                                    </form>
+                                <?php } else { ?>
+                                    <!-- <?php echo $row['STATUS']; ?> -->
+                                <?php } ?>
+                            </td>
+                        </tr>
+                    </tbody>
                     <?php 
             }
 
@@ -231,12 +454,14 @@ session_start();
     </div>
 
 
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
 
     <script src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js"></script>
+
 
     <script>
         $(document).ready(function () {
@@ -258,8 +483,7 @@ session_start();
             });
         });
     </script>
-
-    <script>
+     <script>
         $(document).ready(function () {
 
             $('.editbtn').on('click', function () {
@@ -273,34 +497,20 @@ session_start();
                 }).get();
 
                 console.log(data);
+                //chnage this keep same variable as above
                 $('#update_id').val(data[0]);
-                $('#Name_Of_Faculty').val(data[1]);
+                $('#Name_Of_The_Teacher').val(data[1]);
                 $('#Branch').val(data[2]);
-                $('#Title_Of_Paper').val(data[3]);
-                $('#Name_Of_Author').val(data[4]);
-                $('#Name_Of_Journal').val(data[5]);
-                $('#Journal_Citation_Index').val(data[6]);
-                $('#Journal_Impact_Factor').val(data[7]);
-                $('#Publisher').val(data[8]);
-                $('#Year_Of_Publication').val(data[9]);
-                $('#Publication_Date').val(data[10]);
-                $('#Volume_Issue').val(data[11]);
-                $('#ISSN_ISBN').val(data[12]);
-                $('#Paper_Weblink').val(data[13]);
-                $('#Link_Of_Paper').val(data[14]);
-                $('#Details_Of_Paper').val(data[15]);
+                $('#Title_Of_The_Book_Published').val(data[3]);
+                $('#Title_Of_The_Chapter_Published_In_The_Book').val(data[4]);
+                $('#Name_Of_The_Publisher').val(data[5]);
+                $('#National_Or_International').val(data[6]);
+                $('#ISBN_Or_ISSN_Number').val(data[7]);
+                $('#Year_Of_Publication').val(data[8]);
+                $('#Volume_Issue').val(data[9]);
             });
         });
     </script>
-
-<!--<script>
-        function datechecker() {
-            if(document.getElementById('insertbutton').clicked == true) {
-                alert("Dhjkd");
-            }
-        }
-</script>-->
-
 <script>  
     //user-defined function to download CSV file  
     function downloadCSVuser(csv, filename) {  
@@ -338,8 +548,8 @@ session_start();
 </script> 
 
 <script>  
-    //user-defined function to download CSV file  
-    function downloadCSV(csv, filename) {  
+        //user-defined function to download CSV file  
+        function downloadCSV(csv, filename) {  
         var csvFile;  
         var downloadLink;  
 
@@ -373,5 +583,6 @@ session_start();
     }  
 </script> 
 
+
 </body>
-</html>                
+</html>
