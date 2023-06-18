@@ -411,6 +411,7 @@ session_start();
                         <th> FUNDING AGENCY WEBSITE LINK </th>
                         <th> TYPE(GOVT./NON-GOVT.) </th>
                         <th> UPLOAD THE RELEVANT DOCUMENT </th>
+                        <th> STATUS </th>
                         </tr>
                     <thead>       
 <?php 
