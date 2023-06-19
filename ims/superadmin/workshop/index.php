@@ -33,7 +33,7 @@ session_start();
     <?php include('../../header.php'); ?>
 
  <!-- main card -->
- <!-- buttons and search buttoncard --->
+ <!-- buttons and search buttoncard ---->
             <div class="card">
                 <div class="card-body">
                 <?php 
@@ -45,7 +45,7 @@ session_start();
                 ?>
 
             <div class="card-body mt-5">
-                <h2> Certificate programs </h2>
+                <h2> Workshop/Seminars </h2>
             </div>
             <div class="card">
                 <div class="card-body btn-group">
@@ -68,19 +68,17 @@ session_start();
                     <table id="datatableid" class="table table-bordered table-dark mt-2">
                         <thead>
                             <tr>
-                                <th scope="col"> ID </th>
-                                <th scope="col"> DEPARTMENT </th>
-                                <th scope="col"> COURSE COORDINATOR</th>
-                                <th scope="col"> PROGRAMS OFFERED </th>
-                                <th scope="col"> COURSE CODE </th>
-                                <th scope="col"> YEAR OF OFFERING </th>
-                                <th scope="col"> NO OF TIMES OFFERED </th>
-								<th scope="col"> START DATE </th>
-                                <th scope="col"> END DATE </th>
-                                <th scope="col"> DURATION </th>
-                                <th scope="col"> NO OF STUDENTS ENROLLED </th>
-                                <th scope="col"> NO OF STUDENTS COMPLETING </th>
-                                <th scope="col"> ACTION </th>
+                            <th scope="col"> ID</th>
+                                <th scope="col"> Year </th>
+                                <th scope="col"> Workshop/ seminar</th>
+                                <th scope="col"> Coordinator </th>
+                                <th scope="col"> Title of the workshop / seminar </th>
+                                <th scope="col"> Category of the activity</th>
+								<th scope="col"> If others, please mention the Theme/category</th>
+                                <th scope="col"> Number of Participants</th>
+                                <th scope="col"> Starting Date</th>
+                                <th scope="col"> Ending Date</th>
+                                <th scope="col"> Upload Activity report in the appropraite template</th>
                                
                             </tr>
                         </thead>
@@ -99,7 +97,7 @@ session_start();
                             }
 
 
-                        $table_query = "SELECT * FROM certificates where STATUS = 'approved' ORDER BY id ASC";
+                        $table_query = "SELECT * FROM workshops where STATUS = 'approved' ORDER BY id ASC";
                         $query_run = mysqli_query($connection, $table_query);
                         $query_result = mysqli_num_rows($query_run); ?>
 
@@ -108,18 +106,16 @@ session_start();
                                             ?>
                         <tbody> <!-- change -->
                             <tr>
-                                <td> <?php echo $developer['id']; ?> </td>
-                                <td> <?php echo $developer['Department']; ?> </td> 
-                                <td> <?php echo $developer['Course_coordinator']; ?> </td>
-                                <td> <?php echo $developer['Programs_offered']; ?> </td>
-                                <td> <?php echo $developer['Course_code']; ?> </td>
-                                <td> <?php echo $developer['Year_of_offering']; ?> </td>
-                                <td> <?php echo $developer['No_of_times_offered']; ?> </td>
-                                <td> <?php echo $developer['Start_date']; ?> </td>
-                                <td> <?php echo $developer['End_date']; ?> </td>
-                                <td> <?php echo $developer['Duration']; ?> </td>
-                                <td> <?php echo $developer['No_of_students_enrolled']; ?> </td>
-                                <td> <?php echo $developer['No_of_students_completing']; ?> </td>
+                            <td> <?php echo $developer['id']; ?> </td>
+                                <td> <?php echo $developer['year_held']; ?> </td> 
+                                <td> <?php echo $developer['workshop_seminar']; ?> </td>
+                                <td> <?php echo $developer['coordinator']; ?> </td>
+                                <td> <?php echo $developer['title']; ?> </td>
+                                <td> <?php echo $developer['category']; ?> </td>
+                                <td> <?php echo $developer['others']; ?> </td>
+                                <td> <?php echo $developer['participants']; ?> </td>
+                                <td> <?php echo $developer['starting_date']; ?> </td>
+                                <td> <?php echo $developer['ending_date']; ?> </td>
                                
                                 <td>
 
@@ -127,7 +123,7 @@ session_start();
                                 <!-- <a href="../../branchadmins/certificates/reports/<?php echo $developer['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a> -->
 							    <!-- <a href="../../professors/book-chapters/uploadsfrontit/<?php echo $developer['pdffile2']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a> -->
                             <!--<a href="read.php?viewid=<?php echo htmlentities ($developer['id']);?>" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>-->
-                            <a href="reports/<?php echo $developer['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+                       <a href="uploads/<?php echo $developer['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
 							<!-- <a href="uploadsfrontit/<?php echo $developer['pdffile2']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a> -->
 							
                             
@@ -163,26 +159,24 @@ session_start();
                     <table class="table table-bordered ">
                     <thead>
                         <tr>
-                            <th> ID </th> 
-                            <th> DEPARTMENT </th>
-                            <th> COURSE COORDINATOR</th>
-                            <th> PROGRAMS OFFERED </th>
-                            <th> COURSE CODE </th>
-                            <th> YEAR OF OFFERING </th>
-                            <th> NO OF TIMES OFFERED </th>
-                            <th> START DATE </th>
-                            <th> END DATE </th>
-                            <th> DURATION </th>
-                            <th> NO OF STUDENTS ENROLLED </th>
-                            <th> NO OF STUDENTS COMPLETING </th>
-                            <th> ACTION </th>
+                        <th> S.N</th>
+                                <th > Year </th>
+                                <th> Workshop/ seminar</th>
+                                <th> Coordinator </th>
+                                <th> Title of the workshop / seminar </th>
+                                <th> Category of the activity</th>
+								<th> If others, please mention the Theme/category</th>
+                                <th> Number of Participants</th>
+                                <th> Starting Date</th>
+                                <th> Ending Date</th>
+                                <th> Upload Activity report in the appropraite template</th>
                         </tr>
                     <thead>       
 <?php 
     if (isset($_POST["submit"])) {
         $str = mysqli_real_escape_string($connection, $_POST["search"]);
 
-            $sth = "SELECT * FROM `certificates` WHERE Department LIKE '%$str%' OR Course_coordinator LIKE '%$str%' OR Programs_offered LIKE '%$str%' OR Course_code LIKE '%$str%' OR Year_of_offering LIKE '%$str%' OR No_of_times_offered LIKE '$str' OR Start_date LIKE '%$str%' OR End_date LIKE '%$str%' OR Duration LIKE '%$str%'";
+        $sth = "SELECT * FROM `workshops` WHERE id=$id AND (year_held LIKE '%$str%' OR workshop_seminar LIKE '%$str%'  OR coordinator LIKE '%$str%' OR title LIKE '%$str%' OR category LIKE '$str' OR others LIKE '%$str%' OR no_of_participants LIKE '%$str%' OR starting_date LIKE '%$str%' OR ending_date LIKE '%$str%') ";
         
         $result = mysqli_query($connection, $sth);
         $queryresult = mysqli_num_rows($result); ?>
@@ -200,20 +194,18 @@ session_start();
                     <tbody id="srch"> 
              
                     <tr>                
-                        <td> <?php echo $row['id']; ?> </td>
-                        <td> <?php echo $row['Department']; ?> </td> 
-                        <td> <?php echo $row['Course_coordinator']; ?> </td>
-                        <td> <?php echo $row['Programs_offered']; ?> </td>
-                        <td> <?php echo $row['Course_code']; ?> </td>
-                        <td> <?php echo $row['Year_of_offering']; ?> </td>
-                        <td> <?php echo $row['No_of_times_offered']; ?> </td>
-                        <td> <?php echo $row['Start_date']; ?> </td>
-                        <td> <?php echo $row['End_date']; ?> </td>
-                        <td> <?php echo $row['Duration']; ?> </td>
-                        <td> <?php echo $row['No_of_students_enrolled']; ?> </td>
-                        <td> <?php echo $row['No_of_students_completing']; ?> </td>
+                    <td> <?php echo $row['id']; ?> </td>
+                                <td> <?php echo $row['year_held']; ?> </td> 
+                                <td> <?php echo $row['workshop_seminar']; ?> </td>
+                                <td> <?php echo $row['coordinator']; ?> </td>
+                                <td> <?php echo $row['title']; ?> </td>
+                                <td> <?php echo $row['category']; ?> </td>
+                                <td> <?php echo $row['others']; ?> </td>
+                                <td> <?php echo $row['no_of_participants']; ?> </td>
+                                <td> <?php echo $row['starting_date']; ?> </td>
+                                <td> <?php echo $row['ending_date']; ?> </td>
                         <td>
-                            <a href="../../branchadmins/certificate-programs/reports/<?php echo $row['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+                        <a href="uploads/<?php echo $row['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
                             <!--<a href="read.php?viewid=<?php echo htmlentities ($developer['id']);?>" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>-->
                             <!-- <a href="reports/<?php echo $row['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a> -->
 							<!-- <a href="uploadsfrontextc/<?php echo $developer['pdffile2']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a> -->
@@ -292,17 +284,15 @@ session_start();
                 console.log(data);
                 //chnage this keep same variable as above
                 $('#update_id').val(data[0]);
-                $('#Department').val(data[1]);
-                $('#Course_coordinator').val(data[2]);
-                $('#Programs_offered').val(data[3]);
-                $('#Course_code').val(data[4]);
-                $('#Year_of_offering').val(data[5]);
-                $('#No_of_times_offered').val(data[6]);
-                $('#Start_date').val(data[7]);
-                $('#End_date').val(data[8]);
-                $('#Duration').val(data[9]);
-                $('#No_of_students_enrolled').val(data[10]);
-                $('#No_of_students_completing').val(data[11]);
+                $('#year_held').val(data[1]);
+                $('#workshop_seminar').val(data[2]);
+                $('#coordinator').val(data[3]);
+                $('#title').val(data[4]);
+                $('#category').val(data[5]);
+                $('#others').val(data[6]);
+                $('#participants').val(data[7]);
+                $('#starting_date').val(data[8]);
+                $('#ending_date').val(data[9]);
             });
         });
     </script>

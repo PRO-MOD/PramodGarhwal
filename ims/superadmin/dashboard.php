@@ -65,6 +65,33 @@
         </div>
       </div>
     </div>
+    <div class="card">
+      <div class="box">
+        <div class="content">
+          <h4>CERTIFICATE PROGRAMS</h4>
+          <p>conducted by dept.</p>
+          <a href="certificate-programs/index.php">Go to Criteria</a>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="box">
+        <div class="content">
+          <h4>OUTREACH PROGRAMS</h4>
+          <p>conducted by dept.</p>
+          <a href="outreach/index.php">Go to Criteria</a>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="box">
+        <div class="content">
+          <h4>WORKSHOP/SEMINARS</h4>
+          <p>conducted by dept</p>
+          <a href="workshop/index.php">Go to Criteria</a>
+        </div>
+      </div>
+    </div>
         
   <?php include('../header.php'); ?>  
   </body>

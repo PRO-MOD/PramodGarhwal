@@ -45,7 +45,7 @@ session_start();
                 ?>
 
             <div class="card-body mt-5">
-                <h2> Certificate programs </h2>
+                <h2> Outreach Program </h2>
             </div>
             <div class="card">
                 <div class="card-body btn-group">
@@ -68,18 +68,15 @@ session_start();
                     <table id="datatableid" class="table table-bordered table-dark mt-2">
                         <thead>
                             <tr>
-                                <th scope="col"> ID </th>
-                                <th scope="col"> DEPARTMENT </th>
-                                <th scope="col"> COURSE COORDINATOR</th>
-                                <th scope="col"> PROGRAMS OFFERED </th>
-                                <th scope="col"> COURSE CODE </th>
-                                <th scope="col"> YEAR OF OFFERING </th>
-                                <th scope="col"> NO OF TIMES OFFERED </th>
-								<th scope="col"> START DATE </th>
-                                <th scope="col"> END DATE </th>
-                                <th scope="col"> DURATION </th>
-                                <th scope="col"> NO OF STUDENTS ENROLLED </th>
-                                <th scope="col"> NO OF STUDENTS COMPLETING </th>
+                            <th scope="col"> ID </th>
+                                <th scope="col"> NAME OF ACTIVITY </th>
+                                <th scope="col"> ORGANIZING UNIT/AGENCY/COLLABORATING AGENCY </th>
+                                <th scope="col"> NAME OF THE COORDINATORS </th>
+                                <th scope="col"> NAME OF THE SCHEME</th>
+                                <th scope="col"> DATE/ DATES CONDUCTED </th>
+                                <th scope="col"> YEAR OF THE ACTIVITY</th>
+								<th scope="col"> NUMBER OF STUDENT VOLUNTEERS FOR THE ACTIVITY </th>
+                                <th scope="col"> NUMBER OF PEOPLE BENEFITTED BY THE ACTIVITY </th>
                                 <th scope="col"> ACTION </th>
                                
                             </tr>
@@ -99,7 +96,7 @@ session_start();
                             }
 
 
-                        $table_query = "SELECT * FROM certificates where STATUS = 'approved' ORDER BY id ASC";
+                        $table_query = "SELECT * FROM outreachprogram where STATUS = 'approved' ORDER BY id ASC";
                         $query_run = mysqli_query($connection, $table_query);
                         $query_result = mysqli_num_rows($query_run); ?>
 
@@ -108,18 +105,15 @@ session_start();
                                             ?>
                         <tbody> <!-- change -->
                             <tr>
-                                <td> <?php echo $developer['id']; ?> </td>
-                                <td> <?php echo $developer['Department']; ?> </td> 
-                                <td> <?php echo $developer['Course_coordinator']; ?> </td>
-                                <td> <?php echo $developer['Programs_offered']; ?> </td>
-                                <td> <?php echo $developer['Course_code']; ?> </td>
-                                <td> <?php echo $developer['Year_of_offering']; ?> </td>
-                                <td> <?php echo $developer['No_of_times_offered']; ?> </td>
-                                <td> <?php echo $developer['Start_date']; ?> </td>
-                                <td> <?php echo $developer['End_date']; ?> </td>
-                                <td> <?php echo $developer['Duration']; ?> </td>
-                                <td> <?php echo $developer['No_of_students_enrolled']; ?> </td>
-                                <td> <?php echo $developer['No_of_students_completing']; ?> </td>
+                            <td> <?php echo $developer['id']; ?> </td>
+                                <td> <?php echo $developer['Name_of_Activity']; ?> </td> 
+                                <td> <?php echo $developer['Organizing_Unit']; ?> </td>
+                                <td> <?php echo $developer['Name_of_Coordinators']; ?> </td>
+                                <td> <?php echo $developer['Name_of_Scheme']; ?> </td>
+                                <td> <?php echo $developer['Dates_Conducted']; ?> </td>
+                                <td> <?php echo $developer['Year_of_Activity']; ?> </td>
+                                <td> <?php echo $developer['No_of_Student_Volunteer_for_Activity']; ?> </td>
+                                <td> <?php echo $developer['No_of_People_benefitted_by_Activity']; ?> </td>
                                
                                 <td>
 
@@ -127,7 +121,7 @@ session_start();
                                 <!-- <a href="../../branchadmins/certificates/reports/<?php echo $developer['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a> -->
 							    <!-- <a href="../../professors/book-chapters/uploadsfrontit/<?php echo $developer['pdffile2']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a> -->
                             <!--<a href="read.php?viewid=<?php echo htmlentities ($developer['id']);?>" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>-->
-                            <a href="reports/<?php echo $developer['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+                            <a href="Reports/<?php echo $developer['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
 							<!-- <a href="uploadsfrontit/<?php echo $developer['pdffile2']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a> -->
 							
                             
@@ -163,18 +157,15 @@ session_start();
                     <table class="table table-bordered ">
                     <thead>
                         <tr>
-                            <th> ID </th> 
-                            <th> DEPARTMENT </th>
-                            <th> COURSE COORDINATOR</th>
-                            <th> PROGRAMS OFFERED </th>
-                            <th> COURSE CODE </th>
-                            <th> YEAR OF OFFERING </th>
-                            <th> NO OF TIMES OFFERED </th>
-                            <th> START DATE </th>
-                            <th> END DATE </th>
-                            <th> DURATION </th>
-                            <th> NO OF STUDENTS ENROLLED </th>
-                            <th> NO OF STUDENTS COMPLETING </th>
+                        <th> ID </th> 
+                            <th> NAME OF ACTIVITY </th>
+                            <th> ORGANIZING UNIT/ AGENCY/ COLLABORATING AGENCY</th>
+                            <th> NAME OF THE COORDINATORS </th>
+                            <th> NAME OF THE SCHEME </th>
+                            <th> DATE/ DATES CONDUCTED </th>
+                            <th> YEAR OF THE ACTIVITY</th>
+                            <th> NUMBER OF THE STUDENT VOLUNTEERS FOR THE ACTIVITY </th>
+                            <th> NUMBER OF PEOPLE BENEFITTED BY THE ACTIVITY </th>
                             <th> ACTION </th>
                         </tr>
                     <thead>       
@@ -182,7 +173,7 @@ session_start();
     if (isset($_POST["submit"])) {
         $str = mysqli_real_escape_string($connection, $_POST["search"]);
 
-            $sth = "SELECT * FROM `certificates` WHERE Department LIKE '%$str%' OR Course_coordinator LIKE '%$str%' OR Programs_offered LIKE '%$str%' OR Course_code LIKE '%$str%' OR Year_of_offering LIKE '%$str%' OR No_of_times_offered LIKE '$str' OR Start_date LIKE '%$str%' OR End_date LIKE '%$str%' OR Duration LIKE '%$str%'";
+        $sth = "SELECT * FROM `outreachprogram` WHERE user_id=$id AND (Name_of_Activity LIKE '%$str%' OR Organizing_Unit LIKE '%$str%' OR Name_of_Coordinators LIKE '%$str%' OR Name_of_Scheme LIKE '%$str%' OR Others LIKE '%$str%' OR Dates_Conducted LIKE '$str' OR Year_of_Activity LIKE '%$str%' OR No_of_Student_Volunteer_for_Activity LIKE '%$str%' OR No_of_People_benefitted_by_Activity LIKE '%$str%') ";
         
         $result = mysqli_query($connection, $sth);
         $queryresult = mysqli_num_rows($result); ?>
@@ -200,20 +191,17 @@ session_start();
                     <tbody id="srch"> 
              
                     <tr>                
-                        <td> <?php echo $row['id']; ?> </td>
-                        <td> <?php echo $row['Department']; ?> </td> 
-                        <td> <?php echo $row['Course_coordinator']; ?> </td>
-                        <td> <?php echo $row['Programs_offered']; ?> </td>
-                        <td> <?php echo $row['Course_code']; ?> </td>
-                        <td> <?php echo $row['Year_of_offering']; ?> </td>
-                        <td> <?php echo $row['No_of_times_offered']; ?> </td>
-                        <td> <?php echo $row['Start_date']; ?> </td>
-                        <td> <?php echo $row['End_date']; ?> </td>
-                        <td> <?php echo $row['Duration']; ?> </td>
-                        <td> <?php echo $row['No_of_students_enrolled']; ?> </td>
-                        <td> <?php echo $row['No_of_students_completing']; ?> </td>
+                    <td> <?php echo $row['id']; ?> </td>
+                        <td> <?php echo $row['Name_of_Activity']; ?> </td> 
+                        <td> <?php echo $row['Organizing_Unit']; ?> </td>
+                        <td> <?php echo $row['Name_of_Coordinators']; ?> </td>
+                        <td> <?php echo $row['Name_of_Scheme']; ?> </td>
+                        <td> <?php echo $row['Dates_Conducted']; ?> </td>
+                        <td> <?php echo $row['Year_of_Activity']; ?> </td>
+                        <td> <?php echo $row['No_of_Student_Volunteer_for_Activity']; ?> </td>
+                        <td> <?php echo $row['No_of_People_benefitted_by_Activity']; ?> </td>
                         <td>
-                            <a href="../../branchadmins/certificate-programs/reports/<?php echo $row['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+                         <a href="Reports/<?php echo $row['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
                             <!--<a href="read.php?viewid=<?php echo htmlentities ($developer['id']);?>" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>-->
                             <!-- <a href="reports/<?php echo $row['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a> -->
 							<!-- <a href="uploadsfrontextc/<?php echo $developer['pdffile2']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a> -->
@@ -292,17 +280,16 @@ session_start();
                 console.log(data);
                 //chnage this keep same variable as above
                 $('#update_id').val(data[0]);
-                $('#Department').val(data[1]);
-                $('#Course_coordinator').val(data[2]);
-                $('#Programs_offered').val(data[3]);
-                $('#Course_code').val(data[4]);
-                $('#Year_of_offering').val(data[5]);
-                $('#No_of_times_offered').val(data[6]);
-                $('#Start_date').val(data[7]);
-                $('#End_date').val(data[8]);
-                $('#Duration').val(data[9]);
-                $('#No_of_students_enrolled').val(data[10]);
-                $('#No_of_students_completing').val(data[11]);
+                $('#Name_Of_Activity').val(data[1]);
+                $('#Organizing_Unit').val(data[2]);
+                $('#Name_of_Coordinators').val(data[3]);
+                $('#Name_of_Scheme').val(data[4]);
+             
+                $('#Dates_Conducted').val(data[5]);
+                $('#Year_of_Activity').val(data[6]);
+                $('#No_of_Student_Volunteer_for_Activity').val(data[7]);
+                $('#No_of_People_benefitted_by_Activity').val(data[8]);
+                $('#pdffile1').val(data[9]);
             });
         });
     </script>
