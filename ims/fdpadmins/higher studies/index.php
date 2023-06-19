@@ -376,7 +376,7 @@ else
                     ?>
                     <tbody id="srch"> 
              
-                    <tr> 
+                    <tr>
                     <?php
                 $status = $row['STATUS'];
                 $is_disabled = ($status == "approved") ? "disabled" : "";
