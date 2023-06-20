@@ -70,34 +70,10 @@
         </div>
       </div>
     </div>
-    <div class="card">
-      <div class="box">
-        <div class="content">
-          <h4>CERTIFICATE PROGRAM</h4>
-          <p>Organised by the Department</p>
-          <a href="certificate-programs/index.php">Go to Criteria</a>
-        </div>
-      </div>
-    </div>
 
-    <div class="card">
-      <div class="box">
-        <div class="content">
-          <h4>WORKSHOP/SEMINAR</h4>
-          <p>conducted by faculty</p>
-          <a href="workshop/index.php">Go to Criteria</a>
-        </div>
-      </div>
-    </div>
 
-    <div class="card">
-      <div class="box">
-        <div class="content">
-          <h4>OUTREACH PROGRAM</h4>
-          <p>Organised by the Department</p>
-          <a href="outreach/index.php">Go to Criteria</a>
-        </div>
-      </div>
+
+  </div>
     </div>
 
 

@@ -2,7 +2,7 @@
 include('../../config.php');
 $user = $_SESSION["role"];
 
-$result = "SELECT * FROM fdpadmins WHERE username = '$user'";
+$result = "SELECT * FROM branchadmins WHERE username = '$user'";
 $query = mysqli_query($connection, $result);
 $queryresult = mysqli_num_rows($query); 
     if($queryresult > 0){
@@ -15,7 +15,7 @@ $queryresult = mysqli_num_rows($query);
     if(isset($_POST['updatedata']))
     {    $id = $_POST['update_id'];
         $career_year = $_POST['career_year'];
-        $Branch = $_POST['Branch'];
+        $branch = $_POST['branch'];
         $guidance_career = $_POST['guidance_career'];
         $title = $_POST['title'];
         $students_attended = $_POST['students_attended'];
@@ -24,7 +24,7 @@ $queryresult = mysqli_num_rows($query);
     
         move_uploaded_file($file_tmp,"uploadsfdporganised/$pdffile");
         
-        $query = "UPDATE career_guidance SET career_year = '$career_year', Branch = '$branch', 
+        $query = "UPDATE career_guidance SET career_year = '$career_year', branch = '$branch', 
         guidance_career = '$guidance_career', title = '$title', students_attended = '$students_attended' WHERE id='$id' ";
         $query_run = mysqli_query($connection, $query);
 

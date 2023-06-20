@@ -70,12 +70,26 @@
     <div class="card">
       <div class="box">
         <div class="content">
-          <h4>CERTIFICATE PROGRAMS</h4>
-          <p>conducted by dept.</p>
-          <a href="certificate-programs/index.php">Go to Criteria</a>
+
+          <h4>COMPETITIVE EXAMS</h4>
+          <p>Organised by the Department</p>
+          <a href="competitive_exams/index.php">Go to Criteria</a>
+         
         </div>
       </div>
     </div>
+
+
+    <div class="card">
+      <div class="box">
+        <div class="content">
+          <h4>Career Guidance</h4>
+          <p>organised by the Department</p>
+          <a href="career_guide/index.php">Go to Criteria</a>
+        </div>
+      </div>
+    </div>
+        
 
     <div class="card">
       <div class="box">
@@ -117,6 +131,11 @@
         </div>
       </div>
     </div>
+      
+        </div>
+    </div>
+
+
 
   <?php include('../header.php'); ?>  
   </body>
