@@ -66,9 +66,6 @@
         </div>
       </div>
     </div>
-<<<<<<< Updated upstream
-        
-=======
 
     <div class="card">
       <div class="box">
@@ -120,7 +117,6 @@
       </div>
     </div>
 
->>>>>>> Stashed changes
   <?php include('../header.php'); ?>  
   </body>
 </html>
