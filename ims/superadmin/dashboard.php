@@ -56,6 +56,7 @@
         </div>
       </div>
     </div>
+
     <div class="card">
       <div class="box">
         <div class="content">
@@ -65,6 +66,7 @@
         </div>
       </div>
     </div>
+
     <div class="card">
       <div class="box">
         <div class="content">
@@ -74,6 +76,7 @@
         </div>
       </div>
     </div>
+
     <div class="card">
       <div class="box">
         <div class="content">
@@ -83,6 +86,7 @@
         </div>
       </div>
     </div>
+
     <div class="card">
       <div class="box">
         <div class="content">
@@ -92,7 +96,28 @@
         </div>
       </div>
     </div>
-        
+
+    
+    <div class="card">
+      <div class="box">
+        <div class="content">
+          <h4>STUDENT ACHIEVEMENT ACTIVITIES</h4>
+          <p> conducted by dept </p>
+          <a href="student_achievement_activities/index.php">Go to Criteria</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="box">
+        <div class="content">
+          <h4> STUDENT COURSES AND WORKSHOPS </h4>
+          <p> conducted by dept </p>
+          <a href="student_courses_workshops/index.php">Go to Criteria</a>
+        </div>
+      </div>
+    </div>
+
   <?php include('../header.php'); ?>  
   </body>
 </html>
