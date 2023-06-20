@@ -61,18 +61,24 @@ session_start();
                                 <option name="Year" value="2021-22">2022-23</option>
                             </select>
 </div>
-                        <div class="form-group">
-                            <label>Department</label>
-                            <select name="Department" class="form-control" required>
-                                <option value="">--Select Department--</option>
-                                <option name="Department" value="IT">IT</option>
-                                <option name="Department" value="EXTC">EXTC</option>
-                                <option name="Department" value="Mechanical">Mechanical</option>
-                                <option name="Department" value="Computers">Computers</option>
-                                <option name="Department" value="Electrical">Electrical</option>
-                                <option name="Department" value="Humanities">Humanities</option>
-                            </select>
-                        </div>
+                
+<div class="form-group">
+    <label>Branch</label>
+    <select name="Branch" class="form-control" required disabled>
+        <option value="">--Select Department--</option>
+        <?php
+        // Retrieve the department information from the session or any other method
+        $branch = $_SESSION['branch']; 
+
+       $branches = array("IT", "EXTC", "Mechanical", "Computers", "Electrical", "Humanities");
+foreach ($branches as $branchOption) {
+    $selected = ($branchOption == $branch) ? 'selected="selected"' : '';
+    echo '<option value="' . $branchOption . '" ' . $selected . '>' . $branchOption . '</option>';
+}
+
+        ?>
+    </select>
+</div>
 
                         <div class="form-group">
                             <label> Registration_number </label>
@@ -244,11 +250,12 @@ session_start();
                             if($queryresult > 0){
                                 while($row = mysqli_fetch_assoc($query)){ 
                                     $id = $row['id'];
+                                    $branch = $row['branch'];
                                 
                                 }  
                             }
 
-                        $table_query = "SELECT * FROM competitiveexams ORDER BY id ASC";
+                        $table_query = "SELECT * FROM competitiveexams WHERE user_id=$id";  
                         
                         $query_run = mysqli_query($connection, $table_query);
                         $query_result = mysqli_num_rows($query_run); ?>
@@ -265,7 +272,7 @@ session_start();
                 ?>
                                 <td> <?php echo $developer['id']; ?> </td>
                                 <td> <?php echo $developer['Year']; ?> </td>
-                                <td> <?php echo $developer['Department']; ?> </td> 
+                                <td> <?php echo $developer['Branch']; ?> </td> 
                                 <td> <?php echo $developer['Registration_number']; ?> </td>
                                 <td> <?php echo $developer['Name_of_student']; ?> </td>
                                 <td> <?php echo $developer['Name_of_exam']; ?> </td>
@@ -333,17 +340,22 @@ else
                         </div>
 
                         <div class="form-group">
-                            <label>Department</label>
-                            <select name="Department" class="form-control" required>
-                                <option value="">--Select Department--</option>
-                                <option name="Department" value="IT">IT</option>
-                                <option name="Department" value="EXTC">EXTC</option>
-                                <option name="Department" value="Mechanical">Mechanical</option>
-                                <option name="Department" value="Computers">Computers</option>
-                                <option name="Department" value="Electrical">Electrical</option>
-                                <option name="Department" value="Humanities">Humanities</option>
-                            </select>
-                        </div>
+    <label>Branch</label>
+    <select name="Branch" class="form-control" required >
+        <option value="">--Select Department--</option>
+        <?php
+        // Retrieve the department information from the session or any other method
+        $branch = $_SESSION['branch']; 
+
+       $branches = array("IT", "EXTC", "Mechanical", "Computers", "Electrical", "Humanities");
+foreach ($branches as $branchOption) {
+    $selected = ($branchOption == $branch) ? 'selected="selected"' : '';
+    echo '<option value="' . $branchOption . '" ' . $selected . '>' . $branchOption . '</option>';
+}
+
+        ?>
+    </select>
+</div>
 
                         <div class="form-group">
                             <label> Registration_number </label>
@@ -392,6 +404,7 @@ else
                                 <th> Name of Exam </th>
                                 <th> OTHER </th>
                                 <th> Upload Proof </th>
+                                <th> STATUS </th>
                                
                             </tr>
                         </thead>       
@@ -399,7 +412,7 @@ else
     if (isset($_POST["submit"])) {
         $str = mysqli_real_escape_string($connection, $_POST["search"]);
 
-        $sth = "SELECT * FROM `competitiveexams` WHERE (Department LIKE '%$str%' OR Registration_number LIKE '%$str%' OR Name_of_student LIKE '%$str%' OR Name_of_exam LIKE '%$str%' OR Year LIKE '%$str%' OR other LIKE '%$str%' )";
+        $sth = "SELECT * FROM `competitiveexams` WHERE user_id=$id AND (Branch LIKE '%$str%' OR Registration_number LIKE '%$str%' OR Name_of_student LIKE '%$str%' OR Name_of_exam LIKE '%$str%' OR Year LIKE '%$str%' OR other LIKE '%$str%' OR STATUS LIKE '$str' ) ";
         
         $result = mysqli_query($connection, $sth);
         $queryresult = mysqli_num_rows($result); ?>
@@ -419,7 +432,7 @@ else
                     <tr>                
                         <td> <?php echo $row['id']; ?> </td>
                         <td> <?php echo $row['Year']; ?> </td>
-                                <td> <?php echo $row['Department']; ?> </td> 
+                                <td> <?php echo $row['Branch']; ?> </td> 
                                 <td> <?php echo $row['Registration_number']; ?> </td>
                                 <td> <?php echo $row['Name_of_student']; ?> </td>
                                 <td> <?php echo $row['Name_of_exam']; ?> </td>
@@ -427,15 +440,25 @@ else
                                 
                                 <td>
                             <!--<a href="read.php?viewid=<?php echo htmlentities ($row['id']);?>" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>-->
-                            <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                            <!-- <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a> -->
                             <a href="../../fdpadmins/competitive_exams/exams/<?php echo $row['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
 							<!-- <a href="uploadsfrontit/<?php echo $row['pdffile2']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a> -->
-                            <a class="delete btn-danger deletebtn" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-							
+                            <!-- <a class="delete btn-danger deletebtn" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+							 -->
                             
                             
                             <!-- <button class="btn"><i class="fa fa-download"></i> Download</button> -->
-                        </td>
+                            <?php if ($status != "approved") { // If STATUS is not "approved", show the edit and delete buttons ?>
+                        <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip" <?php echo $is_disabled ?>>
+                            <i class="material-icons">&#xE254;</i>
+                        </a>
+
+                        <a class="delete btn-danger deletebtn" title="Delete" data-toggle="tooltip" <?php echo $is_disabled ?>>
+                            <i class="material-icons">&#xE872;</i>
+                        </a>
+                    <?php } ?>
+                            </td>
+                        <td> <?php echo $row['STATUS']; ?> </td>
                     </tr> 
                     <tbody>
                     <?php 
@@ -507,7 +530,7 @@ else
                 //chnage this keep same variable as above
                 $('#update_id').val(data[0]);
                 $('#Year').val(data[1]);
-                $('#Department').val(data[2]);
+                $('#Branch').val(data[2]);
                 $('#Registration_number').val(data[3]);
                 $('#Name_of_student').val(data[4]);
                 $('#Name_of_exam').val(data[5]);

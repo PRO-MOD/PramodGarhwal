@@ -1,11 +1,21 @@
 <?php
-session_start();
 include('../../config.php');
+session_start();
+$user = $_SESSION["role"];
+$result = "SELECT * FROM fdpadmins WHERE username = '$user'";
+$query = mysqli_query($connection, $result);
+$queryresult = mysqli_num_rows($query); 
+if ($queryresult > 0) {
+    while ($row = mysqli_fetch_assoc($query)) {
+        $id = $row['id'];
+        $branch = $row['branch']; // Retrieve the branch information from the database
+    }
+}
 
 if(isset($_POST['insertdata']))
 {
     $Academic_year = $_POST['Academic_year'];
-    $Branch = $_POST['Branch'];
+    // $Branch = $_POST['Branch'];
     $Title_Of_Program = $_POST['Title_Of_Program'];
     $Approving_Body = $_POST['Approving_Body'];
     $Grant_Amount = $_POST['Grant_Amount'];
@@ -16,15 +26,16 @@ if(isset($_POST['insertdata']))
     $No_Of_Participants = $_POST['No_Of_Participants'];
     $pdffile = $_FILES['pdffile']['name'];
     $file_tmp = $_FILES['pdffile']['tmp_name'];
+    $user_id = $_POST['user_id'];
     
 
     move_uploaded_file($file_tmp,"uploadsfdporganised/$pdffile");
 
     $query = "INSERT INTO fdpsttporganised
     (`Academic_year`, `Branch`, `Title_Of_Program`, `Approving_Body`, `Grant_Amount`, `Convener_Of_FDP_STTP`,
-	`Dates_From`, `Dates_To`, `Total_No_Of_Days`, `No_Of_Participants`, `pdffile`,`STATUS`) 
-    VALUES ('$Academic_year', '$Branch', '$Title_Of_Program', '$Approving_Body', '$Grant_Amount', '$Convener_Of_FDP_STTP',
-	'$Dates_From', '$Dates_To', '$Total_No_Of_Days', '$No_Of_Participants', '$pdffile','PENDING')";
+	`Dates_From`, `Dates_To`, `Total_No_Of_Days`, `No_Of_Participants`, `pdffile`,`user_id`,`STATUS`) 
+    VALUES ('$Academic_year', '$branch', '$Title_Of_Program', '$Approving_Body', '$Grant_Amount', '$Convener_Of_FDP_STTP',
+	'$Dates_From', '$Dates_To', '$Total_No_Of_Days', '$No_Of_Participants', '$pdffile','$id','PENDING')";
 
     
     $query_run = mysqli_query($connection, $query);
