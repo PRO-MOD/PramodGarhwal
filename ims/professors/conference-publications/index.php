@@ -60,16 +60,22 @@ session_start();
                         </div>
 
                         <div class="form-group">
-                            <label>Branch</label>
-                            <select name="Branch" class="form-control" required>
-                                <option name="Branch" value="IT">IT</option>
-                                <option name="Branch" value="EXTC">EXTC</option>
-                                <option name="Branch" value="Mechanical">Mechanical</option>
-                                <option name="Branch" value="Computers">Computers</option>
-                                <option name="Branch" value="Electrical">Electrical</option>
-                                <option name="Branch" value="Humanities">Humanities</option>
-                            </select>
-                        </div>
+    <label>Branch</label>
+    <select name="Branch" class="form-control" required disabled>
+        <option value="">--Select Department--</option>
+        <?php
+        // Retrieve the department information from the session or any other method
+        $branch = $_SESSION['branch']; 
+
+       $branches = array("IT", "EXTC", "Mechanical", "Computers", "Electrical", "Humanities");
+foreach ($branches as $branchOption) {
+    $selected = ($branchOption == $branch) ? 'selected="selected"' : '';
+    echo '<option value="' . $branchOption . '" ' . $selected . '>' . $branchOption . '</option>';
+}
+
+        ?>
+    </select>
+</div>
 
                         <div class="form-group">
                             <label> Name of the Teacher </label>
@@ -348,6 +354,7 @@ session_start();
                                 <th scope="col"> TA RECEIVED FROM FRCIT </th>
                                 
                                 <th scope="col"> ACTION </th>
+                                <th scope="col"> STATUS </th>
                                
                             </tr>
                         </thead>
@@ -366,7 +373,7 @@ session_start();
                                 }  
                             }
 
-                        $table_query = "SELECT * FROM conferencepublication WHERE id=$id";  
+                        $table_query = "SELECT * FROM conferencepublication WHERE user_id=$id";  
                         $query_run = mysqli_query($connection, $table_query);
                         $query_result = mysqli_num_rows($query_run); ?>
 
@@ -375,6 +382,11 @@ session_start();
                                             ?>
                         <tbody> <!-- change -->
                             <tr>
+                            <?php
+                $status = $developer['Status'];
+                $is_disabled = ($status == "approved") ? "disabled" : "";
+                // If STATUS is "approved", set the $is_disabled variable to "disabled"
+                ?>
 
                                 <td> <?php echo $developer['id']; ?> </td>
 
@@ -396,19 +408,29 @@ session_start();
                                 <td> <?php echo $developer['Conference_Proceedings']; ?> </td>
                                 <td> <?php echo $developer['Registration_Amount']; ?> </td>
                                 <td> <?php echo $developer['TA_Received']; ?> </td>
+                                
                                 <td>
                             <!--<a href="read.php?viewid=<?php echo htmlentities ($developer['id']);?>" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>-->
-                            <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                            <!-- <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a> -->
                             <a href="Paper_Details/<?php echo $developer['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
 							<a href="Conference_Paper/<?php echo $developer['pdffile2']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
                             <a href="Conference_Certificate/<?php echo $developer['pdffile3']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
                             <a href="Application_Letter/<?php echo $developer['pdffile4']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
-                            <a class="delete btn-danger deletebtn" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                            <!-- <a class="delete btn-danger deletebtn" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a> -->
 							
-                            
+                            <?php if ($status != "approved") { // If STATUS is not "approved", show the edit and delete buttons ?>
+                        <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip" <?php echo $is_disabled ?>>
+                            <i class="material-icons">&#xE254;</i>
+                        </a>
+
+                        <a class="delete btn-danger deletebtn" title="Delete" data-toggle="tooltip" <?php echo $is_disabled ?>>
+                            <i class="material-icons">&#xE872;</i>
+                        </a>
+                    <?php } ?>
                             
                             <!-- <button class="btn"><i class="fa fa-download"></i> Download</button> -->
                         </td>
+                        <td> <?php echo $developer['Status']; ?> </td>
                                 <!-- <td>
                                     <button type="button" class="btn btn-success editbtn"> EDIT </button>
                                 </td>
@@ -456,9 +478,22 @@ session_start();
                         </div>
                         
                         <div class="form-group">
-                            <label> Branch/Department Name </label>
-                            <input id='Branch' type="text" name="Branch" class="form-control" placeholder="Enter Title" required>
-                        </div>
+    <label>Branch</label>
+    <select name="Branch" class="form-control" required >
+        <option value="">--Select Department--</option>
+        <?php
+        // Retrieve the department information from the session or any other method
+        $branch = $_SESSION['branch']; 
+
+       $branches = array("IT", "EXTC", "Mechanical", "Computers", "Electrical", "Humanities");
+foreach ($branches as $branchOption) {
+    $selected = ($branchOption == $branch) ? 'selected="selected"' : '';
+    echo '<option value="' . $branchOption . '" ' . $selected . '>' . $branchOption . '</option>';
+}
+
+        ?>
+    </select>
+</div>
 
                         <div class="form-group">
                             <label> Name of the Teacher </label>
@@ -585,7 +620,7 @@ session_start();
     if (isset($_POST["submit"])) {
         $str = mysqli_real_escape_string($connection, $_POST["search"]);
 
-        $sth = "SELECT * FROM `conferencepublication` WHERE id=$id AND (Branch LIKE '%$str%' OR Name_Of_The_Teacher LIKE '%$str%' OR Title_Of_The_Paper LIKE '%$str%' OR Title_Of_The_Proceedings LIKE '%$str%' OR  Name_Of_The_Conference LIKE '%$str%' OR National_Or_International LIKE '%$str%' OR Name_Of_Organizing_Institute LIKE '%$str%' OR Year_Of_Publication LIKE '%$str%' OR ISBN_Or_ISSN_Number LIKE '%$str%' OR Affiliating_Institute LIKE '%$str%' OR Name_Of_Publisher LIKE '%$str%' OR Name_Of_Library LIKE '%$str%' OR Paper_Webinar LIKE '%$str%' OR Conference_Proceedings LIKE '%$str%' OR Registration_Amount LIKE '%$str%' OR TA_Received LIKE '%$str%')";
+        $sth = "SELECT * FROM `conferencepublication` WHERE user_id=$id AND (Branch LIKE '%$str%' OR Name_Of_The_Teacher LIKE '%$str%' OR Title_Of_The_Paper LIKE '%$str%' OR Title_Of_The_Proceedings LIKE '%$str%' OR  Name_Of_The_Conference LIKE '%$str%' OR National_Or_International LIKE '%$str%' OR Name_Of_Organizing_Institute LIKE '%$str%' OR Year_Of_Publication LIKE '%$str%' OR ISBN_Or_ISSN_Number LIKE '%$str%' OR Affiliating_Institute LIKE '%$str%' OR Name_Of_Publisher LIKE '%$str%' OR Name_Of_Library LIKE '%$str%' OR Paper_Webinar LIKE '%$str%' OR Conference_Proceedings LIKE '%$str%' OR Registration_Amount LIKE '%$str%' OR TA_Received LIKE '%$str%')";
         $result = mysqli_query($connection, $sth);
         $queryresult = mysqli_num_rows($result); ?>
 
@@ -601,7 +636,12 @@ session_start();
                     ?>
                     <tbody id="srch"> 
              
-                    <tr>                
+                    <tr>    
+                    <?php
+                $status = $row['STATUS'];
+                $is_disabled = ($status == "approved") ? "disabled" : "";
+                // If STATUS is "approved", set the $is_disabled variable to "disabled"
+                ?>              
                         <td> <?php echo $row['id']; ?> </td>
                         <td> <?php echo $row['Name_Of_The_Teacher']; ?> </td> 
                         <td> <?php echo $row['Branch']; ?> </td>
@@ -623,17 +663,26 @@ session_start();
                         <td> <?php echo $row['TA_Received']; ?> </td>
                         <td>
 
-                            <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                            <!-- <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a> -->
                             <a href="Paper_Details/<?php echo $row['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
 							<a href="Conference_Paper/<?php echo $row['pdffile2']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
                             <a href="Conference_Certificate/<?php echo $row['pdffile3']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
                             <a href="Application_Letter/<?php echo $row['pdffile4']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
-                            <a class="delete btn-danger deletebtn" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                            <!-- <a class="delete btn-danger deletebtn" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a> -->
 							
                             
-                            
+                            <?php if ($status != "approved") { // If STATUS is not "approved", show the edit and delete buttons ?>
+                        <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip" <?php echo $is_disabled ?>>
+                            <i class="material-icons">&#xE254;</i>
+                        </a>
+
+                        <a class="delete btn-danger deletebtn" title="Delete" data-toggle="tooltip" <?php echo $is_disabled ?>>
+                            <i class="material-icons">&#xE872;</i>
+                        </a>
+                    <?php } ?>
                             <!-- <button class="btn"><i class="fa fa-download"></i> Download</button> -->
                         </td>
+                        <td> <?php echo $row['STATUS']; ?> </td>
                     </tr> 
                     <tbody>
                     <?php 

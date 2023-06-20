@@ -10,34 +10,33 @@ $queryresult = mysqli_num_rows($query);
             $id = $row['id'];
         }  
     }
-
+#w
     if(isset($_POST['updatedata']))
     {   
         $id = $_POST['update_id'];
        
-        $Year = $_POST['Year'];
-        $Branch = $_POST['Branch'];
-        $Workshop= $_POST['Workshop'];
-        $Coordinator = $_POST['Coordinator'];
-        $Title = $_POST['Title'];
-        $Category = $_POST['Category'];
-        $Others = $_POST['Others'];
-        $Participants = $_POST['Participants'];
-        $Startingdate = $_POST['Startingdate'];
-        $Endingdate = $_POST['Endingdate'];
-        $pdffile1 = $_FILES['pdffile1']['name1'];
-        $file_tmp1 = $_FILES['pdffile1']['tmp_name1'];
+        $year_held = $_POST['year_held'];
+        $workshop_seminar = $_POST['workshop'];
+        $coordinator = $_POST['coordinator'];
+        $title = $_POST['title'];
+        $category = $_POST['category'];
+        $others = $_POST['others'];
+        $no_of_participants = $_POST['no_of_participants'];
+        $starting_date = $_POST['starting_date'];
+        $ending_date = $_POST['ending_date'];
+        $pdffile1 = $_FILES['pdffile1']['name'];
+        $file_tmp1 = $_FILES['pdffile1']['tmp_name'];
 		// $pdffile2 = $_FILES['pdffile2']['name2'];
         // $file_tmp2 = $_FILES['pdffile2']['tmp_name2'];
 
-        move_uploaded_file($file_tmp1,"uploadsindexit/$pdffile1");
+        move_uploaded_file($file_tmp1,"uploads/$pdffile1");
 		// move_uploaded_file($file_tmp2,"uploadsfrontit/$pdffile2");
         
  
-            $query = "UPDATE workshops SET Year = '$Year', Branch = '$Branch', 
-        Workshop = '$Workshop', Coordinator = '$Coordinator', Title = '$Title', 
-        Category = '$Category', Others = '$Others', Participants = '$Participants', 
-        Startingdate = '$Startingdate',Endingdate = '$Endingdate' ";
+            $query = "UPDATE workshops SET year_held = '$year_held', 
+        workshop_seminar = '$workshop_seminar', coordinator = '$coordinator', title = '$title', 
+        category = '$category', others = '$others', no_of_participants = '$no_of_participants', 
+        starting_date = '$starting_date',ending_date = '$ending_date' ";
 
         $query_run = mysqli_query($connection, $query);
         

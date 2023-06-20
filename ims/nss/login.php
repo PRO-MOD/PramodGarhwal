@@ -10,7 +10,7 @@
         $branch = $_POST['branch'];
         $password= sha1($password);
 
-        $sql = "SELECT * FROM fdpadmins WHERE username=? AND password=? AND branch=?";
+        $sql = "SELECT * FROM nss WHERE username=? AND password=? AND branch=?";
         $stmt = $connection->prepare($sql);
         $stmt->bind_param("sss",$username,$password,$branch);
         $stmt->execute();

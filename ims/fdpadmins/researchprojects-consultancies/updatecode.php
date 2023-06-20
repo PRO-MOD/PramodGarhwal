@@ -2,7 +2,7 @@
 include('../../config.php');
 $user = $_SESSION["role"];
 
-$result = "SELECT * FROM ecell WHERE username = '$user'";
+$result = "SELECT * FROM fdpadmins WHERE username = '$user'";
 $query = mysqli_query($connection, $result);
 $queryresult = mysqli_num_rows($query); 
     if($queryresult > 0){

@@ -10,7 +10,7 @@
         $password = $_POST['password'];
         $password= sha1($password);
 
-        $sql = "SELECT * FROM clubs WHERE username=? AND password=?";
+        $sql = "SELECT * FROM placementcell WHERE username=? AND password=?";
         $stmt = $connection->prepare($sql);
         $stmt->bind_param("ss",$username,$password);
         $stmt->execute();
