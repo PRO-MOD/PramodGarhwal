@@ -56,6 +56,7 @@
         </div>
       </div>
     </div>
+
     <div class="card">
       <div class="box">
         <div class="content">
@@ -65,7 +66,61 @@
         </div>
       </div>
     </div>
+<<<<<<< Updated upstream
         
+=======
+
+    <div class="card">
+      <div class="box">
+        <div class="content">
+          <h4>CERTIFICATE PROGRAMS</h4>
+          <p>conducted by dept.</p>
+          <a href="certificate-programs/index.php">Go to Criteria</a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="card">
+      <div class="box">
+        <div class="content">
+          <h4>OUTREACH PROGRAMS</h4>
+          <p>conducted by dept.</p>
+          <a href="outreach/index.php">Go to Criteria</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="box">
+        <div class="content">
+          <h4>WORKSHOP/SEMINARS</h4>
+          <p>conducted by dept</p>
+          <a href="workshop/index.php">Go to Criteria</a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="card">
+      <div class="box">
+        <div class="content">
+          <h4>STUDENT ACHIEVEMENT ACTIVITIES</h4>
+          <p> conducted by dept </p>
+          <a href="student_achievement_activities/index.php">Go to Criteria</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="box">
+        <div class="content">
+          <h4> STUDENT COURSES AND WORKSHOPS </h4>
+          <p> conducted by dept </p>
+          <a href="student_courses_workshops/index.php">Go to Criteria</a>
+        </div>
+      </div>
+    </div>
+
+>>>>>>> Stashed changes
   <?php include('../header.php'); ?>  
   </body>
 </html>
