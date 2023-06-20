@@ -2,16 +2,16 @@
 include('../../config.php');
 session_start();
 ?>
+
 <!DOCTYPE html> 
 
 <html lang="en">
 
-<!-- Giitbygby -->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title> FDP / STTP </title>
+    <title> Certificate programs </title>
 
     <link rel="stylesheet" href="styles.css">
     
@@ -29,10 +29,11 @@ session_start();
 
 <body>
 
-<?php include('../../header.php'); ?>
+
+    <?php include('../../header.php'); ?>
 
  <!-- main card -->
- <!-- buttons and search buttoncard -->
+ <!-- buttons and search buttoncard --->
             <div class="card">
                 <div class="card-body">
                 <?php 
@@ -44,13 +45,12 @@ session_start();
                 ?>
 
             <div class="card-body mt-5">
-                <h2> FDP / STTP Organised </h2>
+                <h2> Outreach Program </h2>
             </div>
             <div class="card">
                 <div class="card-body btn-group">
-                
             <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">					
-				<button type="submit" onclick="exportTableToCSVuser('USerData_BookChapters.csv')" class="btn btn-success">Export to excel</button>
+				<button type="submit" onclick="exportTableToCSVuser('USerData_Certificate_programs.csv')" class="btn btn-success">Export to excel</button>
 			</form> &nbsp; &nbsp; 
         
             <form method="post">
@@ -69,13 +69,15 @@ session_start();
                         <thead>
                             <tr>
                             <th scope="col"> ID </th>
-                                <th scope="col"> Year</th>
-                                <th scope="col"> Department</th>
-                                <th scope="col"> Guidance for Career Councelling/Competitive exam </th>
-                                <th scope="col"> Name/title of the Activity </th>
-                                <th scope="col"> Number of students attended / participated </th>
+                                <th scope="col"> NAME OF ACTIVITY </th>
+                                <th scope="col"> ORGANIZING UNIT/AGENCY/COLLABORATING AGENCY </th>
+                                <th scope="col"> NAME OF THE COORDINATORS </th>
+                                <th scope="col"> NAME OF THE SCHEME</th>
+                                <th scope="col"> DATE/ DATES CONDUCTED </th>
+                                <th scope="col"> YEAR OF THE ACTIVITY</th>
+								<th scope="col"> NUMBER OF STUDENT VOLUNTEERS FOR THE ACTIVITY </th>
+                                <th scope="col"> NUMBER OF PEOPLE BENEFITTED BY THE ACTIVITY </th>
                                 <th scope="col"> ACTION </th>
-                                <th scope="col"> STATUS </th>
                                
                             </tr>
                         </thead>
@@ -83,18 +85,18 @@ session_start();
                         <?php
                         $user = $_SESSION["role"];
                         
-                        $result = "SELECT * FROM branchadmins WHERE username = '$user'";
+                        $result = "SELECT * FROM superadmin WHERE username = '$user'";
 
                         $query = mysqli_query($connection, $result);
                         $queryresult = mysqli_num_rows($query); 
                             if($queryresult > 0){
                                 while($row = mysqli_fetch_assoc($query)){ 
                                     $id = $row['id'];
-                                    $branch = $row['branch'];
                                 }  
                             }
 
-                        $table_query = "SELECT * FROM career_guidance WHERE branch LIKE '%$branch%' ORDER BY id ASC";  
+
+                        $table_query = "SELECT * FROM outreachprogram where STATUS = 'approved' ORDER BY id ASC";
                         $query_run = mysqli_query($connection, $table_query);
                         $query_result = mysqli_num_rows($query_run); ?>
 
@@ -103,36 +105,39 @@ session_start();
                                             ?>
                         <tbody> <!-- change -->
                             <tr>
-                                
-                                <td><?php echo $developer['id']; ?> </td>
-                                <td> <?php echo $developer['career_year']; ?> </td>
-                                <td> <?php echo $developer['branch']; ?> </td> 
-                                <td> <?php echo $developer['guidance_career']; ?> </td>
-                                <td> <?php echo $developer['title']; ?> </td>
-                                <td> <?php echo $developer['students_attended']; ?> </td>
+                            <td> <?php echo $developer['id']; ?> </td>
+                                <td> <?php echo $developer['Name_of_Activity']; ?> </td> 
+                                <td> <?php echo $developer['Organizing_Unit']; ?> </td>
+                                <td> <?php echo $developer['Name_of_Coordinators']; ?> </td>
+                                <td> <?php echo $developer['Name_of_Scheme']; ?> </td>
+                                <td> <?php echo $developer['Dates_Conducted']; ?> </td>
+                                <td> <?php echo $developer['Year_of_Activity']; ?> </td>
+                                <td> <?php echo $developer['No_of_Student_Volunteer_for_Activity']; ?> </td>
+                                <td> <?php echo $developer['No_of_People_benefitted_by_Activity']; ?> </td>
+                               
                                 <td>
-                                <a href="../../professors/fdp-sttp/uploadsfdporganised/<?php echo $developer['pdffile']; ?>" class="download" title="Download" data-toggle="tooltip">
-                            <i class="fa fa-download"></i>
-                        </a>
-                        <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                        <a class="delete btn-danger deletebtn" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-                    </td>
-                    <td>
-                        <?php if($developer['STATUS'] == 'PENDING'){ ?>
-                            <form method="POST" action="approved.php">
-                                <input type="hidden" name="id" value="<?php echo $developer['id']; ?>">
-                                <input type="submit" name="approve" value="Approve">
-                                <input type="submit" name="delete" value="Delete">
-                            </form>
-                        <?php } else { ?>
-                            <?php echo $developer['STATUS']; ?>
-                        <?php } ?>
-                    </td>
-                </tr>
-            </tbody>
+
+
+                                <!-- <a href="../../branchadmins/certificates/reports/<?php echo $developer['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a> -->
+							    <!-- <a href="../../professors/book-chapters/uploadsfrontit/<?php echo $developer['pdffile2']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a> -->
+                            <!--<a href="read.php?viewid=<?php echo htmlentities ($developer['id']);?>" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>-->
+                            <a href="Reports/<?php echo $developer['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+							<!-- <a href="uploadsfrontit/<?php echo $developer['pdffile2']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a> -->
+							
+                            
+                            
+                            <!-- <button class="btn"><i class="fa fa-download"></i> Download</button> -->
+                        </td>
+                                <!-- <td>
+                                    <button type="button" class="btn btn-success editbtn"> EDIT </button>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-danger deletebtn"> DELETE </button>
+                                </td> -->
+                            </tr>
+                        </tbody>
                         <?php           
                     }
-                    
                 }
                 else 
                 {
@@ -140,14 +145,6 @@ session_start();
                 }
             ?>
                     </table>
-
-            <?php
-            if(isset($_POST['approve'])){
-                $id=$_POST['id'];
-                $select = "UPDATE career_guidance SET STATUS ='APPROVED' WHERE id='$id'";
-                $result=mysqli_query($conn,$select);
-                header(("location:index.php"));
-            }?>
             
         </div> 
     </div>
@@ -160,24 +157,24 @@ session_start();
                     <table class="table table-bordered ">
                     <thead>
                         <tr>
-                            <th> ID </th> 
-                            <th> YEAR </th>
-                            <th> Branch </th>
-                            <th> TITLE </th>
-                            <th> APPROVING BODY </th>
-                            <th> GRANT AMOUNT </th>
-                            <th> CONVENER </th>
-                            <th> FROM DATE </th>
-                            <th> END DATE </th>
-                            <th> NO OF DAYS </th>
-                            <th> PARTICIPANTS</th>
+                        <th> ID </th> 
+                            <th> NAME OF ACTIVITY </th>
+                            <th> ORGANIZING UNIT/ AGENCY/ COLLABORATING AGENCY</th>
+                            <th> NAME OF THE COORDINATORS </th>
+                            <th> NAME OF THE SCHEME </th>
+                            <th> DATE/ DATES CONDUCTED </th>
+                            <th> YEAR OF THE ACTIVITY</th>
+                            <th> NUMBER OF THE STUDENT VOLUNTEERS FOR THE ACTIVITY </th>
+                            <th> NUMBER OF PEOPLE BENEFITTED BY THE ACTIVITY </th>
+                            <th> ACTION </th>
                         </tr>
                     <thead>       
 <?php 
     if (isset($_POST["submit"])) {
         $str = mysqli_real_escape_string($connection, $_POST["search"]);
 
-        $sth = "SELECT * FROM `fdpsttporganised` WHERE Branch LIKE '%$branch%' AND (Academic_year LIKE '%$str%' OR Approving_Body LIKE '%$str%' OR Title_Of_Program LIKE '%$str%' OR Convener_Of_FDP_STTP LIKE '%$str%')";
+        $sth = "SELECT * FROM `outreachprogram` WHERE user_id=$id AND (Name_of_Activity LIKE '%$str%' OR Organizing_Unit LIKE '%$str%' OR Name_of_Coordinators LIKE '%$str%' OR Name_of_Scheme LIKE '%$str%' OR Others LIKE '%$str%' OR Dates_Conducted LIKE '$str' OR Year_of_Activity LIKE '%$str%' OR No_of_Student_Volunteer_for_Activity LIKE '%$str%' OR No_of_People_benefitted_by_Activity LIKE '%$str%') ";
+        
         $result = mysqli_query($connection, $sth);
         $queryresult = mysqli_num_rows($result); ?>
 
@@ -194,21 +191,20 @@ session_start();
                     <tbody id="srch"> 
              
                     <tr>                
-                        <td> <?php echo $row['id']; ?> </td>
-                        <td> <?php echo $row['Academic_year']; ?> </td> 
-                        <td> <?php echo $row['Branch']; ?> </td> 
-                        <td> <?php echo $row['Title_Of_Program']; ?> </td>
-                        <td> <?php echo $row['Approving_Body']; ?> </td>
-                        <td> <?php echo $row['Grant_Amount']; ?> </td>
-                        <td> <?php echo $row['Convener_Of_FDP_STTP']; ?> </td>
-                        <td> <?php echo $row['Dates_From']; ?> </td>
-                        <td> <?php echo $row['Dates_To']; ?> </td>
-                        <td> <?php echo $row['Total_No_Of_Days']; ?> </td>
-                        <td> <?php echo $row['No_Of_Participants']; ?> </td>
+                    <td> <?php echo $row['id']; ?> </td>
+                        <td> <?php echo $row['Name_of_Activity']; ?> </td> 
+                        <td> <?php echo $row['Organizing_Unit']; ?> </td>
+                        <td> <?php echo $row['Name_of_Coordinators']; ?> </td>
+                        <td> <?php echo $row['Name_of_Scheme']; ?> </td>
+                        <td> <?php echo $row['Dates_Conducted']; ?> </td>
+                        <td> <?php echo $row['Year_of_Activity']; ?> </td>
+                        <td> <?php echo $row['No_of_Student_Volunteer_for_Activity']; ?> </td>
+                        <td> <?php echo $row['No_of_People_benefitted_by_Activity']; ?> </td>
                         <td>
-
-                            <a href="../../professors/fdp-sttp/<?php echo $row['pdffile']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
-                           
+                         <a href="Reports/<?php echo $row['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+                            <!--<a href="read.php?viewid=<?php echo htmlentities ($developer['id']);?>" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>-->
+                            <!-- <a href="reports/<?php echo $row['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a> -->
+							<!-- <a href="uploadsfrontextc/<?php echo $developer['pdffile2']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a> -->
 							
                             
                             
@@ -284,15 +280,16 @@ session_start();
                 console.log(data);
                 //chnage this keep same variable as above
                 $('#update_id').val(data[0]);
-                $('#Academic_year').val(data[1]);
-                $('#Branch').val(data[2]);
-                $('#Title_Of_Program').val(data[3]);
-                $('#Approving_Body').val(data[4]);
-                $('#Grant_Amount').val(data[5]);
-                $('#Convener_Of_FDP_STTP').val(data[6]);
-                $('#Dates_From').val(data[7]);
-                $('#Dates_To').val(data[8]);
-                $('#No_Of_Participants').val(data[9]);
+                $('#Name_Of_Activity').val(data[1]);
+                $('#Organizing_Unit').val(data[2]);
+                $('#Name_of_Coordinators').val(data[3]);
+                $('#Name_of_Scheme').val(data[4]);
+             
+                $('#Dates_Conducted').val(data[5]);
+                $('#Year_of_Activity').val(data[6]);
+                $('#No_of_Student_Volunteer_for_Activity').val(data[7]);
+                $('#No_of_People_benefitted_by_Activity').val(data[8]);
+                $('#pdffile1').val(data[9]);
             });
         });
     </script>

@@ -32,7 +32,7 @@
         <div class="content">
           <h4>CONFERENCE PUBLICATION</h4>
           <p>details</p>
-          <a href="fdp-sttp/index.php">Go to Criteria</a>
+          <a href="conference-publications/index.php">Go to Criteria</a>
         </div>
       </div>
     </div>
@@ -76,7 +76,7 @@
         </div>
       </div>
     </div>
-    
+
     <div class="card">
       <div class="box">
         <div class="content">
@@ -96,6 +96,7 @@
         </div>
       </div>
     </div>
+
     
     <div class="card">
       <div class="box">

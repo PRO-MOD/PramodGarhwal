@@ -212,7 +212,7 @@ session_start();
                                 }  
                             }
 
-                        $table_query = "SELECT * FROM higher_studies WHERE id=$id";
+                        $table_query = "SELECT * FROM higher_studies ORDER BY id ASC";
                         
                         $query_run = mysqli_query($connection, $table_query);
                         $query_result = mysqli_num_rows($query_run); ?>
@@ -351,14 +351,15 @@ else
                                 <th> Student Name </th>
                                 <th> Name of the Institute Joined </th>
                                 <th> Name of Program Admitted </th>
-                                <th> Upload Admitcard & Idcard </th>   
+                                <th> Upload Admitcard & Idcard </th>
+                                <th> STATUS </th>   
                             </tr>
                         </thead>       
 <?php 
     if (isset($_POST["submit"])) {
         $str = mysqli_real_escape_string($connection, $_POST["search"]);
 
-        $sth = "SELECT * FROM `higher_studies` WHERE user_id=$id AND (year LIKE '%$str%' OR graduation_program LIKE '%$str%' OR student_name LIKE '%$str%' OR institute_name_joined LIKE '%$str%' OR program_name_admitted LIKE '%$str%') ";
+        $sth = "SELECT * FROM `higher_studies`  (year LIKE '%$str%' OR graduation_program LIKE '%$str%' OR student_name LIKE '%$str%' OR institute_name_joined LIKE '%$str%' OR program_name_admitted LIKE '%$str%' OR STATUS LIKE '%$str') ";
         
         $result = mysqli_query($connection, $sth);
         $queryresult = mysqli_num_rows($result); ?>
@@ -375,7 +376,12 @@ else
                     ?>
                     <tbody id="srch"> 
              
-                    <tr>                
+                    <tr>
+                    <?php
+                $status = $row['STATUS'];
+                $is_disabled = ($status == "approved") ? "disabled" : "";
+                // If STATUS is "approved", set the $is_disabled variable to "disabled"
+                ?>                
                         <td> <?php echo $row['id']; ?> </td>
                                 <td> <?php echo $row['year']; ?> </td> 
                                 <td> <?php echo $row['graduation_program']; ?> </td>
@@ -387,8 +393,17 @@ else
                             <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
                             <a href="reports/<?php echo $row['upload_admitcard_idcard']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
 							<!-- <a href="uploadsfrontit/<?php echo $row['pdffile2']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a> -->
-                            <a class="delete btn-danger deletebtn" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-							<!-- <button class="btn"><i class="fa fa-download"></i> Download</button> -->
+                            <?php if ($status != "approved") { // If STATUS is not "approved", show the edit and delete buttons ?>
+                        <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip" <?php echo $is_disabled ?>>
+                            <i class="material-icons">&#xE254;</i>
+                        </a>
+
+                        <a class="delete btn-danger deletebtn" title="Delete" data-toggle="tooltip" <?php echo $is_disabled ?>>
+                            <i class="material-icons">&#xE872;</i>
+                        </a>
+                    <?php } ?>
+                            </td>
+                        <td> <?php echo $row['STATUS']; ?> </td>
                         </td>
                     </tr> 
                     <tbody>

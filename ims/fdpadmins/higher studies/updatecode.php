@@ -27,7 +27,7 @@ $queryresult = mysqli_num_rows($query);
 		// move_uploaded_file($file_tmp2,"uploadsfrontit/$pdffile2");
         
         $query = "UPDATE higher_studies SET graduation_program = '$graduation_program', student_name = '$student_name', 
-        institute_name_joined = '$institute_name_joined', program_name_admitted = '$program_name_admitted', year = '$year', WHERE id='$id'  ";
+        institute_name_joined = '$institute_name_joined', program_name_admitted = '$program_name_admitted', year = '$year' WHERE id='$id'";
 
         $query_run = mysqli_query($connection, $query);
         
