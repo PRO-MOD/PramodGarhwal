@@ -6,12 +6,11 @@ session_start();
 
 <html lang="en">
 
-<!-- Giitbygby -->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title> Higher Studies </title>
+    <title>Student Higher Studies</title>
 
     <link rel="stylesheet" href="styles.css">
     
@@ -29,7 +28,135 @@ session_start();
 
 <body>
 
-<?php include('../../header.php'); ?>
+
+    <?php include('../../header.php'); ?>
+
+    <!-- Modal -->
+    <!-- this is add data form Make changes to variables, keep same variables -->
+    <div class="modal fade mt-2" id="studentaddmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Data </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <form action="insertcode.php" method="POST" enctype="multipart/form-data" >
+
+                    <div class="modal-body">
+
+                        <div class="form-group">
+                        <label>Year</label>
+                            <select name="year" class="form-control" required>
+                                <option value="">--Select Year--</option>
+                                <option name="year" value="2017-18">2017-18</option>
+                                <option name="year" value="2018-19">2018-19</option>
+                                <option name="year" value="2019-20">2019-20</option>
+                                <option name="year" value="2020-21">2020-21</option>
+                                <option name="year" value="2021-22">2021-22</option>
+                                <option name="year" value="2021-22">2022-23</option>
+                            </select>
+                        </div>
+
+                    
+                        <div class="form-group">
+                        <label>Graduation Program</label>
+                            <select name="graduation_program" class="form-control" required>
+                                <option value="">--Select Department--</option>
+                                <option name="graduation_program" value="IT">IT</option>
+                                <option name="graduation_program" value="EXTC">EXTC</option>
+                                <option name="graduation_program" value="Mechanical">Mechanical</option>
+                                <option name="graduation_program" value="Computers">Computers</option>
+                                <option name="graduation_program" value="Electrical">Electrical</option>
+                                <option name="graduation_program" value="Humanities">Humanities</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                         <label> Student Name </label>
+                            <input type="text" name="student_name" class="form-control" placeholder="Enter Student name" required>
+                        </div>
+
+                        <div class="form-group">
+                         <label> Name of the Institute Joined </label>
+                            <input type="text" name="institute_name_joined" id="institute_name_joined" class="form-control" placeholder="institute_name_joined" required>
+                        </div>
+
+                        <div class="form-group">
+                         <label> Name of Program admitted </label>
+                            <input type="text" name="program_name_admitted" class="form-control" placeholder="program_name_admitted">
+                        </div>
+
+                       
+
+                        
+                        <div class="form-group">
+                            <label> Upload Admitcard & Idcard </label>
+                            <input type="file" name="upload_admitcard_idcard" id="upload_admitcard_idcard" required/><br>
+                                    <img src="" id="pdf-file1-tag" width="100px" />
+
+                                    <script type="text/javascript">
+                                        function readURL(input) {
+                                            if (input.files && input.files[0]) {
+                                                var reader = new FileReader();
+                                                
+                                                reader.onload = function (e) {
+                                                    $('#pdf-file1-tag').attr('src', e.target.result);
+                                                }
+                                                reader.readAsDataURL(input.files[0]);
+                                            }
+                                        }
+                                        $("#pdffile1").change(function(){
+                                            readURL(this);
+                                        });
+                                    </script><br>
+						</div>
+                        		
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" id="insertbutton" name="insertdata" class="btn btn-primary" onClick="datechecker() ">Save Data</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- DELETE POP UP FORM  -->
+    <!-- dont make changes-->
+    <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"> Delete Student Data </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <form action="deletecode.php" method="POST">
+
+                    <div class="modal-body">
+
+                        <input type="hidden" name="delete_id" id="delete_id">
+
+                        <h4> Do you want to Delete this Data ??</h4>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"> NO </button>
+                        <button type="submit" name="deletedata" class="btn btn-primary"> Yes, Delete it. </button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
 
  <!-- main card -->
  <!-- buttons and search buttoncard -->
@@ -44,11 +171,14 @@ session_start();
                 ?>
 
             <div class="card-body mt-5">
-                <h2> Higher Studies </h2>
+                <h2>Higher Studies</h2>
             </div>
             <div class="card">
                 <div class="card-body btn-group">
-                
+                <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
+                    
+            </form> &nbsp;
+
             <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">					
 				<button type="submit" onclick="exportTableToCSVuser('USerData_BookChapters.csv')" class="btn btn-success">Export to excel</button>
 			</form> &nbsp; &nbsp; 
@@ -74,27 +204,28 @@ session_start();
                                 <th scope="col"> Name of the Institute Joined </th>
                                 <th scope="col"> Name of Program Admitted </th>
                                 <th scope="col"> Upload Admitcard & Idcard </th>
-                                <th scope="col"> STATUS </th>
+                                <th scope="col"> Action </th>
+                                
+                               
                             </tr>
                         </thead>
                         
                         <?php
                         $user = $_SESSION["role"];
                         
-                        $result = "SELECT * FROM branchadmins WHERE username = '$user'";
+                        $result = "SELECT * FROM fdpadmins WHERE username = '$user'";
 
                         $query = mysqli_query($connection, $result);
                         $queryresult = mysqli_num_rows($query); 
                             if($queryresult > 0){
                                 while($row = mysqli_fetch_assoc($query)){ 
                                     $id = $row['id'];
-                                    $branch = $row['branch'];
                                 }  
                             }
 
-                        
-                            $table_query = "SELECT * FROM higher_studies ORDER BY id ASC";
-                            $query_run = mysqli_query($connection, $table_query);
+
+                        $table_query = "SELECT * FROM higher_studies where STATUS= 'approved' ORDER BY id ASC";
+                        $query_run = mysqli_query($connection, $table_query);
                         $query_result = mysqli_num_rows($query_run); ?>
 
                         <?php if($query_result > 0){
@@ -102,7 +233,14 @@ session_start();
                                             ?>
                         <tbody> <!-- change -->
                             <tr>
-                            <td> <?php echo $developer['year']; ?> </td>
+                                <!-- table columns -->
+                <?php
+                $status = $developer['STATUS'];
+                $is_disabled = ($status == "approved") ? "disabled" : "";
+                // If STATUS is "approved", set the $is_disabled variable to "disabled"
+                ?>
+                                <td> <?php echo $developer['id']; ?> </td> 
+                                <td> <?php echo $developer['year']; ?> </td>
                                 <td> <?php echo $developer['graduation_program']; ?> </td> 
                                 <td> <?php echo $developer['student_name']; ?> </td>
                                 <td> <?php echo $developer['institute_name_joined']; ?> </td>
@@ -111,35 +249,22 @@ session_start();
                                 <a href="reports/<?php echo $developer['upload_admitcard_idcard']; ?>"  class="download" title="Download" data-toggle="tooltip">
                             <i class="fa fa-download"></i>
                         </a>
+                        <?php if ($status != "approved") { // If STATUS is not "approved", show the edit and delete buttons ?>
+                        <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip" <?php echo $is_disabled ?>>
+                            <i class="material-icons">&#xE254;</i>
+                        </a>
 
-                        <td>
-                                <?php if ($developer['STATUS'] == 'PENDING') { ?>
-                                    <form method="POST" action="approved.php">
-                                        <input type="hidden" name="id" value="<?php echo $developer['id']; ?>">
-                                        <input type="submit" name="approve" value="Approve">
-                                    </form>
-                                    <form method="post" action="reject.php">
-                                        <input type="hidden" name="id" value="<?php echo $developer['id']; ?>">
-                                        <button type="submit" name="reject" class="btn btn-danger">Reject</button>
-                                    </form>
-                                <?php } elseif ($developer['STATUS'] == 'rejected') { ?>
-                                    <?php echo $developer['STATUS']; ?>
-                                    <form method="POST" action="approve-now.php">
-                                        <input type="hidden" name="id" value="<?php echo $developer['id']; ?>">
-                                        <input type="submit" name="approve_now" value="Approve Now">
-                                    </form>
-                                <?php } else { ?>
-                                    <?php echo $developer['STATUS']; ?>
-                                <?php } ?>
-                    </td>
-     
-
-                </tr>
-            </tbody>
-                        <?php         
-
+                        <a class="delete btn-danger deletebtn" title="Delete" data-toggle="tooltip" <?php echo $is_disabled ?>>
+                            <i class="material-icons">&#xE872;</i>
+                        </a>
+                    <?php } ?>
+                        </td>
+                                
+                                
+                            </tr>
+                        </tbody>
+                        <?php           
                     }
-                    
                 }
                 else 
                 {
@@ -147,39 +272,11 @@ session_start();
                 }
             ?>
                     </table>
-
-                    <?php
-        // Approve button logic
-        if (isset($_POST['approve'])) {
-            $id = $_POST['id'];
-            $select = "UPDATE bookschapter SET STATUS ='APPROVED' WHERE id='$id'";
-            $result = mysqli_query($connection, $select);
-            echo "Data Approved";
-            header("Location: index.php");
-        }
-
-        // Reject button logic
-        if (isset($_POST['reject'])) {
-            $id = $_POST['id'];
-            $select = "UPDATE bookschapter SET STATUS ='REJECTED' WHERE id='$id'";
-            $result = mysqli_query($connection, $select);
-            echo "Data Rejected";
-            header("Location: index.php");
-        }
-
-        // Approve Now button logic
-if (isset($_POST['approve_now'])) {
-    $id = $_POST['id'];
-    $select = "UPDATE bookschapter SET STATUS ='APPROVED' WHERE id='$id'";
-    $result = mysqli_query($connection, $select);
-    echo "Data Approved";
-    header("Location: index.php");
-}
-        ?>
             
         </div> 
     </div>
- <!-- EDIT POP UP FORM  -->
+
+    <!-- EDIT POP UP FORM  -->
     <!-- this is edit data form Make changes to variables and placeholder, keep same variables -->
     <div class="modal fade" id="editmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
@@ -274,37 +371,6 @@ if (isset($_POST['approve_now'])) {
             </div>
         </div>
     </div>
-    <!-- DELETE POP UP FORM  -->
-    <!-- dont make changes-->
-    <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel"> Delete Student Data </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-
-                <form action="deletecode.php" method="POST">
-
-                    <div class="modal-body">
-
-                        <input type="hidden" name="delete_id" id="delete_id">
-
-                        <h4> Do you want to Delete this Data ??</h4>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal"> NO </button>
-                        <button type="submit" name="deletedata" class="btn btn-primary"> Yes, Delete it. </button>
-                    </div>
-                </form>
-
-            </div>
-        </div>
-    </div>
-  
 
 <!--Search data -->
 <div id="srch" class="card-body">
@@ -318,21 +384,24 @@ if (isset($_POST['approve_now'])) {
                                 <th> Name of the Institute Joined </th>
                                 <th> Name of Program Admitted </th>
                                 <th> Upload Admitcard & Idcard </th>
-                                <th> STATUS </th> 
+                                <th> Action </th>
+                                
                         </tr>
                     <thead>       
 <?php 
     if (isset($_POST["submit"])) {
         $str = mysqli_real_escape_string($connection, $_POST["search"]);
 
-        $sth = "SELECT * FROM `higher_studies` WHERE  (year LIKE '%$str%' OR graduation_program LIKE '%$str%' OR student_name LIKE '%$str%' OR institute_name_joined LIKE '%$str%' OR program_name_admitted LIKE '%$str%' OR STATUS LIKE '%$str%') ";
-        $result = mysqli_query($connection, $sth);
+        $sth = "SELECT * FROM `higher_studies` WHERE ( graduation_program LIKE '%$str%' OR student_name LIKE '%$str%' OR institute_name_joined LIKE '%$str%' OR program_name_admitted LIKE '%$str%' ) ";
+        
+       
+         $result = mysqli_query($connection, $sth);
         $queryresult = mysqli_num_rows($result); ?>
 
                     <div class="card">
                         <div class="card-body btn-group">
                         <div> Results- </div> &nbsp; &nbsp;
-                        <button class="btn btn-success" onclick="exportTableToCSV('Search_Data.csv')"> Export Data </button>
+                        <button class="btn btn-success" onclick="exportTableToCSV('Search_data.csv')"> Export Data </button>
                         </div>
                     </div>
                     
@@ -341,42 +410,35 @@ if (isset($_POST['approve_now'])) {
                     ?>
                     <tbody id="srch"> 
              
-                    <tr>                
-                    <td> <?php echo $row['id']; ?> </td>
+                    <tr>  
+                    <?php
+                $status = $row['STATUS'];
+                $is_disabled = ($status == "approved") ? "disabled" : "";
+                // If STATUS is "approved", set the $is_disabled variable to "disabled"
+                ?>                
+                        <td> <?php echo $row['id']; ?> </td>
                                 <td> <?php echo $row['year']; ?> </td> 
                                 <td> <?php echo $row['graduation_program']; ?> </td>
                                 <td> <?php echo $row['student_name']; ?> </td>
                                 <td> <?php echo $row['institute_name_joined']; ?> </td>
                                 <td> <?php echo $row['program_name_admitted']; ?> </td>
-                        <td>
+                                <td>
+                            <!--<a href="read.php?viewid=<?php echo htmlentities ($row['id']);?>" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>-->
+                            <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                            <a href="reports/<?php echo $row['upload_admitcard_idcard']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+							<!-- <a href="uploadsfrontit/<?php echo $row['pdffile2']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a> -->
+                            <?php if ($status != "approved") { // If STATUS is not "approved", show the edit and delete buttons ?>
+                        <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip" <?php echo $is_disabled ?>>
+                            <i class="material-icons">&#xE254;</i>
+                        </a>
 
-                        <a href="reports/<?php echo $row['upload_admitcard_idcard']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
-                           
-							
-                            
-                            
-                            <!-- <button class="btn"><i class="fa fa-download"></i> Download</button> -->
-                        </td>
-                        <td>
-                                <?php if ($row['STATUS'] == 'PENDING') { ?>
-                                    <form method="POST" action="approved.php">
-                                        <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
-                                        <input type="submit" name="approve" value="Approve">
-                                    </form>
-                                    <form method="post" action="reject.php">
-                                        <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
-                                        <button type="submit" name="reject" class="btn btn-danger">Reject</button>
-                                    </form>
-                                <?php } elseif ($row['STATUS'] == 'rejected') { ?>
-                                    <?php echo $row['STATUS']; ?>
-                                    <form method="POST" action="approve-now.php">
-                                        <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
-                                        <input type="submit" name="approve_now" value="Approve Now">
-                                    </form>
-                                <?php } else { ?>
-                                    <?php echo $row['STATUS']; ?>
-                                <?php } ?>
+                        <a class="delete btn-danger deletebtn" title="Delete" data-toggle="tooltip" <?php echo $is_disabled ?>>
+                            <i class="material-icons">&#xE872;</i>
+                        </a>
+                    <?php } ?>
                             </td>
+                        
+                        </td>
                     </tr> 
                     <tbody>
                     <?php 
@@ -389,6 +451,7 @@ if (isset($_POST['approve_now'])) {
     ?>
     </table>
     </div>
+
 
 
 
@@ -452,7 +515,7 @@ if (isset($_POST['approve_now'])) {
                 $('#institute_name_joined').val(data[3]);
                 $('#program_name_admitted').val(data[4]);
                 $('#upload_admitcard_idcard').val(data[12]);
-                
+                // $('#pdffile2').val(data[13]);
             });
         });
     </script>
@@ -536,6 +599,7 @@ if (isset($_POST['approve_now'])) {
     downloadCSV(csv.join("\n"), filename);  
     }  
 </script> 
+
 
 </body>
 </html>

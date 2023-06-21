@@ -65,6 +65,15 @@
         </div>
       </div>
     </div>
+    <div class="card">
+      <div class="box">
+        <div class="content">
+          <h4>Higher Studies</h4>
+          <p>Student higher studies</p>
+          <a href="higher studies/index.php">Go to Criteria</a>
+        </div>
+      </div>
+    </div>
         
   <?php include('../header.php'); ?>  
   </body>
