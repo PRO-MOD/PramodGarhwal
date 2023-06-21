@@ -42,7 +42,10 @@ session_start();
                     </button>
                 </div>
 
-                <form action="insertcode.php" method="POST" enctype="multipart/form-data" >
+                <form action="insertcode.php" method="POST" enctype="multipart/form-data">
+
+                    <!-- <div class="modal-body">
+                        <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id']; ?>"> -->
 
                     <div class="modal-body">
 
@@ -65,9 +68,9 @@ session_start();
         <option value="">--Select Department--</option>
         <?php
         // Retrieve the department information from the session or any other method
-        $branch = $_SESSION['branch']; // Modify this based on your code
+        $branch = $_SESSION['branch']; 
 
-       $branches = array("it", "extc", "mechanical", "computer", "electrical", "humanities");
+       $branches = array("IT", "EXTC", "Mechanical", "Computers", "Electrical", "Humanities");
 foreach ($branches as $branchOption) {
     $selected = ($branchOption == $branch) ? 'selected="selected"' : '';
     echo '<option value="' . $branchOption . '" ' . $selected . '>' . $branchOption . '</option>';
@@ -76,7 +79,6 @@ foreach ($branches as $branchOption) {
         ?>
     </select>
 </div>
-
                         <div class="form-group">
                             <label> Title of the professional development program </label>
                             <input type="text" name="Title_Of_Program" class="form-control" placeholder="Enter Title" required>
@@ -205,7 +207,7 @@ foreach ($branches as $branchOption) {
             </form> &nbsp;
 
             <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">					
-				<button type="submit" onclick="exportTableToCSVuser('USerData_BookChapters.csv')" class="btn btn-success">Export to excel</button>
+				<button type="submit" onclick="exportTableToCSVuser('USerData_Fdp-sttp.csv')" class="btn btn-success">Export to excel</button>
 			</form> &nbsp; &nbsp; 
         
             <form method="post">
@@ -252,8 +254,8 @@ foreach ($branches as $branchOption) {
                                     $branch = $row['branch'];
                                 }  
                             }
-
-                        $table_query = "SELECT * FROM fdpsttporganised  ORDER BY id ASC";  
+                        //$user_id = $_POST['user_id'];
+                        $table_query = "SELECT * FROM fdpsttporganised WHERE user_id=$id";  
                         $query_run = mysqli_query($connection, $table_query);
                         $query_result = mysqli_num_rows($query_run); ?>
 
@@ -340,12 +342,29 @@ else
                             <label> Academic Year</label>
                             <input id='Academic_year' type="text" name="Academic_year" class="form-control" placeholder="Enter Title" required>
                         </div>
-                        
                         <div class="form-group">
-                            <label> Branch/Department Name </label>
-                            <input id='Branch' type="text" name="Branch" class="form-control" placeholder="Enter Title" required>
-                        </div>
+    <label>Branch</label>
+    <select name="Branch" class="form-control" required >
+        <option value="">--Select Department--</option>
+        <?php
+        // Retrieve the department information from the session or any other method
+        $branch = $_SESSION['branch']; 
 
+       $branches = array("IT", "EXTC", "Mechanical", "Computers", "Electrical", "Humanities");
+foreach ($branches as $branchOption) {
+    $selected = ($branchOption == $branch) ? 'selected="selected"' : '';
+    echo '<option value="' . $branchOption . '" ' . $selected . '>' . $branchOption . '</option>';
+}
+
+        ?>
+    </select>
+</div>
+
+
+<div class="form-group">
+                            <label> Title of the professional development program </label>
+                            <input type="text" name="Title_Of_Program" class="form-control" placeholder="Enter Title" required>
+                        </div>
                         <div class="form-group">
                             <label> Approving Body </label>
                             <input id="Approving_Body" type="text" name="Approving Body" class="form-control" placeholder="AICTE/ISTE/Others" required>
@@ -412,13 +431,14 @@ else
                             <th> NO OF DAYS </th>
                             <th> PARTICIPANTS</th>
                             <th>Action</th>
+                            <th> STATUS </th>
                         </tr>
                     <thead>       
 <?php 
     if (isset($_POST["submit"])) {
         $str = mysqli_real_escape_string($connection, $_POST["search"]);
 
-        $sth = "SELECT * FROM `fdpsttporganised` WHERE Academic_year LIKE '%$str%' OR Approving_Body LIKE '%$str%' OR Title_Of_Program LIKE '%$str%' OR Convener_Of_FDP_STTP LIKE '%$str%'";
+        $sth = "SELECT * FROM `fdpsttporganised` WHERE user_id=$id AND (Branch LIKE '%$str%' OR Academic_year LIKE '%$str%' OR Approving_Body LIKE '%$str%' OR Title_Of_Program LIKE '%$str%' OR Convener_Of_FDP_STTP LIKE '%$str%'OR STATUS LIKE '$str' ) ";
         $result = mysqli_query($connection, $sth);
         $queryresult = mysqli_num_rows($result); ?>
 
@@ -448,14 +468,24 @@ else
                         <td> <?php echo $row['No_Of_Participants']; ?> </td>
                         <td>
                             <!--<a href="read.php?viewid=<?php echo htmlentities ($developer['id']);?>" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>-->
-                            <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                            <!-- <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a> -->
                             <a href="uploadsfdporganised/<?php echo $row['pdffile']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
-                            <a class="delete btn-danger deletebtn" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                            <!-- <a class="delete btn-danger deletebtn" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a> -->
 							
                             
                             
                             <!-- <button class="btn"><i class="fa fa-download"></i> Download</button> -->
-                        </td>
+                            <?php if ($status != "approved") { // If STATUS is not "approved", show the edit and delete buttons ?>
+                        <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip" <?php echo $is_disabled ?>>
+                            <i class="material-icons">&#xE254;</i>
+                        </a>
+
+                        <a class="delete btn-danger deletebtn" title="Delete" data-toggle="tooltip" <?php echo $is_disabled ?>>
+                            <i class="material-icons">&#xE872;</i>
+                        </a>
+                    <?php } ?>
+                            </td>
+                        <td> <?php echo $row['STATUS']; ?> </td>
                     </tr> 
                     <tbody>
                     <?php 
@@ -535,6 +565,7 @@ else
                 $('#Dates_From').val(data[7]);
                 $('#Dates_To').val(data[8]);
                 $('#No_Of_Participants').val(data[9]);
+                $('#pdffile').val(data[10]);
             });
         });
     </script>

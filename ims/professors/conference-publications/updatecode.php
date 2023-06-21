@@ -8,6 +8,7 @@ $queryresult = mysqli_num_rows($query);
     if($queryresult > 0){
         while($row = mysqli_fetch_assoc($query)){ 
             $id = $row['id'];
+            $branch = $row['branch'];
         }  
     }
 	
@@ -48,7 +49,7 @@ $queryresult = mysqli_num_rows($query);
         move_uploaded_file($file_tmp3,"Conference_Certificate/$pdffile3");
         move_uploaded_file($file_tmp4,"Application_Letter/$pdffile4");
 
-        $query = "UPDATE conferencepublicationextc SET Name_Of_The_Teacher = '$Name_Of_The_Teacher', Branch = '$Branch', 
+        $query = "UPDATE conferencepublication SET Name_Of_The_Teacher = '$Name_Of_The_Teacher', Branch = '$Branch', 
         Title_Of_The_Paper = '$Title_Of_The_Paper', Title_Of_The_Proceedings = '$Title_Of_The_Proceedings', Name_Of_The_Conference = '$Name_Of_The_Conference', 
         National_Or_International = '$National_Or_International',  Name_Of_Organizing_Institute = '$Name_Of_Organizing_Institute',Year_Of_Publication= '$Year_Of_Publication', ISBN_Or_ISSN_Number = '$ISBN_Or_ISSN_Number', 
         Affiliating_Institute = '$Affiliating_Institute',Name_Of_Publisher = '$Name_Of_Publisher',Conference_Date_From = '$Conference_Date_From', Conference_Date_To = '$Conference_Date_To', 

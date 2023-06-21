@@ -1,5 +1,5 @@
 <?php 
-include('../config.php');
+include('../../config.php');
 session_start();
 ?>
 <!DOCTYPE html> 
@@ -82,10 +82,20 @@ session_start();
                             </tr>
                         </thead>
                         
-                        <?php
+                          <?php
                         $user = $_SESSION["role"];
+                        
+                        $result = "SELECT * FROM superadmin WHERE username = '$user'";
 
-                        $table_query = "SELECT * FROM fdpsttporganised";  
+                        $query = mysqli_query($connection, $result);
+                        $queryresult = mysqli_num_rows($query); 
+                            if($queryresult > 0){
+                                while($row = mysqli_fetch_assoc($query)){ 
+                                    $id = $row['id'];
+                                }  
+                            }
+
+                        $table_query = "SELECT * FROM fdpsttporganised WHERE STATUS = 'approved' ORDER BY id ASC";
                         $query_run = mysqli_query($connection, $table_query);
                         $query_result = mysqli_num_rows($query_run); ?>
 
@@ -149,7 +159,7 @@ session_start();
     if (isset($_POST["submit"])) {
         $str = mysqli_real_escape_string($connection, $_POST["search"]);
 
-        $sth = "SELECT * FROM `fdpsttporganised` WHERE Branch LIKE '%$str%' OR Academic_year LIKE '%$str%' OR Approving_Body LIKE '%$str%' OR Title_Of_Program LIKE '%$str%' OR Convener_Of_FDP_STTP LIKE '%$str%' ";
+        $sth = "SELECT * FROM `fdpsttporganised`WHERE STATUS = 'approved' AND( Branch LIKE '%$str%' OR Academic_year LIKE '%$str%' OR Approving_Body LIKE '%$str%' OR Title_Of_Program LIKE '%$str%' OR Convener_Of_FDP_STTP LIKE '%$str%' ";
         $result = mysqli_query($connection, $sth);
         $queryresult = mysqli_num_rows($result); ?>
 

@@ -94,7 +94,7 @@ session_start();
                                 }  
                             }
 
-                        $table_query = "SELECT * FROM career_guidance WHERE branch LIKE '%$branch%' ORDER BY id ASC";  
+                        $table_query = "SELECT * FROM career_guidance WHERE branch LIKE '$branch' ORDER BY id ASC";  
                         $query_run = mysqli_query($connection, $table_query);
                         $query_result = mysqli_num_rows($query_run); ?>
 
@@ -118,41 +118,65 @@ session_start();
                         <a class="delete btn-danger deletebtn" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
                     </td>
                     <td>
-                        <?php if($developer['STATUS'] == 'PENDING'){ ?>
-                            <form method="POST" action="approved.php">
-                                <input type="hidden" name="id" value="<?php echo $developer['id']; ?>">
-                                <input type="submit" name="approve" value="Approve">
-                                <input type="submit" name="delete" value="Delete">
-                            </form>
-                        <?php } else { ?>
-                            <?php echo $developer['STATUS']; ?>
-                        <?php } ?>
-                    </td>
-                </tr>
-            </tbody>
-                        <?php           
-                    }
-                    
+                                <?php if ($developer['STATUS'] == 'PENDING') { ?>
+                                    <form method="POST" action="approved.php">
+                                        <input type="hidden" name="id" value="<?php echo $developer['id']; ?>">
+                                        <input type="submit" name="approve" value="Approve">
+                                    </form>
+                                    <form method="post" action="reject.php">
+                                        <input type="hidden" name="id" value="<?php echo $developer['id']; ?>">
+                                        <button type="submit" name="reject" class="btn btn-danger">Reject</button>
+                                    </form>
+                                <?php } elseif ($developer['STATUS'] == 'rejected') { ?>
+                                    <?php echo $developer['STATUS']; ?>
+                                    <form method="POST" action="approve-now.php">
+                                        <input type="hidden" name="id" value="<?php echo $developer['id']; ?>">
+                                        <input type="submit" name="approve_now" value="Approve Now">
+                                    </form>
+                                <?php } else { ?>
+                                    <?php echo $developer['STATUS']; ?>
+                                <?php } ?>
+                            </td>
+                        </tr>
+                    </tbody>
+                <?php
                 }
-                else 
-                {
-                    echo "No Record Found";
-                }
+            } else {
+                echo "No Record Found";
+            }
             ?>
-                    </table>
+        </table>
 
-            <?php
-            if(isset($_POST['approve'])){
-                $id=$_POST['id'];
-                $select = "UPDATE career_guidance SET STATUS ='APPROVED' WHERE id='$id'";
-                $result=mysqli_query($conn,$select);
-                header(("location:index.php"));
-            }?>
-            
-        </div> 
-    </div>
+        <?php
+        // Approve button logic
+        if (isset($_POST['approve'])) {
+            $id = $_POST['id'];
+            $select = "UPDATE career_guidance SET STATUS ='APPROVED' WHERE id='$id'";
+            $result = mysqli_query($connection, $select);
+            echo "Data Approved";
+            header("Location: index.php");
+        }
 
-  
+        // Reject button logic
+        if (isset($_POST['reject'])) {
+            $id = $_POST['id'];
+            $select = "UPDATE career_guidance SET STATUS ='REJECTED' WHERE id='$id'";
+            $result = mysqli_query($connection, $select);
+            echo "Data Rejected";
+            header("Location: index.php");
+        }
+
+        // Approve Now button logic
+if (isset($_POST['approve_now'])) {
+    $id = $_POST['id'];
+    $select = "UPDATE career_guidance SET STATUS ='APPROVED' WHERE id='$id'";
+    $result = mysqli_query($connection, $select);
+    echo "Data Approved";
+    header("Location: index.php");
+}
+        ?>
+    </div> 
+</div>
 
 <!--Search data -->
 <div id="srch" class="card-body">
@@ -175,7 +199,10 @@ session_start();
     if (isset($_POST["submit"])) {
         $str = mysqli_real_escape_string($connection, $_POST["search"]);
 
-        $sth = "SELECT * FROM `career_guidance` WHERE Branch LIKE '%$branch%' AND (Academic_year LIKE '%$str%' OR Approving_Body LIKE '%$str%' OR Title_Of_Program LIKE '%$str%' OR Convener_Of_FDP_STTP LIKE '%$str%')";
+
+
+        $sth = "SELECT * FROM `career_guidance` WHERE Branch LIKE '$branch' AND (Branch LIKE '%$str%' OR career_year LIKE '%$str%' OR guidance_career LIKE '%$str%' OR title LIKE '%$str%' OR students_attended LIKE '%$str%'OR STATUS LIKE '$str' ) ";
+
         $result = mysqli_query($connection, $sth);
         $queryresult = mysqli_num_rows($result); ?>
 
@@ -192,23 +219,48 @@ session_start();
                     <tbody id="srch"> 
              
                     <tr>                
-                    <td><?php echo $developer['id']; ?> </td>
+                    <td><?php echo $row['id']; ?> </td>
                                 <td> <?php echo $row['career_year']; ?> </td>
                                 <td> <?php echo $row['branch']; ?> </td> 
                                 <td> <?php echo $row['guidance_career']; ?> </td>
                                 <td> <?php echo $row['title']; ?> </td>
                                 <td> <?php echo $row['students_attended']; ?> </td>
                         <td>
-
-                            <a href="../../professors/fdp-sttp/<?php echo $row['pdffile']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+                            
+                        <a href="../../professors/fdp-sttp/<?php echo $row['pdffile']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+                           
+                        <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                        <a class="delete btn-danger deletebtn" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                    
+                    
                            
 							
                             
                             
                             <!-- <button class="btn"><i class="fa fa-download"></i> Download</button> -->
                         </td>
-                    </tr> 
-                    <tbody>
+                        <td>
+                                <?php if ($row['STATUS'] == 'PENDING') { ?>
+                                    <form method="POST" action="approved.php">
+                                        <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
+                                        <input type="submit" name="approve" value="Approve">
+                                    </form>
+                                    <form method="post" action="reject.php">
+                                        <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
+                                        <button type="submit" name="reject" class="btn btn-danger">Reject</button>
+                                    </form>
+                                <?php } elseif ($row['STATUS'] == 'rejected') { ?>
+                                    <?php echo $row['STATUS']; ?>
+                                    <form method="POST" action="approve-now.php">
+                                        <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
+                                        <input type="submit" name="approve_now" value="Approve Now">
+                                    </form>
+                                <?php } else { ?>
+                                    <?php echo $row['STATUS']; ?>
+                                <?php } ?>
+                            </td>
+                        </tr>
+                    </tbody>
                     <?php 
             }
 
@@ -218,6 +270,108 @@ session_start();
     }
     ?>
     </table>
+    </div>
+
+       <!-- DELETE POP UP FORM  -->
+    <!-- dont make changes-->
+    <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"> Delete Student Data </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <form action="deletecode.php" method="POST">
+
+                    <div class="modal-body">
+
+                        <input type="hidden" name="delete_id" id="delete_id">
+
+                        <h4> Do you want to Delete this Data ??</h4>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"> NO </button>
+                        <button type="submit" name="deletedata" class="btn btn-primary"> Yes, Delete it. </button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+  
+<!-- EDIT POP UP FORM  -->
+    <!-- this is edit data form Make changes to variables and placeholder, keep same variables -->
+    <div class="modal fade" id="editmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"> Edit Data </h5> &nbsp;
+                    <h5 class="modal-title" id="exampleModalLabel"> (Please enter the dates again)</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <form action="updatecode.php" method="POST">
+
+                    <div class="modal-body">
+
+                    <input type="hidden" name="update_id" id="update_id">
+
+                        <div class="form-group">
+                            <label> Year</label>
+                            <input id='career_year' type="text" name="career_year" class="form-control" placeholder="Enter Title" required>
+                        </div>
+                        
+                        <div class="form-group">
+    <label>Branch</label>
+    <select name="Branch" class="form-control" required >
+        <option value="">--Select Department--</option>
+        <?php
+        // Retrieve the department information from the session or any other method
+        $branch = $_SESSION['branch']; 
+
+       $branches = array("IT", "EXTC", "Mechanical", "Computers", "Electrical", "Humanities");
+foreach ($branches as $branchOption) {
+    $selected = ($branchOption == $branch) ? 'selected="selected"' : '';
+    echo '<option value="' . $branchOption . '" ' . $selected . '>' . $branchOption . '</option>';
+}
+
+        ?>
+    </select>
+</div>
+                        <div class="form-group">
+                            <label> Guidance for Career Councelling/Competitive exam </label>
+                            <input id="guidance_career" type="text" name="guidance_career" class="form-control" placeholder="AICTE/ISTE/Others" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label> Name/title of the Activity </label>
+                            <input id='title' type="text" name="title" class="form-control" placeholder="Enter Grant Amount">
+                        </div>
+
+                        <div class="form-group">
+                            <label> Number of students attended / participated </label>
+                            <input id='students_attended' type="text" name="students_attended" class="form-control" placeholder="Enter Name of Convener">
+                        </div>
+						
+                        
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" name="updatedata" class="btn btn-primary">Update Data</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
     </div>
 
 

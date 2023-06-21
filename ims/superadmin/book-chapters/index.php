@@ -98,7 +98,7 @@ session_start();
                             }
 
 
-                        $table_query = "SELECT * FROM bookschapter ORDER BY id ASC";
+                        $table_query = "SELECT * FROM bookschapter WHERE STATUS = 'approved' ORDER BY id ASC";
                         $query_run = mysqli_query($connection, $table_query);
                         $query_result = mysqli_num_rows($query_run); ?>
 
@@ -172,7 +172,7 @@ session_start();
     if (isset($_POST["submit"])) {
         $str = mysqli_real_escape_string($connection, $_POST["search"]);
 
-            $sth = "SELECT * FROM `bookschapter` WHERE Branch LIKE '%$str%' OR Name_Of_The_Teacher LIKE '%$str%' OR Title_Of_The_Book_Published LIKE '%$str%' OR Title_Of_The_Chapter_Published_In_The_Book LIKE '%$str%' OR Name_Of_The_Publisher LIKE '%$str%' OR National_Or_International LIKE '$str' OR ISBN_Or_ISSN_Number LIKE '%$str%' OR Year_Of_Publication LIKE '%$str%' OR Volume_Issue LIKE '%$str%'";
+            $sth = "SELECT * FROM `bookschapter`WHERE STATUS = 'approved' AND( Branch LIKE '%$str%' OR Name_Of_The_Teacher LIKE '%$str%' OR Title_Of_The_Book_Published LIKE '%$str%' OR Title_Of_The_Chapter_Published_In_The_Book LIKE '%$str%' OR Name_Of_The_Publisher LIKE '%$str%' OR National_Or_International LIKE '$str' OR ISBN_Or_ISSN_Number LIKE '%$str%' OR Year_Of_Publication LIKE '%$str%' OR Volume_Issue LIKE '%$str%')";
         
         $result = mysqli_query($connection, $sth);
         $queryresult = mysqli_num_rows($result); ?>

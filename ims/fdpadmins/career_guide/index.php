@@ -43,6 +43,8 @@ session_start();
                 </div>
 
                 <form action="insertcode.php" method="POST" enctype="multipart/form-data" >
+                <!-- <div class="modal-body">
+                        <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id']; ?>"> -->
 
                     <div class="modal-body">
 
@@ -59,18 +61,25 @@ session_start();
                             </select>
                         </div>
 
+                        
                         <div class="form-group">
-                            <label>Branch</label>
-                            <select name="branch" class="form-control" required>
-                                <option name="branch" value="IT">IT</option>
-                                <option name="branch" value="EXTC">EXTC</option>
-                                <option name="branch" value="Mechanical">Mechanical</option>
-                                <option name="branch" value="Computers">Computers</option>
-                                <option name="branch" value="Electrical">Electrical</option>
-                                <option name="branch" value="Humanities">Humanities</option>
-                            </select>
-                        </div>
+    <label>Branch</label>
+    <select name="Branch" class="form-control" required disabled>
+        <option value="">--Select Department--</option>
+        <?php
+        // Retrieve the department information from the session or any other method
+        $branch = $_SESSION['branch']; 
 
+       $branches = array("IT", "EXTC", "Mechanical", "Computers", "Electrical", "Humanities");
+foreach ($branches as $branchOption) {
+    $selected = ($branchOption == $branch) ? 'selected="selected"' : '';
+    echo '<option value="' . $branchOption . '" ' . $selected . '>' . $branchOption . '</option>';
+}
+
+        ?>
+    </select>
+</div>
+              
                         <div class="form-group">
                             <label> Guidance for Career Councelling/Competitive exam  </label>
                             <input type="text" name="guidance_career" class="form-control" placeholder="Enter Guidance for Career Councelling/Competitive exam " required>
@@ -213,12 +222,12 @@ session_start();
                         $queryresult = mysqli_num_rows($query); 
                             if($queryresult > 0){
                                 while($row = mysqli_fetch_assoc($query)){ 
-                                   
+                                    $id=$row['id'];
                                     $branch = $row['branch'];
                                 }  
                             }
 
-                        $table_query = "SELECT * FROM career_guidance WHERE branch = '$branch'";  
+                        $table_query = "SELECT * FROM career_guidance WHERE  user_id='$id'";  
                         $query_run = mysqli_query($connection, $table_query);
                         $query_result = mysqli_num_rows($query_run); ?>
 
@@ -234,7 +243,7 @@ session_start();
                        ?>
                             <td> <?php echo $developer['id']; ?> </td>
                                 <td> <?php echo $developer['career_year']; ?> </td>
-                                <td> <?php echo $developer['branch']; ?> </td> 
+                                <td> <?php echo $developer['Branch']; ?> </td> 
                                 <td> <?php echo $developer['guidance_career']; ?> </td>
                                 <td> <?php echo $developer['title']; ?> </td>
                                 <td> <?php echo $developer['students_attended']; ?> </td>
@@ -296,10 +305,22 @@ session_start();
                         </div>
                         
                         <div class="form-group">
-                            <label> Branch/Department Name </label>
-                            <input id='branch' type="text" name="branch" class="form-control" placeholder="Enter Title" required>
-                        </div>
+    <label>Branch</label>
+    <select name="Branch" class="form-control" required >
+        <option value="">--Select Department--</option>
+        <?php
+        // Retrieve the department information from the session or any other method
+        $branch = $_SESSION['branch']; 
 
+       $branches = array("IT", "EXTC", "Mechanical", "Computers", "Electrical", "Humanities");
+foreach ($branches as $branchOption) {
+    $selected = ($branchOption == $branch) ? 'selected="selected"' : '';
+    echo '<option value="' . $branchOption . '" ' . $selected . '>' . $branchOption . '</option>';
+}
+
+        ?>
+    </select>
+</div>
                         <div class="form-group">
                             <label> Guidance for Career Councelling/Competitive exam </label>
                             <input id="guidance_career" type="text" name="guidance_career" class="form-control" placeholder="AICTE/ISTE/Others" required>
@@ -333,21 +354,24 @@ session_start();
                 <h4> Search Data </h4>
                     <table class="table table-bordered ">
                     <thead>
-                        <tr>
-                        <th> ID </th> 
-                            <th> YEAR </th>
-                            <th> Branch </th>
-                            <th>Career Councelling </th>
-                            <th> TITLE </th>
-                            <th> PARTICIPANTS</th>
-                            
+                    
+                        
+                            <tr><th> ID </th>
+                                <th> Year</th>
+                                <th> Department</th>
+                                <th> Guidance for Career Councelling/Competitive exam </th>
+                                <th> Name/title of the Activity </th>
+                                <th> Number of students attended / participated </th>
+                                <th> ACTION </th>
+                                <th> STATUS </th>
+
                         </tr>
                     <thead>       
 <?php 
     if (isset($_POST["submit"])) {
         $str = mysqli_real_escape_string($connection, $_POST["search"]);
 
-        $sth = "SELECT * FROM `career_guidance` WHERE Branch LIKE '%$branch%' AND (Academic_year LIKE '%$str%' OR Approving_Body LIKE '%$str%' OR Title_Of_Program LIKE '%$str%' OR Convener_Of_FDP_STTP LIKE '%$str%')";
+        $sth = "SELECT * FROM `career_guidance` WHERE user_id=$id AND (Branch LIKE '%$str%' OR career_year LIKE '%$str%' OR guidance_career LIKE '%$str%' OR title LIKE '%$str%' OR students_attended LIKE '%$str%'OR STATUS LIKE '$str' ) ";
         $result = mysqli_query($connection, $sth);
         $queryresult = mysqli_num_rows($result); ?>
 
@@ -373,14 +397,19 @@ session_start();
                         
                         <td>
                             <!--<a href="read.php?viewid=<?php echo htmlentities ($developer['id']);?>" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>-->
-                            <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                            <!-- <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a> -->
                             <a href="uploadsextc/<?php echo $developer['pdffile']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
-                            <a class="delete btn-danger deletebtn" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-							
-                            
-                            
-                            <!-- <button class="btn"><i class="fa fa-download"></i> Download</button> -->
-                        </td>
+                            <?php if ($status != "approved") { // If STATUS is not "approved", show the edit and delete buttons ?>
+                        <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip" <?php echo $is_disabled ?>>
+                            <i class="material-icons">&#xE254;</i>
+                        </a>
+
+                        <a class="delete btn-danger deletebtn" title="Delete" data-toggle="tooltip" <?php echo $is_disabled ?>>
+                            <i class="material-icons">&#xE872;</i>
+                        </a>
+                    <?php } ?>
+                            </td>
+                        <td> <?php echo $row['STATUS']; ?> </td>
                     </tr> 
                     <tbody>
                     <?php 
@@ -393,7 +422,6 @@ session_start();
     ?>
     </table>
     </div>
-
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -456,6 +484,7 @@ session_start();
                 $('#guidance_career').val(data[3]);
                 $('#title').val(data[4]);
                 $('#students_attended').val(data[5]);
+                $('#pdffile').val(data[6]);
             });
         });
     </script>

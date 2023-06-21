@@ -33,7 +33,7 @@ session_start();
     <?php include('../../header.php'); ?>
 
  <!-- main card -->
- <!-- buttons and search buttoncard -->
+ <!-- buttons and search buttoncard --->
             <div class="card">
                 <div class="card-body">
                 <?php 
@@ -88,7 +88,7 @@ session_start();
                         <?php
                         $user = $_SESSION["role"];
                         
-                        $result = "SELECT * FROM clubs WHERE username = '$user'";
+                        $result = "SELECT * FROM superadmin WHERE username = '$user'";
 
                         $query = mysqli_query($connection, $result);
                         $queryresult = mysqli_num_rows($query); 
@@ -99,7 +99,7 @@ session_start();
                             }
 
 
-                        $table_query = "SELECT * FROM certificates ORDER BY id ASC";
+                        $table_query = "SELECT * FROM certificates where STATUS = 'approved' ORDER BY id ASC";
                         $query_run = mysqli_query($connection, $table_query);
                         $query_result = mysqli_num_rows($query_run); ?>
 
