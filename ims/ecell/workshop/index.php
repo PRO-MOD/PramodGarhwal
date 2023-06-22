@@ -11,7 +11,7 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title> workshop </title>
+    <title> Workshop </title>
 
     <link rel="stylesheet" href="styles.css">
     
@@ -51,14 +51,14 @@ session_start();
 
                         <div class="form-group">
                             <label>Year</label>
-                            <select name="Year" class="form-control" required>
+                            <select name="year_held" class="form-control" required>
                                 <option value="">--Select Year--</option>
-                                <option name="Year" value="2017-18">2017-18</option>
-                                <option name="Year" value="2018-19">2018-19</option>
-                                <option name="Year" value="2019-20">2019-20</option>
-                                <option name="Year" value="2020-21">2020-21</option>
-                                <option name="Year" value="2021-22">2021-22</option>
-                                <option name="Year" value="2021-23">2022-23</option>
+                                <option name="year_held" value="2017-18">2017-18</option>
+                                <option name="year_held" value="2018-19">2018-19</option>
+                                <option name="year_held" value="2019-20">2019-20</option>
+                                <option name="year_held" value="2020-21">2020-21</option>
+                                <option name="year_held" value="2021-22">2021-22</option>
+                                <option name="year_held" value="2021-23">2022-23</option>
                             </select>
                         </div>
 
@@ -66,58 +66,49 @@ session_start();
 
                         <div class="form-group">
                             <label> Workshop/Seminar </label>
-                            <input type="text" name="Workshop" class="form-control" placeholder="Enter Title" required>
+                            <input type="text" name="workshop_seminar" class="form-control" placeholder="Enter Title" required>
                         </div>
-                        <div class="form-group">
-                            <label>Branch</label>
-                            <select name="Branch" class="form-control" required>
-                                <option value="">--Select Department--</option>
-                                <option name="Branch" value="IT">IT</option>
-                                <option name="Branch" value="EXTC">EXTC</option>
-                                <option name="Branch" value="Mechanical">Mechanical</option>
-                                <option name="Branch" value="Computers">Computers</option>
-                                <option name="Branch" value="Electrical">Electrical</option>
-                                <option name="Branch" value="Humanities">Humanities</option>
-                            </select>
-                        </div>
+                        
+
                         <div class="form-group">
                             <label> Coordinator</label>
-                            <input type="text" name="Coordinator" class="form-control" placeholder="Name of the teacher" required>
+                            <input type="text" name="coordinator" class="form-control" placeholder="Name of the teacher" required>
                         </div>
 
                         <div class="form-group">
                             <label> Title of the workshop / seminar </label>
-                            <input type="text" name="Title" class="form-control" placeholder="Enter Title of Chapter">
+                            <input type="text" name="title" class="form-control" placeholder="Enter Title of Chapter" required>
                         </div>
 
                         <div class="form-group">
                             <label>Category of the activity</label>
-                            <select name="Category" class="form-control" required>
+                            <select name="category" class="form-control" required>
                                 <option value="">--Select Type of activity-</option>
-                                <option name="Category" value="Research Methodology">Research Methodology</option>
-                                <option name="Category" value="IPR">IPR</option>
-                                <option name="Category" value="Entrepreneurship">Entrepreneurship</option>
-                                <option name="Category" value="Soft skills">Soft skills</option>
+                                <option name="category" value="Research Methodology">Research Methodology</option>
+                                <option name="category" value="IPR">IPR</option>
+                                <option name="category" value="Entrepreneurship">Entrepreneurship</option>
+                                <option name="category" value="Soft skills">Soft skills</option>
+                                <option name="category" value="Others">Others</option>
                             </select>
                         </div>
 
                         <div class="form-group">
                             <label> If others, please mention the Theme/category</label>
-                            <input type="number" name="Others" class="form-control" placeholder="Enter category" required>
+                            <input type="text" name="others" class="form-control" placeholder="Enter category">
                         </div>
 
                         <div class="form-group">
                             <label> Number of Participants </label>
-                            <input type="text" name="Participants" class="form-control" placeholder="Enter number of participants" required>
+                            <input type="number" name="no_of_participants" class="form-control" placeholder="Enter number of participants" required>
                         </div>
 
                         <div class="form-group">
                             <label> Starting date </label>
-                            <input type="text" name="Startingdate" class="form-control" placeholder="Starting date" required>
+                            <input type="date" name="starting_date" class="form-control" placeholder="Starting date" required>
                         </div>
                         <div class="form-group">
                             <label> Ending date </label>
-                            <input type="text" name="Endingdate" class="form-control" placeholder="Ending date" required>
+                            <input type="date" name="ending_date" class="form-control" placeholder="Ending date" required>
                         </div>
 
                         
@@ -220,8 +211,7 @@ session_start();
                 <input type="submit" name="submit">
             </form>
             </div>
-            </div>
-
+            </div> 
              <!-- table -->
             <div id="tabledataid" class="card">
                 <div class="card-body">
@@ -229,10 +219,9 @@ session_start();
                     <table id="datatableid" class="table table-bordered table-dark mt-2">
                         <thead>
                             <tr>
-                                <th scope="col"> S.N</th>
+                                <th scope="col"> ID</th>
                                 <th scope="col"> Year </th>
                                 <th scope="col"> Workshop/ seminar</th>
-                                <th scope="col"> Department </th>
                                 <th scope="col"> Coordinator </th>
                                 <th scope="col"> Title of the workshop / seminar </th>
                                 <th scope="col"> Category of the activity</th>
@@ -241,6 +230,7 @@ session_start();
                                 <th scope="col"> Starting Date</th>
                                 <th scope="col"> Ending Date</th>
                                 <th scope="col"> Upload Activity report in the appropraite template</th>
+                                <th scope="col"> STATUS</th>
                                
                             </tr>
                         </thead>
@@ -268,39 +258,46 @@ session_start();
                                             ?>
                         <tbody> <!-- change -->
                             <tr>
+                            <?php
+                $status = $developer['STATUS'];
+                $is_disabled = ($status == "approved") ? "disabled" : "";
+                // If STATUS is "approved", set the $is_disabled variable to "disabled"
+                ?>
                                 <td> <?php echo $developer['id']; ?> </td>
-                                <td> <?php echo $developer['Year']; ?> </td> 
-                                <td> <?php echo $developer['Workshop']; ?> </td>
-                                <td> <?php echo $developer['Branch']; ?> </td>
-                                <td> <?php echo $developer['Coordinator']; ?> </td>
-                                <td> <?php echo $developer['Title']; ?> </td>
-                                <td> <?php echo $developer['Category']; ?> </td>
-                                <td> <?php echo $developer['Others']; ?> </td>
-                                <td> <?php echo $developer['Participants']; ?> </td>
-                                <td> <?php echo $developer['Startingdate']; ?> </td>
-                                <td> <?php echo $developer['Endingdate']; ?> </td>
+                                <td> <?php echo $developer['year_held']; ?> </td> 
+                                <td> <?php echo $developer['workshop_seminar']; ?> </td>
+                                <td> <?php echo $developer['coordinator']; ?> </td>
+                                <td> <?php echo $developer['title']; ?> </td>
+                                <td> <?php echo $developer['category']; ?> </td>
+                                <td> <?php echo $developer['others']; ?> </td>
+                                <td> <?php echo $developer['participants']; ?> </td>
+                                <td> <?php echo $developer['starting_date']; ?> </td>
+                                <td> <?php echo $developer['ending_date']; ?> </td>
                                 
                            <!--<a href="read.php?viewid=<?php echo htmlentities ($developer['id']);?>" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>-->
-                           <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                            <a href="uploadsindexit/<?php echo $developer['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+<!--                            <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+ -->                            <a href="uploads/<?php echo $developer['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
 							<!-- <a href="uploadsfrontit/<?php echo $developer['pdffile2']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a> -->
-                            <a class="delete btn-danger deletebtn" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-							
-                            
-                            <!-- <button class="btn"><i class="fa fa-download"></i> Download</button> -->
-                        </td>
-                                <!-- <td>
-                                    <button type="button" class="btn btn-success editbtn"> EDIT </button>
-                                </td>
-                                <td>
-                                    <button type="button" class="btn btn-danger deletebtn"> DELETE </button>
-                                </td> -->
-                            </tr>
-                        </tbody>
-                        <?php           
-                    }
-                }
-                else 
+<!--                             <a class="delete btn-danger deletebtn" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+ -->							
+                            <?php if ($status != "approved") { // If STATUS is not "approved", show the edit and delete buttons ?>
+                        <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip" <?php echo $is_disabled ?>>
+                            <i class="material-icons">&#xE254;</i>
+                        </a>
+
+                        <a class="delete btn-danger deletebtn" title="Delete" data-toggle="tooltip" <?php echo $is_disabled ?>>
+                            <i class="material-icons">&#xE872;</i>
+                        </a>
+                    <?php } ?>
+                </td>
+
+                <td> <?php echo $status; ?> </td>
+            </tr>
+        </tbody>
+        <?php           
+    }
+}
+else 
                 {
                     echo "No Record Found";
                 }
@@ -332,52 +329,51 @@ session_start();
 
                         <div class="form-group">
                             <label> Year</label>
-                            <input type="text"  id="Year" name="Year" class="form-control" required>
+                            <input type="text"  id="year_held" name="year_held" class="form-control" required>
                         </div>
 
                         <div class="form-group">
                             <label> Workshop </label>
-                            <input type="text"  id="Workshop" name="Workshop" class="form-control" required>
+                            <input type="text"  id="workshop_seminar" name="workshop_seminar" class="form-control" required>
                         </div>
 
-                        <div class="form-group">
-                            <label> Department/Branch Name </label>
-                            <input type="text"  id="Branch" name="Branch" class="form-control" required>
-                        </div>
+                        
+
+                        
 
                         <div class="form-group">
                             <label>Coordinator </label>
-                            <input type="text"  id="Coordinator" name="Coordinator" class="form-control" placeholder="Enter Title" required>
+                            <input type="text"  id="coordinator" name="coordinator" class="form-control" placeholder="Enter Title" required>
                         </div>
 
                         <div class="form-group">
                             <label> Title </label>
-                            <input type="text" name="Title" id="Title" class="form-control" placeholder="Name of the teacher" required>
+                            <input type="text" name="title" id="title" class="form-control" placeholder="Name of the teacher" required>
                         </div>
 
                         <div class="form-group">
                             <label> Category </label>
-                            <input type="text" name="Category"  id="Category" class="form-control" placeholder="Enter Title of Chapter">
+                            <input type="text" name="category"  id="category" class="form-control" placeholder="Enter Title of Chapter">
                         </div>
 
                         <div class="form-group">
                             <label> Others</label>
-                            <input type="text" name="Others" id="Others" class="form-control" placeholder="Enter Name of Publisher" required>
+                            <input type="text" name="others" id="others" class="form-control" placeholder="Enter Name of Publisher">
                         </div>
 
                         <div class="form-group">
                             <label> Participants</label>
-                            <input type="text" name="Participants" id="Participants" class="form-control" placeholder="Enter Name of Publisher" required>
+                            <input type="text" name="no_of_participants" id="no_of_participants" class="form-control" placeholder="Enter Name of Publisher" required>
                         </div>
 
                         <div class="form-group">
                             <label> Startingdate</label>
-                            <input type="text" name="Startingdate" id="Startingdate" class="form-control" placeholder="Enter Name of Publisher" required>
+                            <input type="text" name="starting_date" id="starting_date" class="form-control" placeholder="Enter Name of Publisher" required>
                         </div>
 
                         <div class="form-group">
                             <label> EndingDate</label>
-                            <input type="text" name="Endingdate" id="Endingdate" class="form-control" placeholder="Enter Name of Publisher" required>
+                            <input type="text" name="ending_date" id="ending_date" class="form-control" placeholder="Enter Name of Publisher" required>
                         </div>
 
                         
@@ -402,25 +398,25 @@ session_start();
                     <table class="table table-bordered ">
                     <thead>
                         <tr>
-                        <th scope="col"> S.N</th>
-                                <th scope="col"> Year </th>
-                                <th scope="col"> Workshop/ seminar</th>
-                                <th scope="col"> Department </th>
-                                <th scope="col"> Coordinator </th>
-                                <th scope="col"> Title of the workshop / seminar </th>
-                                <th scope="col"> Category of the activity</th>
-								<th scope="col"> If others, please mention the Theme/category</th>
-                                <th scope="col"> Number of Participants</th>
-                                <th scope="col"> Starting Date</th>
-                                <th scope="col"> Ending Date</th>
-                                <th scope="col"> Upload Activity report in the appropraite template</th>
+                        <th> S.N</th>
+                                <th > Year </th>
+                                <th> Workshop/ seminar</th>
+                                <th> Coordinator </th>
+                                <th> Title of the workshop / seminar </th>
+                                <th> Category of the activity</th>
+								<th> If others, please mention the Theme/category</th>
+                                <th> Number of Participants</th>
+                                <th> Starting Date</th>
+                                <th> Ending Date</th>
+                                <th> Upload Activity report in the appropraite template</th>
+                                <th> STATUS</th>
                         </tr>
                     <thead>       
 <?php 
     if (isset($_POST["submit"])) {
         $str = mysqli_real_escape_string($connection, $_POST["search"]);
 
-        $sth = "SELECT * FROM `workshops` WHERE id=$id AND (Year LIKE '%$str%' OR Workshop LIKE '%$str%' OR Branch LIKE '%$str%' OR Coordinator LIKE '%$str%' OR Title LIKE '%$str%' OR Category LIKE '$str' OR Others LIKE '%$str%' OR Participants LIKE '%$str%' OR Startingdate LIKE '%$str%' OR Endingdate LIKE '%$str%') ";
+        $sth = "SELECT * FROM `workshops` WHERE id=$id AND (year_held LIKE '%$str%' OR workshop_seminar LIKE '%$str%'  OR coordinator LIKE '%$str%' OR title LIKE '%$str%' OR category LIKE '$str' OR others LIKE '%$str%' OR no_of_participants LIKE '%$str%' OR starting_date LIKE '%$str%' OR ending_date LIKE '%$str%') ";
         
         $result = mysqli_query($connection, $sth);
         $queryresult = mysqli_num_rows($result); ?>
@@ -437,36 +433,42 @@ session_start();
                     ?>
                     <tbody> <!-- change -->
                             <tr>
+                            <?php
+                $status = $row['STATUS'];
+                $is_disabled = ($status == "approved") ? "disabled" : "";
+                // If STATUS is "approved", set the $is_disabled variable to "disabled"
+                ?> 
                                 <td> <?php echo $row['id']; ?> </td>
-                                <td> <?php echo $row['Year']; ?> </td> 
-                                <td> <?php echo $row['Workshop']; ?> </td>
-                                <td> <?php echo $row['Branch']; ?> </td>
-                                <td> <?php echo $row['Coordinator']; ?> </td>
-                                <td> <?php echo $row['Title']; ?> </td>
-                                <td> <?php echo $row['Category']; ?> </td>
-                                <td> <?php echo $row['Others']; ?> </td>
-                                <td> <?php echo $row['Participants']; ?> </td>
-                                <td> <?php echo $row['Startingdate']; ?> </td>
-                                <td> <?php echo $row['Endingdate']; ?> </td>
+                                <td> <?php echo $row['year_held']; ?> </td> 
+                                <td> <?php echo $row['workshop_seminar']; ?> </td>
+                                <td> <?php echo $row['coordinator']; ?> </td>
+                                <td> <?php echo $row['title']; ?> </td>
+                                <td> <?php echo $row['category']; ?> </td>
+                                <td> <?php echo $row['others']; ?> </td>
+                                <td> <?php echo $row['no_of_participants']; ?> </td>
+                                <td> <?php echo $row['starting_date']; ?> </td>
+                                <td> <?php echo $row['ending_date']; ?> </td>
                                 
-                            <a href="read.php?viewid=<?php echo htmlentities ($row['id']);?>" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
-                            <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                            <a href="uploadsindexit/<?php echo $row['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+<!--                             <a href="read.php?viewid=<?php echo htmlentities ($row['id']);?>" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>-->                            <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                            <a href="uploads/<?php echo $row['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
 							<!-- <a href="uploadsfrontit/<?php echo $developer['pdffile2']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a> -->
-                            <a class="delete btn-danger deletebtn" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-							
+<!--                             <a class="delete btn-danger deletebtn" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+ -->							
                             
                             
-                            <!-- <button class="btn"><i class="fa fa-download"></i> Download</button> -->
-                        </td>
-                                <!-- <td>
-                                    <button type="button" class="btn btn-success editbtn"> EDIT </button>
-                                </td>
-                                <td>
-                                    <button type="button" class="btn btn-danger deletebtn"> DELETE </button>
-                                </td> -->
-                            </tr>
-                        </tbody>
+ <?php if ($status != "approved") { // If STATUS is not "approved", show the edit and delete buttons ?>
+                        <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip" <?php echo $is_disabled ?>>
+                            <i class="material-icons">&#xE254;</i>
+                        </a>
+
+                        <a class="delete btn-danger deletebtn" title="Delete" data-toggle="tooltip" <?php echo $is_disabled ?>>
+                            <i class="material-icons">&#xE872;</i>
+                        </a>
+                    <?php } ?>
+                            </td>
+                        <td> <?php echo $row['STATUS']; ?> </td>
+                    </tr> 
+                    <tbody>
                     <?php 
             }
 
@@ -535,17 +537,16 @@ session_start();
                 console.log(data);
                 //chnage this keep same variable as above
                 $('#update_id').val(data[0]);
-                $('#Year').val(data[1]);
-                $('#Workshop').val(data[2]);
-                $('#Branch').val(data[3]);
-                $('#Coordinator').val(data[4]);
-                $('#Title').val(data[5]);
-                $('#Category').val(data[6]);
-                $('#Others').val(data[7]);
-                $('#Participants').val(data[8]);
-                $('#Startingdate').val(data[9]);
-                $('#Endingdate').val(data[10]);
-                $('#pdffile1').val(data[10]);
+                $('#year_held').val(data[1]);
+                $('#workshop_seminar').val(data[2]);
+                $('#coordinator').val(data[3]);
+                $('#title').val(data[4]);
+                $('#category').val(data[5]);
+                $('#others').val(data[6]);
+                $('#participants').val(data[7]);
+                $('#starting_date').val(data[8]);
+                $('#ending_date').val(data[9]);
+                //$('#pdffile1').val(data[11]);
             });
         });
     </script>

@@ -1,5 +1,16 @@
 <?php
 include('../../config.php');
+$user = $_SESSION["role"];
+
+$result = "SELECT * FROM fdpadmins WHERE username = '$user'";
+$query = mysqli_query($connection, $result);
+$queryresult = mysqli_num_rows($query); 
+    if($queryresult > 0){
+        while($row = mysqli_fetch_assoc($query)){ 
+            $id = $row['id'];
+            $branch = $row['branch'];
+        }  
+    }
 
 if(isset($_POST['updatedata']))
 {   

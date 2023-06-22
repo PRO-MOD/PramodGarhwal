@@ -20,14 +20,14 @@ if(isset($_POST['updatedata']))
 
     move_uploaded_file($file_tmp,"uploadsfdporganised/$pdffile");
      $query_check = "SELECT STATUS FROM fdpsttporganised WHERE id='$id'";
-    $query_check_run = mysqli_query($connection, $query_check);
-    $data = mysqli_fetch_assoc($query_check_run);
-    $status = $data['STATUS'];
-    if($status == 'APPROVED'){
-        echo '<script> alert("Data has already been approved and cannot be updated."); </script>';
-        header("Location:index.php");
-        exit();
-    }
+    // $query_check_run = mysqli_query($connection, $query_check);
+    // $data = mysqli_fetch_assoc($query_check_run);
+    // $status = $data['STATUS'];
+    // if($status == 'APPROVED'){
+    //     echo '<script> alert("Data has already been approved and cannot be updated."); </script>';
+    //     header("Location:index.php");
+    //     exit();
+    // }
 
     // // Check if the data has already been approved
     // $query_check = "SELECT STATUS FROM fdpsttporganised WHERE id='$id'";

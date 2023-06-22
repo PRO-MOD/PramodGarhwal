@@ -16,7 +16,7 @@ if(isset($_POST['insertdata']))
 {       
     $Academic_year = $_POST['Academic_year'];
     $Name_Of_The_Teacher=$_POST['Name_Of_The_Teacher'];
-    $Branch = $_POST['Branch'];
+    // $Branch = $_POST['Branch'];
     $Title_Of_Program = $_POST['Title_Of_Program'];
     $Professional_Body_Or_Organization_Associated = $_POST['Professional_Body_Or_Organization_Associated'];
     $Course_Type= $_POST['Course_Type'];
@@ -39,8 +39,8 @@ if(isset($_POST['insertdata']))
     move_uploaded_file($file_tmp2,"uploadsfdpattended2/$pdffile2");
 
     $query = "INSERT INTO fdpsttpattendedit
-    (`Academic_year`, `Name_Of_The_Teacher`,`Branch`, `Title_Of_Program`, `Professional_Body_Or_Organization_Associated`,`Course_Type`,`Organizing_Institute_And_Location`,`Dates_From`, `Dates_To`, `Duration`, `TA_Received`, `Registration_Amount`, `pdffile1`,`pdffile2`, `user_id`) 
-    VALUES ('$Academic_year', '$Name_Of_The_Teacher','$Branch', '$Title_Of_Program', '$Professional_Body_Or_Organization_Associated','$Course_Type', '$Organizing_Institute_And_Location','$Dates_From', '$Dates_To', '$Duration', '$TA_Received', '$Registration_Amount', '$pdffile1','$pdffile2', '$id' )";
+    (`Academic_year`, `Name_Of_The_Teacher`,`Branch`, `Title_Of_Program`, `Professional_Body_Or_Organization_Associated`,`Course_Type`,`Organizing_Institute_And_Location`,`Dates_From`, `Dates_To`, `Duration`, `TA_Received`, `Registration_Amount`, `pdffile1`,`pdffile2`, `user_id`,`STATUS`) 
+    VALUES ('$Academic_year', '$Name_Of_The_Teacher','$Branch', '$Title_Of_Program', '$Professional_Body_Or_Organization_Associated','$Course_Type', '$Organizing_Institute_And_Location','$Dates_From', '$Dates_To', '$Duration', '$TA_Received', '$Registration_Amount', '$pdffile1','$pdffile2', '$id','PENDING' )";
 
     
     $query_run = mysqli_query($connection, $query);
