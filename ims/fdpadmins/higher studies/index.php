@@ -2,7 +2,6 @@
 include('../../config.php');
 session_start();
 ?>
-
 <!DOCTYPE html> 
 
 <html lang="en">
@@ -11,7 +10,7 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title> Student Higher Studies </title>
+    <title>Student Higher Studies</title>
 
     <link rel="stylesheet" href="styles.css">
     
@@ -25,7 +24,11 @@ session_start();
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 </head>
+
+
 <body>
+
+
     <?php include('../../header.php'); ?>
 
     <!-- Modal -->
@@ -46,7 +49,7 @@ session_start();
                     <div class="modal-body">
 
                         <div class="form-group">
-                            <label>Year</label>
+                        <label>Year</label>
                             <select name="year" class="form-control" required>
                                 <option value="">--Select Year--</option>
                                 <option name="year" value="2017-18">2017-18</option>
@@ -56,9 +59,11 @@ session_start();
                                 <option name="year" value="2021-22">2021-22</option>
                                 <option name="year" value="2021-22">2022-23</option>
                             </select>
-</div>
+                        </div>
+
+                    
                         <div class="form-group">
-                            <label>Graduation Program</label>
+                        <label>Graduation Program</label>
                             <select name="graduation_program" class="form-control" required>
                                 <option value="">--Select Department--</option>
                                 <option name="graduation_program" value="IT">IT</option>
@@ -71,20 +76,23 @@ session_start();
                         </div>
 
                         <div class="form-group">
-                            <label> Student Name </label>
-                            <input type="text" name="student_name" class="form-control" placeholder="Enter student_name" required>
+                         <label> Student Name </label>
+                            <input type="text" name="student_name" class="form-control" placeholder="Enter Student name" required>
                         </div>
 
                         <div class="form-group">
-                            <label> Name of the Institute Joined </label>
-                            <input type="text" name="institute_name_joined" class="form-control" placeholder="institute_name_joined" required>
+                         <label> Name of the Institute Joined </label>
+                            <input type="text" name="institute_name_joined" id="institute_name_joined" class="form-control" placeholder="institute_name_joined" required>
                         </div>
 
                         <div class="form-group">
-                            <label> Name of Program Admitted  </label>
+                         <label> Name of Program admitted </label>
                             <input type="text" name="program_name_admitted" class="form-control" placeholder="program_name_admitted">
                         </div>
 
+                       
+
+                        
                         <div class="form-group">
                             <label> Upload Admitcard & Idcard </label>
                             <input type="file" name="upload_admitcard_idcard" id="upload_admitcard_idcard" required/><br>
@@ -106,6 +114,9 @@ session_start();
                                         });
                                     </script><br>
 						</div>
+                        		
+
+
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -142,6 +153,7 @@ session_start();
                         <button type="submit" name="deletedata" class="btn btn-primary"> Yes, Delete it. </button>
                     </div>
                 </form>
+
             </div>
         </div>
     </div>
@@ -159,7 +171,7 @@ session_start();
                 ?>
 
             <div class="card-body mt-5">
-                <h2> Student Higher Studies </h2>
+                <h2>Higher Studies</h2>
             </div>
             <div class="card">
                 <div class="card-body btn-group">
@@ -188,12 +200,13 @@ session_start();
                     <table id="datatableid" class="table table-bordered table-dark mt-2">
                         <thead>
                             <tr>
-                                <th scope="col"> Year </th>
+                            <th scope="col"> Year </th>
                                 <th scope="col"> Graduation Program </th>
                                 <th scope="col"> Student Name </th>
                                 <th scope="col"> Name of the Institute Joined </th>
                                 <th scope="col"> Name of Program Admitted </th>
                                 <th scope="col"> Upload Admitcard & Idcard </th>
+                                <th scope="col"> Action </th>
                                 <th scope="col"> STATUS </th>
                                
                             </tr>
@@ -212,8 +225,8 @@ session_start();
                                 }  
                             }
 
+
                         $table_query = "SELECT * FROM higher_studies ORDER BY id ASC";
-                        
                         $query_run = mysqli_query($connection, $table_query);
                         $query_result = mysqli_num_rows($query_run); ?>
 
@@ -222,20 +235,20 @@ session_start();
                                             ?>
                         <tbody> <!-- change -->
                             <tr>
-                            <?php
+                                <!-- table columns -->
+                <?php
                 $status = $developer['STATUS'];
                 $is_disabled = ($status == "approved") ? "disabled" : "";
                 // If STATUS is "approved", set the $is_disabled variable to "disabled"
                 ?>
-                        <td> <?php echo $developer['year']; ?> </td>
+                                <td> <?php echo $developer['id']; ?> </td> 
+                                <td> <?php echo $developer['year']; ?> </td>
                                 <td> <?php echo $developer['graduation_program']; ?> </td> 
                                 <td> <?php echo $developer['student_name']; ?> </td>
                                 <td> <?php echo $developer['institute_name_joined']; ?> </td>
                                 <td> <?php echo $developer['program_name_admitted']; ?> </td>
                                 <td>
-                            
-                            
-							<a href="reports/<?php echo $developer['upload_admitcard_idcard']; ?>"  class="download" title="Download" data-toggle="tooltip">
+                                <a href="reports/<?php echo $developer['upload_admitcard_idcard']; ?>"  class="download" title="Download" data-toggle="tooltip">
                             <i class="fa fa-download"></i>
                         </a>
                         <?php if ($status != "approved") { // If STATUS is not "approved", show the edit and delete buttons ?>
@@ -247,28 +260,23 @@ session_start();
                             <i class="material-icons">&#xE872;</i>
                         </a>
                     <?php } ?>
-                </td>
-
-                <td> <?php echo $status; ?> </td>
-            </tr>
-        </tbody>
-        <?php           
-    }
-}
-else 
-{
-    
-    echo "No Record Found";
-}
-?>
-
-
-
+                        </td>
+                                
+                                <td> <?php echo $status; ?> </td>
+                            </tr>
+                        </tbody>
+                        <?php           
+                    }
+                }
+                else 
+                {
+                    echo "No Record Found";
+                }
+            ?>
                     </table>
             
         </div> 
     </div>
-
 
     <!-- EDIT POP UP FORM  -->
     <!-- this is edit data form Make changes to variables and placeholder, keep same variables -->
@@ -291,7 +299,7 @@ else
                         <input type="hidden" name="update_id" id="update_id">
 
                         <div class="form-group">
-                            <label>Year</label>
+                         <label>Year</label>
                             <select name="year" class="form-control" required>
                                 <option value="">--Select Year--</option>
                                 <option name="year" value="2017-18">2017-18</option>
@@ -301,9 +309,10 @@ else
                                 <option name="year" value="2021-22">2021-22</option>
                                 <option name="year" value="2021-22">2022-23</option>
                             </select>
+                        </div>
 
                         <div class="form-group">
-                            <label>Graduation Program</label>
+                        <label>Graduation Program</label>
                             <select name="graduation_program" class="form-control" required>
                                 <option value="">--Select Department--</option>
                                 <option name="graduation_program" value="IT">IT</option>
@@ -317,7 +326,7 @@ else
 
                         <div class="form-group">
                             <label> Student Name </label>
-                            <input type="text"  id="student_name" name="student_name" class="form-control" placeholder="Enter student_name" required>
+                            <input type="text" name="student_name" class="form-control" placeholder="Enter Student name" required>
                         </div>
 
                         <div class="form-group">
@@ -326,9 +335,33 @@ else
                         </div>
 
                         <div class="form-group">
-                            <label> Name of Program Admitted </label>
-                            <input type="text" name="program_name_admitted"  id="program_name_admitted" class="form-control" placeholder="Enter program_name_admitted">
+                            <label> Name of Program admitted </label>
+                            <input type="text" name="program_name_admitted" class="form-control" placeholder="program_name_admitted">
                         </div>
+
+                        <div class="form-group">
+                            <label> Upload Admitcard & Idcard </label>
+                            <input type="file" name="upload_admitcard_idcard" id="upload_admitcard_idcard" required/><br>
+                                    <img src="" id="pdf-file1-tag" width="100px" />
+
+                                    <script type="text/javascript">
+                                        function readURL(input) {
+                                            if (input.files && input.files[0]) {
+                                                var reader = new FileReader();
+                                                
+                                                reader.onload = function (e) {
+                                                    $('#pdf-file1-tag').attr('src', e.target.result);
+                                                }
+                                                reader.readAsDataURL(input.files[0]);
+                                            }
+                                        }
+                                        $("#pdffile1").change(function(){
+                                            readURL(this);
+                                        });
+                                    </script><br>
+						</div>
+
+                        
 
                     </div>
                     <div class="modal-footer">
@@ -336,6 +369,7 @@ else
                         <button type="submit" name="updatedata" class="btn btn-primary">Update Data</button>
                     </div>
                 </form>
+
             </div>
         </div>
     </div>
@@ -345,23 +379,25 @@ else
                 <h4> Search Data </h4>
                     <table class="table table-bordered ">
                     <thead>
-                            <tr>
-                                <th> Year </th>
+                        <tr>
+                        <th> Year </th>
                                 <th> Graduation Program </th>
                                 <th> Student Name </th>
                                 <th> Name of the Institute Joined </th>
                                 <th> Name of Program Admitted </th>
                                 <th> Upload Admitcard & Idcard </th>
-                                <th> STATUS </th>   
-                            </tr>
-                        </thead>       
+                                <th> Action </th>
+                                <th> STATUS </th>
+                        </tr>
+                    <thead>       
 <?php 
     if (isset($_POST["submit"])) {
         $str = mysqli_real_escape_string($connection, $_POST["search"]);
 
-        $sth = "SELECT * FROM `higher_studies`  (year LIKE '%$str%' OR graduation_program LIKE '%$str%' OR student_name LIKE '%$str%' OR institute_name_joined LIKE '%$str%' OR program_name_admitted LIKE '%$str%' OR STATUS LIKE '%$str') ";
+        $sth = "SELECT * FROM `higher_studies` WHERE ( graduation_program LIKE '%$str%' OR student_name LIKE '%$str%' OR institute_name_joined LIKE '%$str%' OR program_name_admitted LIKE '%$str%' OR STATUS LIKE '%$str') ";
         
-        $result = mysqli_query($connection, $sth);
+       
+         $result = mysqli_query($connection, $sth);
         $queryresult = mysqli_num_rows($result); ?>
 
                     <div class="card">
@@ -376,7 +412,7 @@ else
                     ?>
                     <tbody id="srch"> 
              
-                    <tr>
+                    <tr>  
                     <?php
                 $status = $row['STATUS'];
                 $is_disabled = ($status == "approved") ? "disabled" : "";
@@ -417,6 +453,9 @@ else
     ?>
     </table>
     </div>
+
+
+
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
@@ -562,6 +601,7 @@ else
     downloadCSV(csv.join("\n"), filename);  
     }  
 </script> 
+
 
 </body>
 </html>

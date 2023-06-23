@@ -11,7 +11,7 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title> Book Chapters Published </title>
+    <title> Competitive Exams</title>
 
     <link rel="stylesheet" href="styles.css">
     
@@ -32,6 +32,7 @@ session_start();
 
     <?php include('../../header.php'); ?>
 
+   
  <!-- main card -->
  <!-- buttons and search buttoncard -->
             <div class="card">
@@ -45,8 +46,9 @@ session_start();
                 ?>
 
             <div class="card-body mt-5">
-                <h2> Book Chapters/Books Published</h2>
+                <h2> Competitive Exams</h2>
             </div>
+           
             <div class="card">
                 <div class="card-body btn-group">
             <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">					
@@ -69,18 +71,14 @@ session_start();
                         <thead>
                             <tr>
                                 <th scope="col"> ID </th>
-                                <th scope="col"> NAME OF TEACHER </th>
-                                <th scope="col"> BRANCH </th>
-                                <th scope="col"> TITLE OF BOOK </th>
-                                <th scope="col"> TITLE OF CHAPTER </th>
-                                <th scope="col"> NAME OF PUBLISHER </th>
-                                <th scope="col"> NATIONAL </th>
-								<th scope="col"> ISBN/ISSN </th>
-                                <th scope="col"> PUBLICATION YEAR </th>
-                                <th scope="col"> VOLUME ISSUE </th>
+                                <th scope="col"> Year </th>
+                                <th scope="col"> Department </th>
+                                <th scope="col"> Registration Number </th>
+                                <th scope="col"> Name of Student </th>
+                                <th scope="col"> Name of Exam </th>
+                                <th scope="col"> OTHER </th>
+                                <th scope="col"> Upload Proof </th>
                                 
-                                <th scope="col"> ACTION </th>
-                               
                             </tr>
                         </thead>
                         
@@ -94,11 +92,13 @@ session_start();
                             if($queryresult > 0){
                                 while($row = mysqli_fetch_assoc($query)){ 
                                     $id = $row['id'];
+                                   
+                                
                                 }  
                             }
 
-
-                        $table_query = "SELECT * FROM bookschapter WHERE STATUS = 'approved' ORDER BY id ASC";
+                        $table_query = "SELECT * FROM competitiveexams WHERE  STATUS = 'approved' ORDER BY id ASC";
+                        
                         $query_run = mysqli_query($connection, $table_query);
                         $query_result = mysqli_num_rows($query_run); ?>
 
@@ -107,72 +107,68 @@ session_start();
                                             ?>
                         <tbody> <!-- change -->
                             <tr>
+                 
                                 <td> <?php echo $developer['id']; ?> </td>
-                                <td> <?php echo $developer['Name_Of_The_Teacher']; ?> </td> 
-                                <td> <?php echo $developer['Branch']; ?> </td>
-                                <td> <?php echo $developer['Title_Of_The_Book_Published']; ?> </td>
-                                <td> <?php echo $developer['Title_Of_The_Chapter_Published_In_The_Book']; ?> </td>
-                                <td> <?php echo $developer['Name_Of_The_Publisher']; ?> </td>
-                                <td> <?php echo $developer['National_Or_International']; ?> </td>
-                                <td> <?php echo $developer['ISBN_Or_ISSN_Number']; ?> </td>
-                                <td> <?php echo $developer['Year_Of_Publication']; ?> </td>
-                                <td> <?php echo $developer['Volume_Issue']; ?> </td>
+                                <td> <?php echo $developer['Year']; ?> </td>
+                                <td> <?php echo $developer['Branch']; ?> </td> 
+                                <td> <?php echo $developer['Registration_number']; ?> </td>
+                                <td> <?php echo $developer['Name_of_student']; ?> </td>
+                                <td> <?php echo $developer['Name_of_exam']; ?> </td>
+                                <td> <?php echo $developer['OTHER']; ?> </td>
                                 <td>
-                            <!--<a href="read.php?viewid=<?php echo htmlentities ($developer['id']);?>" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>-->
-                            <a href="uploadsindexit/<?php echo $developer['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
-							<a href="uploadsfrontit/<?php echo $developer['pdffile2']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
-							
+                            <!-- <a href="read.php?viewid=<?php echo htmlentities ($developer['id']);?>" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a> -->
+                            <!-- <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a> -->
                             
-                            
-                            <!-- <button class="btn"><i class="fa fa-download"></i> Download</button> -->
-                        </td>
-                                <!-- <td>
-                                    <button type="button" class="btn btn-success editbtn"> EDIT </button>
-                                </td>
-                                <td>
-                                    <button type="button" class="btn btn-danger deletebtn"> DELETE </button>
-                                </td> -->
-                            </tr>
-                        </tbody>
-                        <?php           
-                    }
-                }
-                else 
-                {
-                    echo "No Record Found";
-                }
-            ?>
+							<a href="exams/<?php echo $developer['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+                            <!-- <a class="delete btn-danger deletebtn" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a> -->
+						
+                           
+                </td>
+
+                
+            </tr>
+        </tbody>
+        <?php           
+    }
+}
+else 
+{
+    
+    echo "No Record Found";
+}
+?>
+
+
                     </table>
             
         </div> 
     </div>
 
-  
+    
 
 <!--Search data -->
 <div id="srch" class="card-body">
                 <h4> Search Data </h4>
                     <table class="table table-bordered ">
                     <thead>
-                        <tr>
-                            <th> ID </th> 
-                            <th> NAME OF TEACHER </th>
-                            <th> BRANCH </th>
-                            <th> TITLE OF BOOK </th>
-                            <th> TITLE OF CHAPTER </th>
-                            <th> NAME OF PUBLISHER </th>
-                            <th> NATIONAL </th>
-                            <th> ISBN/ISSN </th>
-                            <th> PUBLICATION YEAR </th>
-                            <th> VOLUME ISSUE </th>
-                            <th> ACTION </th>
-                        </tr>
-                    <thead>       
+                            <tr>
+                                <th> ID </th>
+                                <th> Year </th>
+                                <th> Department </th>
+                                <th> Registration Number </th>
+                                <th> Name of Student </th>
+                                <th> Name of Exam </th>
+                                <th> OTHER </th>
+                                <th> Upload Proof </th>
+                                <th> STATUS </th>
+                               
+                            </tr>
+                        </thead>       
 <?php 
     if (isset($_POST["submit"])) {
         $str = mysqli_real_escape_string($connection, $_POST["search"]);
 
-            $sth = "SELECT * FROM `bookschapter`WHERE STATUS = 'approved' AND( Branch LIKE '%$str%' OR Name_Of_The_Teacher LIKE '%$str%' OR Title_Of_The_Book_Published LIKE '%$str%' OR Title_Of_The_Chapter_Published_In_The_Book LIKE '%$str%' OR Name_Of_The_Publisher LIKE '%$str%' OR National_Or_International LIKE '$str' OR ISBN_Or_ISSN_Number LIKE '%$str%' OR Year_Of_Publication LIKE '%$str%' OR Volume_Issue LIKE '%$str%')";
+        $sth = "SELECT * FROM `competitiveexams` WHERE STATUS = 'approved' AND(Branch LIKE '%$str%' OR Registration_number LIKE '%$str%' OR Name_of_student LIKE '%$str%' OR Name_of_exam LIKE '%$str%' OR Year LIKE '%$str%' OR other LIKE '%$str%' ) ";
         
         $result = mysqli_query($connection, $sth);
         $queryresult = mysqli_num_rows($result); ?>
@@ -180,7 +176,7 @@ session_start();
                     <div class="card">
                         <div class="card-body btn-group">
                         <div> Results- </div> &nbsp; &nbsp;
-                        <button class="btn btn-success" onclick="exportTableToCSV('Search_Data.csv')"> Export Data </button>
+                        <button class="btn btn-success" onclick="exportTableToCSV('Search_data.csv')"> Export Data </button>
                         </div>
                     </div>
                     
@@ -191,24 +187,26 @@ session_start();
              
                     <tr>                
                         <td> <?php echo $row['id']; ?> </td>
-                        <td> <?php echo $row['Name_Of_The_Teacher']; ?> </td> 
-                        <td> <?php echo $row['Branch']; ?> </td>
-                        <td> <?php echo $row['Title_Of_The_Book_Published']; ?> </td>
-                        <td> <?php echo $row['Title_Of_The_Chapter_Published_In_The_Book']; ?> </td>
-                        <td> <?php echo $row['Name_Of_The_Publisher']; ?> </td>
-                        <td> <?php echo $row['National_Or_International']; ?> </td>
-                        <td> <?php echo $row['ISBN_Or_ISSN_Number']; ?> </td>
-                        <td> <?php echo $row['Year_Of_Publication']; ?> </td>
-                        <td> <?php echo $row['Volume_Issue']; ?> </td>
-                        <td>
-                            <!--<a href="read.php?viewid=<?php echo htmlentities ($developer['id']);?>" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>-->
-                            <a href="uploadsindexextc/<?php echo $developer['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
-							<a href="uploadsfrontextc/<?php echo $developer['pdffile2']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
-							
+                        <td> <?php echo $row['Year']; ?> </td>
+                                <td> <?php echo $row['Branch']; ?> </td> 
+                                <td> <?php echo $row['Registration_number']; ?> </td>
+                                <td> <?php echo $row['Name_of_student']; ?> </td>
+                                <td> <?php echo $row['Name_of_exam']; ?> </td>
+                                <td> <?php echo $row['OTHER']; ?> </td>
+                                
+                                <td>
+                            <!--<a href="read.php?viewid=<?php echo htmlentities ($row['id']);?>" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>-->
+                            <!-- <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a> -->
+                            <a href="../../fdpadmins/competitive_exams/exams/<?php echo $row['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+							<!-- <a href="uploadsfrontit/<?php echo $row['pdffile2']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a> -->
+                            <!-- <a class="delete btn-danger deletebtn" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+							 -->
                             
                             
                             <!-- <button class="btn"><i class="fa fa-download"></i> Download</button> -->
-                        </td>
+                           
+                            </td>
+                        
                     </tr> 
                     <tbody>
                     <?php 
@@ -279,15 +277,14 @@ session_start();
                 console.log(data);
                 //chnage this keep same variable as above
                 $('#update_id').val(data[0]);
-                $('#Name_Of_The_Teacher').val(data[1]);
+                $('#Year').val(data[1]);
                 $('#Branch').val(data[2]);
-                $('#Title_Of_The_Book_Published').val(data[3]);
-                $('#Title_Of_The_Chapter_Published_In_The_Book').val(data[4]);
-                $('#Name_Of_The_Publisher').val(data[5]);
-                $('#National_Or_International').val(data[6]);
-                $('#ISBN_Or_ISSN_Number').val(data[7]);
-                $('#Year_Of_Publication').val(data[8]);
-                $('#Volume_Issue').val(data[9]);
+                $('#Registration_number').val(data[3]);
+                $('#Name_of_student').val(data[4]);
+                $('#Name_of_exam').val(data[5]);
+                $('#other').val(data[6]);
+                $('#pdffile1').val(data[7]);
+                // $('#pdffile2').val(data[13]);
             });
         });
     </script>
@@ -371,6 +368,7 @@ session_start();
     downloadCSV(csv.join("\n"), filename);  
     }  
 </script> 
+
 
 </body>
 </html>

@@ -200,7 +200,7 @@ if (isset($_POST['approve_now'])) {
                         <input type="hidden" name="update_id" id="update_id">
 
                         <div class="form-group">
-                            <label>Year</label>
+                         <label>Year</label>
                             <select name="year" class="form-control" required>
                                 <option value="">--Select Year--</option>
                                 <option name="year" value="2017-18">2017-18</option>
@@ -210,9 +210,10 @@ if (isset($_POST['approve_now'])) {
                                 <option name="year" value="2021-22">2021-22</option>
                                 <option name="year" value="2021-22">2022-23</option>
                             </select>
+                        </div>
 
                         <div class="form-group">
-                            <label>Graduation Program</label>
+                        <label>Graduation Program</label>
                             <select name="graduation_program" class="form-control" required>
                                 <option value="">--Select Department--</option>
                                 <option name="graduation_program" value="IT">IT</option>
@@ -226,7 +227,7 @@ if (isset($_POST['approve_now'])) {
 
                         <div class="form-group">
                             <label> Student Name </label>
-                            <input type="text"  id="student_name" name="student_name" class="form-control" placeholder="Enter student_name" required>
+                            <input type="text" name="student_name" class="form-control" placeholder="Enter Student name" required>
                         </div>
 
                         <div class="form-group">
@@ -235,9 +236,33 @@ if (isset($_POST['approve_now'])) {
                         </div>
 
                         <div class="form-group">
-                            <label> Name of Program Admitted </label>
-                            <input type="text" name="program_name_admitted"  id="program_name_admitted" class="form-control" placeholder="Enter program_name_admitted">
+                            <label> Name of Program admitted </label>
+                            <input type="text" name="program_name_admitted" class="form-control" placeholder="program_name_admitted">
                         </div>
+
+                        <div class="form-group">
+                            <label> Upload Admitcard & Idcard </label>
+                            <input type="file" name="upload_admitcard_idcard" id="upload_admitcard_idcard" required/><br>
+                                    <img src="" id="pdf-file1-tag" width="100px" />
+
+                                    <script type="text/javascript">
+                                        function readURL(input) {
+                                            if (input.files && input.files[0]) {
+                                                var reader = new FileReader();
+                                                
+                                                reader.onload = function (e) {
+                                                    $('#pdf-file1-tag').attr('src', e.target.result);
+                                                }
+                                                reader.readAsDataURL(input.files[0]);
+                                            }
+                                        }
+                                        $("#pdffile1").change(function(){
+                                            readURL(this);
+                                        });
+                                    </script><br>
+						</div>
+
+                        
 
                     </div>
                     <div class="modal-footer">
@@ -300,7 +325,7 @@ if (isset($_POST['approve_now'])) {
     if (isset($_POST["submit"])) {
         $str = mysqli_real_escape_string($connection, $_POST["search"]);
 
-        $sth = "SELECT * FROM `higher_studies` WHERE user_id=$id AND (year LIKE '%$str%' OR graduation_program LIKE '%$str%' OR student_name LIKE '%$str%' OR institute_name_joined LIKE '%$str%' OR program_name_admitted LIKE '%$str%' OR STATUS LIKE '%$str%') ";
+        $sth = "SELECT * FROM `higher_studies` WHERE  (year LIKE '%$str%' OR graduation_program LIKE '%$str%' OR student_name LIKE '%$str%' OR institute_name_joined LIKE '%$str%' OR program_name_admitted LIKE '%$str%' OR STATUS LIKE '%$str%') ";
         $result = mysqli_query($connection, $sth);
         $queryresult = mysqli_num_rows($result); ?>
 

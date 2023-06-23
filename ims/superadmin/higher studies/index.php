@@ -10,7 +10,7 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title> FDP / STTP </title>
+    <title>Student Higher Studies</title>
 
     <link rel="stylesheet" href="styles.css">
     
@@ -27,6 +27,8 @@ session_start();
 
 
 <body>
+
+
     <?php include('../../header.php'); ?>
 
     <!-- Modal -->
@@ -43,63 +45,58 @@ session_start();
                 </div>
 
                 <form action="insertcode.php" method="POST" enctype="multipart/form-data" >
-                <!-- <div class="modal-body">
-                        <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id']; ?>"> -->
 
                     <div class="modal-body">
 
                         <div class="form-group">
-                            <label>Year</label>
-                            <select name="career_year" class="form-control" required>
+                        <label>Year</label>
+                            <select name="year" class="form-control" required>
                                 <option value="">--Select Year--</option>
-                                <option name="career_year" value="2017-18">2017-18</option>
-                                <option name="career_year" value="2018-19">2018-19</option>
-                                <option name="career_year" value="2019-20">2019-20</option>
-                                <option name="career_year" value="2020-21">2020-21</option>
-                                <option name="career_year" value="2021-22">2021-22</option>
-                                <option name="career_year" value="2021-22">2022-23</option>
+                                <option name="year" value="2017-18">2017-18</option>
+                                <option name="year" value="2018-19">2018-19</option>
+                                <option name="year" value="2019-20">2019-20</option>
+                                <option name="year" value="2020-21">2020-21</option>
+                                <option name="year" value="2021-22">2021-22</option>
+                                <option name="year" value="2021-22">2022-23</option>
                             </select>
                         </div>
 
+                    
+                        <div class="form-group">
+                        <label>Graduation Program</label>
+                            <select name="graduation_program" class="form-control" required>
+                                <option value="">--Select Department--</option>
+                                <option name="graduation_program" value="IT">IT</option>
+                                <option name="graduation_program" value="EXTC">EXTC</option>
+                                <option name="graduation_program" value="Mechanical">Mechanical</option>
+                                <option name="graduation_program" value="Computers">Computers</option>
+                                <option name="graduation_program" value="Electrical">Electrical</option>
+                                <option name="graduation_program" value="Humanities">Humanities</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                         <label> Student Name </label>
+                            <input type="text" name="student_name" class="form-control" placeholder="Enter Student name" required>
+                        </div>
+
+                        <div class="form-group">
+                         <label> Name of the Institute Joined </label>
+                            <input type="text" name="institute_name_joined" id="institute_name_joined" class="form-control" placeholder="institute_name_joined" required>
+                        </div>
+
+                        <div class="form-group">
+                         <label> Name of Program admitted </label>
+                            <input type="text" name="program_name_admitted" class="form-control" placeholder="program_name_admitted">
+                        </div>
+
+                       
+
                         
                         <div class="form-group">
-    <label>Branch</label>
-    <select name="Branch" class="form-control" required disabled>
-        <option value="">--Select Department--</option>
-        <?php
-        // Retrieve the department information from the session or any other method
-        $branch = $_SESSION['branch']; 
-
-       $branches = array("IT", "EXTC", "Mechanical", "Computers", "Electrical", "Humanities");
-foreach ($branches as $branchOption) {
-    $selected = ($branchOption == $branch) ? 'selected="selected"' : '';
-    echo '<option value="' . $branchOption . '" ' . $selected . '>' . $branchOption . '</option>';
-}
-
-        ?>
-    </select>
-</div>
-              
-                        <div class="form-group">
-                            <label> Guidance for Career Councelling/Competitive exam  </label>
-                            <input type="text" name="guidance_career" class="form-control" placeholder="Enter Guidance for Career Councelling/Competitive exam " required>
-                        </div>
-
-                        <div class="form-group">
-                            <label> Name/title of the Activity </label>
-                            <input type="text" name="title" class="form-control" placeholder="Enter Name/title of the Activity " required>
-                        </div>
-
-                        <div class="form-group">
-                            <label> Number of students attended / participated</label>
-                            <input type="number" name="students_attended" class="form-control" placeholder="Enter Number of students attended / participated">
-                        </div>
-
-
-                        <div class="form-group">
-                            <label> Upload the relevant document </label>
-                            <input type="file" name="pdffile" id="pdf-file" required/><br>
-                                    <img src="" id="pdf-file-tag" width="100px" />
+                            <label> Upload Admitcard & Idcard </label>
+                            <input type="file" name="upload_admitcard_idcard" id="upload_admitcard_idcard" required/><br>
+                                    <img src="" id="pdf-file1-tag" width="100px" />
 
                                     <script type="text/javascript">
                                         function readURL(input) {
@@ -107,16 +104,18 @@ foreach ($branches as $branchOption) {
                                                 var reader = new FileReader();
                                                 
                                                 reader.onload = function (e) {
-                                                    $('#pdf-file-tag').attr('src', e.target.result);
+                                                    $('#pdf-file1-tag').attr('src', e.target.result);
                                                 }
                                                 reader.readAsDataURL(input.files[0]);
                                             }
                                         }
-                                        $("#pdf-file").change(function(){
+                                        $("#pdffile1").change(function(){
                                             readURL(this);
                                         });
                                     </script><br>
-                        </div>
+						</div>
+                        		
+
 
                     </div>
                     <div class="modal-footer">
@@ -124,7 +123,6 @@ foreach ($branches as $branchOption) {
                         <button type="submit" id="insertbutton" name="insertdata" class="btn btn-primary" onClick="datechecker() ">Save Data</button>
                     </div>
                 </form>
-
             </div>
         </div>
     </div>
@@ -173,14 +171,12 @@ foreach ($branches as $branchOption) {
                 ?>
 
             <div class="card-body mt-5">
-                <h2> Carrer guidance </h2>
+                <h2>Higher Studies</h2>
             </div>
             <div class="card">
                 <div class="card-body btn-group">
                 <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#studentaddmodal"> 
-                        ADD DATA
-                    </button>
+                    
             </form> &nbsp;
 
             <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">					
@@ -201,33 +197,34 @@ foreach ($branches as $branchOption) {
                       <!-- th change -->
                     <table id="datatableid" class="table table-bordered table-dark mt-2">
                         <thead>
-                            <tr><th scope="col"> ID </th>
-                                <th scope="col"> Year</th>
-                                <th scope="col"> Department</th>
-                                <th scope="col"> Guidance for Career Councelling/Competitive exam </th>
-                                <th scope="col"> Name/title of the Activity </th>
-                                <th scope="col"> Number of students attended / participated </th>
-                                <th scope="col"> ACTION </th>
-                                <th scope="col"> STATUS </th>
-                              
+                            <tr>
+                            <th scope="col"> Year </th>
+                                <th scope="col"> Graduation Program </th>
+                                <th scope="col"> Student Name </th>
+                                <th scope="col"> Name of the Institute Joined </th>
+                                <th scope="col"> Name of Program Admitted </th>
+                                <th scope="col"> Upload Admitcard & Idcard </th>
+                                <th scope="col"> Action </th>
+                                
                                
                             </tr>
                         </thead>
                         
                         <?php
-                        $user = $_SESSION["role"];                        
+                        $user = $_SESSION["role"];
+                        
                         $result = "SELECT * FROM fdpadmins WHERE username = '$user'";
 
                         $query = mysqli_query($connection, $result);
                         $queryresult = mysqli_num_rows($query); 
                             if($queryresult > 0){
                                 while($row = mysqli_fetch_assoc($query)){ 
-                                    $id=$row['id'];
-                                    $branch = $row['branch'];
+                                    $id = $row['id'];
                                 }  
                             }
 
-                        $table_query = "SELECT * FROM career_guidance WHERE  user_id='$id'";  
+
+                        $table_query = "SELECT * FROM higher_studies where STATUS= 'approved' ORDER BY id ASC";
                         $query_run = mysqli_query($connection, $table_query);
                         $query_result = mysqli_num_rows($query_run); ?>
 
@@ -236,24 +233,23 @@ foreach ($branches as $branchOption) {
                                             ?>
                         <tbody> <!-- change -->
                             <tr>
-                            <?php
-                                $status = $developer['STATUS'];
-                                $is_disabled = ($status == "approved") ? "disabled" : "";
+                                <!-- table columns -->
+                <?php
+                $status = $developer['STATUS'];
+                $is_disabled = ($status == "approved") ? "disabled" : "";
                 // If STATUS is "approved", set the $is_disabled variable to "disabled"
-                       ?>
-                            <td> <?php echo $developer['id']; ?> </td>
-                                <td> <?php echo $developer['career_year']; ?> </td>
-                                <td> <?php echo $developer['Branch']; ?> </td> 
-                                <td> <?php echo $developer['guidance_career']; ?> </td>
-                                <td> <?php echo $developer['title']; ?> </td>
-                                <td> <?php echo $developer['students_attended']; ?> </td>
-                                
+                ?>
+                                <td> <?php echo $developer['id']; ?> </td> 
+                                <td> <?php echo $developer['year']; ?> </td>
+                                <td> <?php echo $developer['graduation_program']; ?> </td> 
+                                <td> <?php echo $developer['student_name']; ?> </td>
+                                <td> <?php echo $developer['institute_name_joined']; ?> </td>
+                                <td> <?php echo $developer['program_name_admitted']; ?> </td>
                                 <td>
-                            <!--<a href="read.php?viewid=<?php echo htmlentities ($developer['id']);?>" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>-->
-                            <!-- <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a> -->
-                            <a href="uploadsfdporganised/<?php echo $developer['pdffile']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
-                            <!-- <a class="delete btn-danger deletebtn" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a> -->
-                            <?php if ($status != "approved") { // If STATUS is not "approved", show the edit and delete buttons ?>
+                                <a href="reports/<?php echo $developer['upload_admitcard_idcard']; ?>"  class="download" title="Download" data-toggle="tooltip">
+                            <i class="fa fa-download"></i>
+                        </a>
+                        <?php if ($status != "approved") { // If STATUS is not "approved", show the edit and delete buttons ?>
                         <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip" <?php echo $is_disabled ?>>
                             <i class="material-icons">&#xE254;</i>
                         </a>
@@ -262,12 +258,13 @@ foreach ($branches as $branchOption) {
                             <i class="material-icons">&#xE872;</i>
                         </a>
                     <?php } ?>
-                </td>
-
-                <td> <?php echo $status; ?> </td>
-            </tr>
-        </tbody>
-        <?php              }
+                        </td>
+                                
+                                
+                            </tr>
+                        </tbody>
+                        <?php           
+                    }
                 }
                 else 
                 {
@@ -297,45 +294,71 @@ foreach ($branches as $branchOption) {
 
                     <div class="modal-body">
 
-                    <input type="hidden" name="update_id" id="update_id">
+                        <input type="hidden" name="update_id" id="update_id">
 
                         <div class="form-group">
-                            <label> Year</label>
-                            <input id='career_year' type="text" name="career_year" class="form-control" placeholder="Enter Title" required>
-                        </div>
-                        
-                        <div class="form-group">
-    <label>Branch</label>
-    <select name="Branch" class="form-control" required >
-        <option value="">--Select Department--</option>
-        <?php
-        // Retrieve the department information from the session or any other method
-        $branch = $_SESSION['branch']; 
-
-       $branches = array("IT", "EXTC", "Mechanical", "Computers", "Electrical", "Humanities");
-foreach ($branches as $branchOption) {
-    $selected = ($branchOption == $branch) ? 'selected="selected"' : '';
-    echo '<option value="' . $branchOption . '" ' . $selected . '>' . $branchOption . '</option>';
-}
-
-        ?>
-    </select>
-</div>
-                        <div class="form-group">
-                            <label> Guidance for Career Councelling/Competitive exam </label>
-                            <input id="guidance_career" type="text" name="guidance_career" class="form-control" placeholder="AICTE/ISTE/Others" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label> Name/title of the Activity </label>
-                            <input id='title' type="text" name="title" class="form-control" placeholder="Enter Grant Amount">
+                         <label>Year</label>
+                            <select name="year" class="form-control" required>
+                                <option value="">--Select Year--</option>
+                                <option name="year" value="2017-18">2017-18</option>
+                                <option name="year" value="2018-19">2018-19</option>
+                                <option name="year" value="2019-20">2019-20</option>
+                                <option name="year" value="2020-21">2020-21</option>
+                                <option name="year" value="2021-22">2021-22</option>
+                                <option name="year" value="2021-22">2022-23</option>
+                            </select>
                         </div>
 
                         <div class="form-group">
-                            <label> Number of students attended / participated </label>
-                            <input id='students_attended' type="text" name="students_attended" class="form-control" placeholder="Enter Name of Convener">
+                        <label>Graduation Program</label>
+                            <select name="graduation_program" class="form-control" required>
+                                <option value="">--Select Department--</option>
+                                <option name="graduation_program" value="IT">IT</option>
+                                <option name="graduation_program" value="EXTC">EXTC</option>
+                                <option name="graduation_program" value="Mechanical">Mechanical</option>
+                                <option name="graduation_program" value="Computers">Computers</option>
+                                <option name="graduation_program" value="Electrical">Electrical</option>
+                                <option name="graduation_program" value="Humanities">Humanities</option>
+                            </select>
                         </div>
-						
+
+                        <div class="form-group">
+                            <label> Student Name </label>
+                            <input type="text" name="student_name" class="form-control" placeholder="Enter Student name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label> Name of the Institute Joined </label>
+                            <input type="text" name="institute_name_joined" id="institute_name_joined" class="form-control" placeholder="institute_name_joined" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label> Name of Program admitted </label>
+                            <input type="text" name="program_name_admitted" class="form-control" placeholder="program_name_admitted">
+                        </div>
+
+                        <div class="form-group">
+                            <label> Upload Admitcard & Idcard </label>
+                            <input type="file" name="upload_admitcard_idcard" id="upload_admitcard_idcard" required/><br>
+                                    <img src="" id="pdf-file1-tag" width="100px" />
+
+                                    <script type="text/javascript">
+                                        function readURL(input) {
+                                            if (input.files && input.files[0]) {
+                                                var reader = new FileReader();
+                                                
+                                                reader.onload = function (e) {
+                                                    $('#pdf-file1-tag').attr('src', e.target.result);
+                                                }
+                                                reader.readAsDataURL(input.files[0]);
+                                            }
+                                        }
+                                        $("#pdffile1").change(function(){
+                                            readURL(this);
+                                        });
+                                    </script><br>
+						</div>
+
                         
 
                     </div>
@@ -354,31 +377,31 @@ foreach ($branches as $branchOption) {
                 <h4> Search Data </h4>
                     <table class="table table-bordered ">
                     <thead>
-                    
-                        
-                            <tr><th> ID </th>
-                                <th> Year</th>
-                                <th> Department</th>
-                                <th> Guidance for Career Councelling/Competitive exam </th>
-                                <th> Name/title of the Activity </th>
-                                <th> Number of students attended / participated </th>
-                                <th> ACTION </th>
-                                <th> STATUS </th>
-
+                        <tr>
+                        <th> Year </th>
+                                <th> Graduation Program </th>
+                                <th> Student Name </th>
+                                <th> Name of the Institute Joined </th>
+                                <th> Name of Program Admitted </th>
+                                <th> Upload Admitcard & Idcard </th>
+                                <th> Action </th>
+                                
                         </tr>
                     <thead>       
 <?php 
     if (isset($_POST["submit"])) {
         $str = mysqli_real_escape_string($connection, $_POST["search"]);
 
-        $sth = "SELECT * FROM `career_guidance` WHERE user_id=$id AND (Branch LIKE '%$str%' OR career_year LIKE '%$str%' OR guidance_career LIKE '%$str%' OR title LIKE '%$str%' OR students_attended LIKE '%$str%'OR STATUS LIKE '$str' ) ";
-        $result = mysqli_query($connection, $sth);
+        $sth = "SELECT * FROM `higher_studies` WHERE ( graduation_program LIKE '%$str%' OR student_name LIKE '%$str%' OR institute_name_joined LIKE '%$str%' OR program_name_admitted LIKE '%$str%' ) ";
+        
+       
+         $result = mysqli_query($connection, $sth);
         $queryresult = mysqli_num_rows($result); ?>
 
                     <div class="card">
                         <div class="card-body btn-group">
                         <div> Results- </div> &nbsp; &nbsp;
-                        <button class="btn btn-success" onclick="exportTableToCSV('Search_Data.csv')"> Export Data </button>
+                        <button class="btn btn-success" onclick="exportTableToCSV('Search_data.csv')"> Export Data </button>
                         </div>
                     </div>
                     
@@ -387,18 +410,23 @@ foreach ($branches as $branchOption) {
                     ?>
                     <tbody id="srch"> 
              
-                    <tr>                
-                    <td> <?php echo $row['id']; ?> </td>
-                        <td> <?php echo $row['career_year']; ?> </td> 
-                        <td> <?php echo $row['branch']; ?> </td> 
-                        <td> <?php echo $row['guidance_career']; ?> </td>
-                        <td> <?php echo $row['title']; ?> </td>
-                        <td> <?php echo $row['students_attended']; ?> </td>
-                        
-                        <td>
-                            <!--<a href="read.php?viewid=<?php echo htmlentities ($developer['id']);?>" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>-->
-                            <!-- <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a> -->
-                            <a href="uploadsextc/<?php echo $developer['pdffile']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+                    <tr>  
+                    <?php
+                $status = $row['STATUS'];
+                $is_disabled = ($status == "approved") ? "disabled" : "";
+                // If STATUS is "approved", set the $is_disabled variable to "disabled"
+                ?>                
+                        <td> <?php echo $row['id']; ?> </td>
+                                <td> <?php echo $row['year']; ?> </td> 
+                                <td> <?php echo $row['graduation_program']; ?> </td>
+                                <td> <?php echo $row['student_name']; ?> </td>
+                                <td> <?php echo $row['institute_name_joined']; ?> </td>
+                                <td> <?php echo $row['program_name_admitted']; ?> </td>
+                                <td>
+                            <!--<a href="read.php?viewid=<?php echo htmlentities ($row['id']);?>" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>-->
+                            <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                            <a href="reports/<?php echo $row['upload_admitcard_idcard']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+							<!-- <a href="uploadsfrontit/<?php echo $row['pdffile2']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a> -->
                             <?php if ($status != "approved") { // If STATUS is not "approved", show the edit and delete buttons ?>
                         <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip" <?php echo $is_disabled ?>>
                             <i class="material-icons">&#xE254;</i>
@@ -409,7 +437,8 @@ foreach ($branches as $branchOption) {
                         </a>
                     <?php } ?>
                             </td>
-                        <td> <?php echo $row['STATUS']; ?> </td>
+                        
+                        </td>
                     </tr> 
                     <tbody>
                     <?php 
@@ -422,6 +451,8 @@ foreach ($branches as $branchOption) {
     ?>
     </table>
     </div>
+
+
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -478,13 +509,13 @@ foreach ($branches as $branchOption) {
 
                 console.log(data);
                 //chnage this keep same variable as above
-                 $('#update_id').val(data[0]);
-                $('#career_year').val(data[1]);
-                $('#branch').val(data[2]);
-                $('#guidance_career').val(data[3]);
-                $('#title').val(data[4]);
-                $('#students_attended').val(data[5]);
-                $('#pdffile').val(data[6]);
+                $('#update_id').val(data[0]);
+                $('#graduation_program').val(data[1]);
+                $('#student_name').val(data[2]);
+                $('#institute_name_joined').val(data[3]);
+                $('#program_name_admitted').val(data[4]);
+                $('#upload_admitcard_idcard').val(data[12]);
+                // $('#pdffile2').val(data[13]);
             });
         });
     </script>
@@ -568,6 +599,7 @@ foreach ($branches as $branchOption) {
     downloadCSV(csv.join("\n"), filename);  
     }  
 </script> 
+
 
 </body>
 </html>

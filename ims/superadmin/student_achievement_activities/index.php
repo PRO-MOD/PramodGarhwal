@@ -11,7 +11,7 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title> Book Chapters Published </title>
+    <title> Students Achievement Activities </title>
 
     <link rel="stylesheet" href="styles.css">
     
@@ -45,12 +45,12 @@ session_start();
                 ?>
 
             <div class="card-body mt-5">
-                <h2> Book Chapters/Books Published</h2>
+                <h2> Students Achievement Activities </h2>
             </div>
             <div class="card">
                 <div class="card-body btn-group">
             <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">					
-				<button type="submit" onclick="exportTableToCSVuser('USerData_BookChapters.csv')" class="btn btn-success">Export to excel</button>
+				<button type="submit" onclick="exportTableToCSVuser('USerData_StudentAchievementActivities.csv')" class="btn btn-success">Export to excel</button>
 			</form> &nbsp; &nbsp; 
         
             <form method="post">
@@ -69,16 +69,18 @@ session_start();
                         <thead>
                             <tr>
                                 <th scope="col"> ID </th>
-                                <th scope="col"> NAME OF TEACHER </th>
-                                <th scope="col"> BRANCH </th>
-                                <th scope="col"> TITLE OF BOOK </th>
-                                <th scope="col"> TITLE OF CHAPTER </th>
-                                <th scope="col"> NAME OF PUBLISHER </th>
-                                <th scope="col"> NATIONAL </th>
-								<th scope="col"> ISBN/ISSN </th>
-                                <th scope="col"> PUBLICATION YEAR </th>
-                                <th scope="col"> VOLUME ISSUE </th>
-                                
+                                <th scope="col"> NAME OF STUDENT </th>
+                                <th scope="col"> ROLL NUMBER </th>
+                                <th scope="col"> BRANCH</th>
+                                <th scope="col"> YEAR OF STUDY AT THE TIME OF EVENT </th>
+                                <th scope="col"> CURRENT YEAR OF STUDY </th>
+                                <th scope="col"> EXTRACURRICULAR/ COCURRICULAR </th>
+								<th scope="col"> NAME OF ACTIVITY </th>
+                                <th scope="col"> OTHERS </th>
+                                <th scope="col"> ORGANIZING INSTITUTE/BODY AND ITS LOCATION </th>
+                                <th scope="col"> AWARDS WON/ PARTICIPATION </th>
+                                <th scope="col"> STARTING DATE </th>
+                                <th scope="col"> ENDING DATE </th>
                                 <th scope="col"> ACTION </th>
                                
                             </tr>
@@ -98,7 +100,7 @@ session_start();
                             }
 
 
-                        $table_query = "SELECT * FROM bookschapter WHERE STATUS = 'approved' ORDER BY id ASC";
+                        $table_query = "SELECT * FROM achievement ORDER BY id ASC";
                         $query_run = mysqli_query($connection, $table_query);
                         $query_result = mysqli_num_rows($query_run); ?>
 
@@ -108,19 +110,22 @@ session_start();
                         <tbody> <!-- change -->
                             <tr>
                                 <td> <?php echo $developer['id']; ?> </td>
-                                <td> <?php echo $developer['Name_Of_The_Teacher']; ?> </td> 
+                                <td> <?php echo $developer['Name_Of_The_Student']; ?> </td> 
+                                <td> <?php echo $developer['Roll_no']; ?> </td>
                                 <td> <?php echo $developer['Branch']; ?> </td>
-                                <td> <?php echo $developer['Title_Of_The_Book_Published']; ?> </td>
-                                <td> <?php echo $developer['Title_Of_The_Chapter_Published_In_The_Book']; ?> </td>
-                                <td> <?php echo $developer['Name_Of_The_Publisher']; ?> </td>
-                                <td> <?php echo $developer['National_Or_International']; ?> </td>
-                                <td> <?php echo $developer['ISBN_Or_ISSN_Number']; ?> </td>
-                                <td> <?php echo $developer['Year_Of_Publication']; ?> </td>
-                                <td> <?php echo $developer['Volume_Issue']; ?> </td>
+                                <td> <?php echo $developer['Year_Of_Study']; ?> </td>
+                                <td> <?php echo $developer['Current_Year']; ?> </td>
+                                <td> <?php echo $developer['Extracurricular_Or_Cocurricular']; ?> </td>
+                                <td> <?php echo $developer['Name_Of_Activity']; ?> </td>
+                                <td> <?php echo $developer['Others']; ?> </td>
+                                <td> <?php echo $developer['Organizing_Body']; ?> </td>
+                                <td> <?php echo $developer['Award_Or_Participation']; ?> </td>
+                                <td> <?php echo $developer['Dates_From']; ?> </td>
+                                <td> <?php echo $developer['Dates_To']; ?> </td>
                                 <td>
                             <!--<a href="read.php?viewid=<?php echo htmlentities ($developer['id']);?>" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>-->
-                            <a href="uploadsindexit/<?php echo $developer['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
-							<a href="uploadsfrontit/<?php echo $developer['pdffile2']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+                            <a href="../../student/achievement_activities/certificates/<?php echo $developer['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+							<!-- <a href="uploadsfrontit/<?php echo $developer['pdffile2']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a> -->
 							
                             
                             
@@ -156,15 +161,18 @@ session_start();
                     <thead>
                         <tr>
                             <th> ID </th> 
-                            <th> NAME OF TEACHER </th>
+                            <th> NAME OF STUDENT </th>
+                            <th> ROLL NUMBER </th>
                             <th> BRANCH </th>
-                            <th> TITLE OF BOOK </th>
-                            <th> TITLE OF CHAPTER </th>
-                            <th> NAME OF PUBLISHER </th>
-                            <th> NATIONAL </th>
-                            <th> ISBN/ISSN </th>
-                            <th> PUBLICATION YEAR </th>
-                            <th> VOLUME ISSUE </th>
+                            <th> YEAR OF STUDY AT THE TIME OF EVENT </th>
+                            <th> CURRENT YEAR </th>
+                            <th> EXTRACURRICULAR/ COCURRICULAR </th>
+                            <th> NAME OF ACTIVITY </th>
+                            <th> OTHERS </th>
+                            <th> ORGANIZING INSTITUTE/BODY AND ITS LOCATION </th>
+                            <th> AWARDS WON/ PARTICIPATION </th>
+                            <th> STARTING DATE </th>
+                            <th> ENDING DATE </th>
                             <th> ACTION </th>
                         </tr>
                     <thead>       
@@ -172,7 +180,7 @@ session_start();
     if (isset($_POST["submit"])) {
         $str = mysqli_real_escape_string($connection, $_POST["search"]);
 
-            $sth = "SELECT * FROM `bookschapter`WHERE STATUS = 'approved' AND( Branch LIKE '%$str%' OR Name_Of_The_Teacher LIKE '%$str%' OR Title_Of_The_Book_Published LIKE '%$str%' OR Title_Of_The_Chapter_Published_In_The_Book LIKE '%$str%' OR Name_Of_The_Publisher LIKE '%$str%' OR National_Or_International LIKE '$str' OR ISBN_Or_ISSN_Number LIKE '%$str%' OR Year_Of_Publication LIKE '%$str%' OR Volume_Issue LIKE '%$str%')";
+            $sth = "SELECT * FROM `achievement` WHERE Branch LIKE '%$str%' OR Roll_no LIKE '%$str%' OR Name_Of_The_Student LIKE '%$str%' OR Year_Of_Study LIKE '%$str%' OR Current_Year LIKE '%$str%' OR Extracurricular_Or_Cocurricular LIKE '$str' OR Name_Of_Activity LIKE '%$str%' OR Others LIKE '%$str%' OR Organizing_Body LIKE '%$str%' OR Award_Or_Participation LIKE '%$str%' OR Dates_From LIKE '%$str%' OR Dates_To LIKE '%$str%'";
         
         $result = mysqli_query($connection, $sth);
         $queryresult = mysqli_num_rows($result); ?>
@@ -191,19 +199,22 @@ session_start();
              
                     <tr>                
                         <td> <?php echo $row['id']; ?> </td>
-                        <td> <?php echo $row['Name_Of_The_Teacher']; ?> </td> 
+                        <td> <?php echo $row['Name_Of_The_Student']; ?> </td> 
+                        <td> <?php echo $row['Roll_no']; ?> </td>
                         <td> <?php echo $row['Branch']; ?> </td>
-                        <td> <?php echo $row['Title_Of_The_Book_Published']; ?> </td>
-                        <td> <?php echo $row['Title_Of_The_Chapter_Published_In_The_Book']; ?> </td>
-                        <td> <?php echo $row['Name_Of_The_Publisher']; ?> </td>
-                        <td> <?php echo $row['National_Or_International']; ?> </td>
-                        <td> <?php echo $row['ISBN_Or_ISSN_Number']; ?> </td>
-                        <td> <?php echo $row['Year_Of_Publication']; ?> </td>
-                        <td> <?php echo $row['Volume_Issue']; ?> </td>
+                        <td> <?php echo $row['Year_Of_Study']; ?> </td>
+                        <td> <?php echo $row['Current_Year']; ?> </td>
+                        <td> <?php echo $row['Extracurricular_Or_Cocurricular']; ?> </td>
+                        <td> <?php echo $row['Name_Of_Activity']; ?> </td>
+                        <td> <?php echo $row['Others']; ?> </td>
+                        <td> <?php echo $row['Organizing_Body']; ?> </td>
+                        <td> <?php echo $row['Award_Or_Participation']; ?> </td>
+                        <td> <?php echo $row['Dates_From']; ?> </td>
+                        <td> <?php echo $row['Dates_To']; ?> </td>
                         <td>
                             <!--<a href="read.php?viewid=<?php echo htmlentities ($developer['id']);?>" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>-->
-                            <a href="uploadsindexextc/<?php echo $developer['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
-							<a href="uploadsfrontextc/<?php echo $developer['pdffile2']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+                            <a href="../../student/achievement_activities/certificates/<?php echo $developer['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+							<!-- <a href="uploadsfrontextc/<?php echo $developer['pdffile2']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a> -->
 							
                             
                             
@@ -279,15 +290,18 @@ session_start();
                 console.log(data);
                 //chnage this keep same variable as above
                 $('#update_id').val(data[0]);
-                $('#Name_Of_The_Teacher').val(data[1]);
-                $('#Branch').val(data[2]);
-                $('#Title_Of_The_Book_Published').val(data[3]);
-                $('#Title_Of_The_Chapter_Published_In_The_Book').val(data[4]);
-                $('#Name_Of_The_Publisher').val(data[5]);
-                $('#National_Or_International').val(data[6]);
-                $('#ISBN_Or_ISSN_Number').val(data[7]);
-                $('#Year_Of_Publication').val(data[8]);
-                $('#Volume_Issue').val(data[9]);
+                $('#Name_Of_The_Student').val(data[1]);
+                $('#Roll_no').val(data[2]);
+                $('#Branch').val(data[3]);
+                $('#Year_Of_Study').val(data[4]);
+                $('#Current_Year').val(data[5]);
+                $('#Extracurricular_Or_Cocurricular').val(data[6]);
+                $('#Name_Of_Activity').val(data[7]);
+                $('#Others').val(data[8]);
+                $('#Organizing_Body').val(data[9]);
+                $('#Award_Or_Participation').val(data[10]);
+                $('#Dates_From').val(data[11]);
+                $('#Dates_To').val(data[12]);
             });
         });
     </script>

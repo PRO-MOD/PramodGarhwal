@@ -29,136 +29,7 @@ session_start();
 <body>
     <?php include('../../header.php'); ?>
 
-    <!-- Modal -->
-    <!-- this is add data form Make changes to variables, keep same variables -->
-    <div class="modal fade mt-2" id="studentaddmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Add Data </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-
-                <form action="insertcode.php" method="POST" enctype="multipart/form-data" >
-                <!-- <div class="modal-body">
-                        <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id']; ?>"> -->
-
-                    <div class="modal-body">
-
-                        <div class="form-group">
-                            <label>Year</label>
-                            <select name="career_year" class="form-control" required>
-                                <option value="">--Select Year--</option>
-                                <option name="career_year" value="2017-18">2017-18</option>
-                                <option name="career_year" value="2018-19">2018-19</option>
-                                <option name="career_year" value="2019-20">2019-20</option>
-                                <option name="career_year" value="2020-21">2020-21</option>
-                                <option name="career_year" value="2021-22">2021-22</option>
-                                <option name="career_year" value="2021-22">2022-23</option>
-                            </select>
-                        </div>
-
-                        
-                        <div class="form-group">
-    <label>Branch</label>
-    <select name="Branch" class="form-control" required disabled>
-        <option value="">--Select Department--</option>
-        <?php
-        // Retrieve the department information from the session or any other method
-        $branch = $_SESSION['branch']; 
-
-       $branches = array("IT", "EXTC", "Mechanical", "Computers", "Electrical", "Humanities");
-foreach ($branches as $branchOption) {
-    $selected = ($branchOption == $branch) ? 'selected="selected"' : '';
-    echo '<option value="' . $branchOption . '" ' . $selected . '>' . $branchOption . '</option>';
-}
-
-        ?>
-    </select>
-</div>
-              
-                        <div class="form-group">
-                            <label> Guidance for Career Councelling/Competitive exam  </label>
-                            <input type="text" name="guidance_career" class="form-control" placeholder="Enter Guidance for Career Councelling/Competitive exam " required>
-                        </div>
-
-                        <div class="form-group">
-                            <label> Name/title of the Activity </label>
-                            <input type="text" name="title" class="form-control" placeholder="Enter Name/title of the Activity " required>
-                        </div>
-
-                        <div class="form-group">
-                            <label> Number of students attended / participated</label>
-                            <input type="number" name="students_attended" class="form-control" placeholder="Enter Number of students attended / participated">
-                        </div>
-
-
-                        <div class="form-group">
-                            <label> Upload the relevant document </label>
-                            <input type="file" name="pdffile" id="pdf-file" required/><br>
-                                    <img src="" id="pdf-file-tag" width="100px" />
-
-                                    <script type="text/javascript">
-                                        function readURL(input) {
-                                            if (input.files && input.files[0]) {
-                                                var reader = new FileReader();
-                                                
-                                                reader.onload = function (e) {
-                                                    $('#pdf-file-tag').attr('src', e.target.result);
-                                                }
-                                                reader.readAsDataURL(input.files[0]);
-                                            }
-                                        }
-                                        $("#pdf-file").change(function(){
-                                            readURL(this);
-                                        });
-                                    </script><br>
-                        </div>
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" id="insertbutton" name="insertdata" class="btn btn-primary" onClick="datechecker() ">Save Data</button>
-                    </div>
-                </form>
-
-            </div>
-        </div>
-    </div>
-
-    <!-- DELETE POP UP FORM  -->
-    <!-- dont make changes-->
-    <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel"> Delete Student Data </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-
-                <form action="deletecode.php" method="POST">
-
-                    <div class="modal-body">
-
-                        <input type="hidden" name="delete_id" id="delete_id">
-
-                        <h4> Do you want to Delete this Data ??</h4>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal"> NO </button>
-                        <button type="submit" name="deletedata" class="btn btn-primary"> Yes, Delete it. </button>
-                    </div>
-                </form>
-
-            </div>
-        </div>
-    </div>
+    
 
  <!-- main card -->
  <!-- buttons and search buttoncard -->
@@ -177,12 +48,6 @@ foreach ($branches as $branchOption) {
             </div>
             <div class="card">
                 <div class="card-body btn-group">
-                <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#studentaddmodal"> 
-                        ADD DATA
-                    </button>
-            </form> &nbsp;
-
             <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">					
 				<button type="submit" onclick="exportTableToCSVuser('USerData_BookChapters.csv')" class="btn btn-success">Export to excel</button>
 			</form> &nbsp; &nbsp; 
@@ -208,7 +73,7 @@ foreach ($branches as $branchOption) {
                                 <th scope="col"> Name/title of the Activity </th>
                                 <th scope="col"> Number of students attended / participated </th>
                                 <th scope="col"> ACTION </th>
-                                <th scope="col"> STATUS </th>
+                                
                               
                                
                             </tr>
@@ -216,18 +81,18 @@ foreach ($branches as $branchOption) {
                         
                         <?php
                         $user = $_SESSION["role"];                        
-                        $result = "SELECT * FROM fdpadmins WHERE username = '$user'";
+                        $result = "SELECT * FROM superadmin WHERE username = '$user'";
 
                         $query = mysqli_query($connection, $result);
                         $queryresult = mysqli_num_rows($query); 
                             if($queryresult > 0){
                                 while($row = mysqli_fetch_assoc($query)){ 
                                     $id=$row['id'];
-                                    $branch = $row['branch'];
+                                    
                                 }  
                             }
 
-                        $table_query = "SELECT * FROM career_guidance WHERE  user_id='$id'";  
+                        $table_query = "SELECT * FROM career_guidance WHERE STATUS = 'approved' ORDER BY id ASC";  
                         $query_run = mysqli_query($connection, $table_query);
                         $query_result = mysqli_num_rows($query_run); ?>
 
@@ -236,11 +101,7 @@ foreach ($branches as $branchOption) {
                                             ?>
                         <tbody> <!-- change -->
                             <tr>
-                            <?php
-                                $status = $developer['STATUS'];
-                                $is_disabled = ($status == "approved") ? "disabled" : "";
-                // If STATUS is "approved", set the $is_disabled variable to "disabled"
-                       ?>
+                     
                             <td> <?php echo $developer['id']; ?> </td>
                                 <td> <?php echo $developer['career_year']; ?> </td>
                                 <td> <?php echo $developer['Branch']; ?> </td> 
@@ -253,18 +114,11 @@ foreach ($branches as $branchOption) {
                             <!-- <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a> -->
                             <a href="uploadsfdporganised/<?php echo $developer['pdffile']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
                             <!-- <a class="delete btn-danger deletebtn" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a> -->
-                            <?php if ($status != "approved") { // If STATUS is not "approved", show the edit and delete buttons ?>
-                        <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip" <?php echo $is_disabled ?>>
-                            <i class="material-icons">&#xE254;</i>
-                        </a>
-
-                        <a class="delete btn-danger deletebtn" title="Delete" data-toggle="tooltip" <?php echo $is_disabled ?>>
-                            <i class="material-icons">&#xE872;</i>
-                        </a>
-                    <?php } ?>
+                        
+                    
                 </td>
 
-                <td> <?php echo $status; ?> </td>
+                
             </tr>
         </tbody>
         <?php              }
@@ -279,75 +133,7 @@ foreach ($branches as $branchOption) {
         </div> 
     </div>
 
-    <!-- EDIT POP UP FORM  -->
-    <!-- this is edit data form Make changes to variables and placeholder, keep same variables -->
-    <div class="modal fade" id="editmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel"> Edit Data </h5> &nbsp;
-                    <h5 class="modal-title" id="exampleModalLabel"> (Please enter the dates again)</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-
-                <form action="updatecode.php" method="POST">
-
-                    <div class="modal-body">
-
-                    <input type="hidden" name="update_id" id="update_id">
-
-                        <div class="form-group">
-                            <label> Year</label>
-                            <input id='career_year' type="text" name="career_year" class="form-control" placeholder="Enter Title" required>
-                        </div>
-                        
-                        <div class="form-group">
-    <label>Branch</label>
-    <select name="Branch" class="form-control" required >
-        <option value="">--Select Department--</option>
-        <?php
-        // Retrieve the department information from the session or any other method
-        $branch = $_SESSION['branch']; 
-
-       $branches = array("IT", "EXTC", "Mechanical", "Computers", "Electrical", "Humanities");
-foreach ($branches as $branchOption) {
-    $selected = ($branchOption == $branch) ? 'selected="selected"' : '';
-    echo '<option value="' . $branchOption . '" ' . $selected . '>' . $branchOption . '</option>';
-}
-
-        ?>
-    </select>
-</div>
-                        <div class="form-group">
-                            <label> Guidance for Career Councelling/Competitive exam </label>
-                            <input id="guidance_career" type="text" name="guidance_career" class="form-control" placeholder="AICTE/ISTE/Others" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label> Name/title of the Activity </label>
-                            <input id='title' type="text" name="title" class="form-control" placeholder="Enter Grant Amount">
-                        </div>
-
-                        <div class="form-group">
-                            <label> Number of students attended / participated </label>
-                            <input id='students_attended' type="text" name="students_attended" class="form-control" placeholder="Enter Name of Convener">
-                        </div>
-						
-                        
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" name="updatedata" class="btn btn-primary">Update Data</button>
-                    </div>
-                </form>
-
-            </div>
-        </div>
-    </div>
+    
 
 <!--Search data -->
 <div id="srch" class="card-body">
@@ -363,7 +149,7 @@ foreach ($branches as $branchOption) {
                                 <th> Name/title of the Activity </th>
                                 <th> Number of students attended / participated </th>
                                 <th> ACTION </th>
-                                <th> STATUS </th>
+                               
 
                         </tr>
                     <thead>       
@@ -371,7 +157,7 @@ foreach ($branches as $branchOption) {
     if (isset($_POST["submit"])) {
         $str = mysqli_real_escape_string($connection, $_POST["search"]);
 
-        $sth = "SELECT * FROM `career_guidance` WHERE user_id=$id AND (Branch LIKE '%$str%' OR career_year LIKE '%$str%' OR guidance_career LIKE '%$str%' OR title LIKE '%$str%' OR students_attended LIKE '%$str%'OR STATUS LIKE '$str' ) ";
+        $sth = "SELECT * FROM `career_guidance` WHERE STATUS = 'approved' AND(Branch LIKE '%$str%' OR career_year LIKE '%$str%' OR guidance_career LIKE '%$str%' OR title LIKE '%$str%' OR students_attended LIKE '%$str%'OR STATUS LIKE '$str' ) ";
         $result = mysqli_query($connection, $sth);
         $queryresult = mysqli_num_rows($result); ?>
 
@@ -399,17 +185,10 @@ foreach ($branches as $branchOption) {
                             <!--<a href="read.php?viewid=<?php echo htmlentities ($developer['id']);?>" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>-->
                             <!-- <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a> -->
                             <a href="uploadsextc/<?php echo $developer['pdffile']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
-                            <?php if ($status != "approved") { // If STATUS is not "approved", show the edit and delete buttons ?>
-                        <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip" <?php echo $is_disabled ?>>
-                            <i class="material-icons">&#xE254;</i>
-                        </a>
-
-                        <a class="delete btn-danger deletebtn" title="Delete" data-toggle="tooltip" <?php echo $is_disabled ?>>
-                            <i class="material-icons">&#xE872;</i>
-                        </a>
-                    <?php } ?>
+                         
+                    
                             </td>
-                        <td> <?php echo $row['STATUS']; ?> </td>
+                        
                     </tr> 
                     <tbody>
                     <?php 

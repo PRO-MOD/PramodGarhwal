@@ -86,11 +86,7 @@ if (isset($_POST['login'])) {
                         <input type="submit" name="login" class="btn btn-primary btn-block">
                     </div>
 
-                    <a href="register.php" class="text-center">Don't have an account? Register Here </a>
-
-                    <h5 class="text-danger text-center"><?= $msg; ?> </h5>
-
-                    <a href="resetrequest.php" class="text-center">Forgot/Reset Password </a>
+                    
 
                 </form>
             </div>
