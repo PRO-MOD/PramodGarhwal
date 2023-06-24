@@ -34,7 +34,7 @@
         <div class="content">
           <h4>STUDENTS INTERNSHIP DETAILS</h4>
           <p>details</p>
-          <a href="journal_publications/index.php">Go to Criteria</a>
+          <a href="internship_attended/index.php">Go to Criteria</a>
         </div>
       </div>
     </div>
