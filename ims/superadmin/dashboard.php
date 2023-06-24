@@ -122,6 +122,19 @@
       </div>
     </div>
 
+
+
+     
+    <div class="card">
+      <div class="box">
+        <div class="content">
+          <h4>STUDENT INTERNSHIP DETAILS</h4>
+          <p>organised by the Department</p>
+          <a href="student_internship/index.php">Go to Criteria</a>
+        </div>
+      </div>
+    </div>
+
     <div class="card">
       <div class="box">
         <div class="content">
