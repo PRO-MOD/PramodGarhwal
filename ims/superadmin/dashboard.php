@@ -70,11 +70,9 @@
     <div class="card">
       <div class="box">
         <div class="content">
-
           <h4>COMPETITIVE EXAMS</h4>
           <p>Organised by the Department</p>
           <a href="competitive_exams/index.php">Go to Criteria</a>
-         
         </div>
       </div>
     </div>
@@ -122,9 +120,6 @@
       </div>
     </div>
 
-
-
-     
     <div class="card">
       <div class="box">
         <div class="content">

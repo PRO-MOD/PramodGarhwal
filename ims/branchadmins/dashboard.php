@@ -123,9 +123,39 @@
     <div class="card">
       <div class="box">
         <div class="content">
-          <h4>Career Guidance</h4>
+          <h4>CAREER GUIDANCE</h4>
           <p>organised by the Department</p>
           <a href="career_guidance/index.php">Go to Criteria</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="box">
+        <div class="content">
+          <h4> STUDENT ACHIEVEMENT ACTIVITIES</h4>
+          <p>organised by the Department</p>
+          <a href="student_achievements/index.php">Go to Criteria</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="box">
+        <div class="content">
+          <h4>STUDENT COURSES & WORKSHOPS</h4>
+          <p>organised by the Department</p>
+          <a href="courses_workshops/index.php">Go to Criteria</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="box">
+        <div class="content">
+          <h4>STUDENT INTERNSHIP DETAILS</h4>
+          <p>organised by the Department</p>
+          <a href="student_internship/index.php">Go to Criteria</a>
         </div>
       </div>
     </div>
