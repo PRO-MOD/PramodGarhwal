@@ -22,7 +22,7 @@
         session_write_close();
 
         if($row['username'] == $username && $row['password'] == $password){
-            header("location:dashboard.php");
+            header("location:certificate-programs/index.php");
         }  
         else{
               $msg="Invalid credentials, please try again";

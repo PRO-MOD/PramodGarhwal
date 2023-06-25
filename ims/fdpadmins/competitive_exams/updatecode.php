@@ -2,12 +2,13 @@
 include('../../config.php');
 $user = $_SESSION["role"];
 
-$result = "SELECT * FROM credentials WHERE username = '$user'";
+$result = "SELECT * FROM fdpadmins WHERE username = '$user'";
 $query = mysqli_query($connection, $result);
 $queryresult = mysqli_num_rows($query); 
     if($queryresult > 0){
         while($row = mysqli_fetch_assoc($query)){ 
             $id = $row['id'];
+            $branch = $row['branch'];
         }  
     }
 
@@ -15,7 +16,7 @@ $queryresult = mysqli_num_rows($query);
     {   
         $id = $_POST['update_id'];
         $Year = $_POST['Year'];
-        $Department = $_POST['Department'];
+        $Branch = $_POST['Branch'];
         $Registration_number = $_POST['Registration_number'];
         $Name_of_student= $_POST['Name_of_student'];
         $Name_of_exam = $_POST['Name_of_exam'];
@@ -29,7 +30,7 @@ $queryresult = mysqli_num_rows($query);
 		// move_uploaded_file($file_tmp2,"uploadsfrontit/$pdffile2");
         
  
-            $query = "UPDATE competitiveexams SET Year='$Year', Department = '$Department', Registration_number = '$Registration_number', 
+            $query = "UPDATE competitiveexams SET Year='$Year', Branch = '$Branch', Registration_number = '$Registration_number', 
         Name_of_student = '$Name_of_student', Name_of_exam = '$Name_of_exam', other = '$other' WHERE id='$id'  ";
 
         $query_run = mysqli_query($connection, $query);

@@ -2,16 +2,16 @@
 include('../../config.php');
 session_start();
 ?>
+
 <!DOCTYPE html> 
 
 <html lang="en">
 
-<!-- Giitbygby -->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title> FDP / STTP </title>
+    <title> Competitive Exams</title>
 
     <link rel="stylesheet" href="styles.css">
     
@@ -29,8 +29,10 @@ session_start();
 
 <body>
 
-<?php include('../../header.php'); ?>
 
+    <?php include('../../header.php'); ?>
+
+   
  <!-- main card -->
  <!-- buttons and search buttoncard -->
             <div class="card">
@@ -44,11 +46,11 @@ session_start();
                 ?>
 
             <div class="card-body mt-5">
-                <h2> FDP / STTP Organised </h2>
+                <h2> Competitive Exams</h2>
             </div>
+           
             <div class="card">
                 <div class="card-body btn-group">
-                
             <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">					
 				<button type="submit" onclick="exportTableToCSVuser('USerData_BookChapters.csv')" class="btn btn-success">Export to excel</button>
 			</form> &nbsp; &nbsp; 
@@ -68,33 +70,35 @@ session_start();
                     <table id="datatableid" class="table table-bordered table-dark mt-2">
                         <thead>
                             <tr>
-                            <th scope="col"> ID </th>
-                                <th scope="col"> Year</th>
-                                <th scope="col"> Department</th>
-                                <th scope="col"> Guidance for Career Councelling/Competitive exam </th>
-                                <th scope="col"> Name/title of the Activity </th>
-                                <th scope="col"> Number of students attended / participated </th>
-                                <th scope="col"> ACTION </th>
-                                <th scope="col"> STATUS </th>
-                               
+                                <th scope="col"> ID </th>
+                                <th scope="col"> Year </th>
+                                <th scope="col"> Department </th>
+                                <th scope="col"> Registration Number </th>
+                                <th scope="col"> Name of Student </th>
+                                <th scope="col"> Name of Exam </th>
+                                <th scope="col"> OTHER </th>
+                                <th scope="col"> Upload Proof </th>
+                                
                             </tr>
                         </thead>
                         
                         <?php
                         $user = $_SESSION["role"];
                         
-                        $result = "SELECT * FROM branchadmins WHERE username = '$user'";
+                        $result = "SELECT * FROM superadmin WHERE username = '$user'";
 
                         $query = mysqli_query($connection, $result);
                         $queryresult = mysqli_num_rows($query); 
                             if($queryresult > 0){
                                 while($row = mysqli_fetch_assoc($query)){ 
                                     $id = $row['id'];
-                                    $branch = $row['branch'];
+                                   
+                                
                                 }  
                             }
 
-                        $table_query = "SELECT * FROM career_guidance WHERE branch LIKE '%$branch%' ORDER BY id ASC";  
+                        $table_query = "SELECT * FROM competitiveexams WHERE  STATUS = 'approved' ORDER BY id ASC";
+                        
                         $query_run = mysqli_query($connection, $table_query);
                         $query_result = mysqli_num_rows($query_run); ?>
 
@@ -103,88 +107,76 @@ session_start();
                                             ?>
                         <tbody> <!-- change -->
                             <tr>
-                                
-                                <td><?php echo $developer['id']; ?> </td>
-                                <td> <?php echo $developer['career_year']; ?> </td>
-                                <td> <?php echo $developer['branch']; ?> </td> 
-                                <td> <?php echo $developer['guidance_career']; ?> </td>
-                                <td> <?php echo $developer['title']; ?> </td>
-                                <td> <?php echo $developer['students_attended']; ?> </td>
+                 
+                                <td> <?php echo $developer['id']; ?> </td>
+                                <td> <?php echo $developer['Year']; ?> </td>
+                                <td> <?php echo $developer['Branch']; ?> </td> 
+                                <td> <?php echo $developer['Registration_number']; ?> </td>
+                                <td> <?php echo $developer['Name_of_student']; ?> </td>
+                                <td> <?php echo $developer['Name_of_exam']; ?> </td>
+                                <td> <?php echo $developer['OTHER']; ?> </td>
                                 <td>
-                                <a href="../../professors/fdp-sttp/uploadsfdporganised/<?php echo $developer['pdffile']; ?>" class="download" title="Download" data-toggle="tooltip">
-                            <i class="fa fa-download"></i>
-                        </a>
-                        <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                        <a class="delete btn-danger deletebtn" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-                    </td>
-                    <td>
-                        <?php if($developer['STATUS'] == 'PENDING'){ ?>
-                            <form method="POST" action="approved.php">
-                                <input type="hidden" name="id" value="<?php echo $developer['id']; ?>">
-                                <input type="submit" name="approve" value="Approve">
-                                <input type="submit" name="delete" value="Delete">
-                            </form>
-                        <?php } else { ?>
-                            <?php echo $developer['STATUS']; ?>
-                        <?php } ?>
-                    </td>
-                </tr>
-            </tbody>
-                        <?php           
-                    }
-                    
-                }
-                else 
-                {
-                    echo "No Record Found";
-                }
-            ?>
-                    </table>
+                            <!-- <a href="read.php?viewid=<?php echo htmlentities ($developer['id']);?>" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a> -->
+                            <!-- <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a> -->
+                            
+							<a href="exams/<?php echo $developer['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+                            <!-- <a class="delete btn-danger deletebtn" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a> -->
+						
+                           
+                </td>
 
-            <?php
-            if(isset($_POST['approve'])){
-                $id=$_POST['id'];
-                $select = "UPDATE career_guidance SET STATUS ='APPROVED' WHERE id='$id'";
-                $result=mysqli_query($conn,$select);
-                header(("location:index.php"));
-            }?>
+                
+            </tr>
+        </tbody>
+        <?php           
+    }
+}
+else 
+{
+    
+    echo "No Record Found";
+}
+?>
+
+
+                    </table>
             
         </div> 
     </div>
 
-  
+    
 
 <!--Search data -->
 <div id="srch" class="card-body">
                 <h4> Search Data </h4>
                     <table class="table table-bordered ">
                     <thead>
-                        <tr>
-                            <th> ID </th> 
-                            <th> YEAR </th>
-                            <th> Branch </th>
-                            <th> TITLE </th>
-                            <th> APPROVING BODY </th>
-                            <th> GRANT AMOUNT </th>
-                            <th> CONVENER </th>
-                            <th> FROM DATE </th>
-                            <th> END DATE </th>
-                            <th> NO OF DAYS </th>
-                            <th> PARTICIPANTS</th>
-                        </tr>
-                    <thead>       
+                            <tr>
+                                <th> ID </th>
+                                <th> Year </th>
+                                <th> Department </th>
+                                <th> Registration Number </th>
+                                <th> Name of Student </th>
+                                <th> Name of Exam </th>
+                                <th> OTHER </th>
+                                <th> Upload Proof </th>
+                                <th> STATUS </th>
+                               
+                            </tr>
+                        </thead>       
 <?php 
     if (isset($_POST["submit"])) {
         $str = mysqli_real_escape_string($connection, $_POST["search"]);
 
-        $sth = "SELECT * FROM `fdpsttporganised` WHERE Branch LIKE '%$branch%' AND (Academic_year LIKE '%$str%' OR Approving_Body LIKE '%$str%' OR Title_Of_Program LIKE '%$str%' OR Convener_Of_FDP_STTP LIKE '%$str%')";
+        $sth = "SELECT * FROM `competitiveexams` WHERE STATUS = 'approved' AND(Branch LIKE '%$str%' OR Registration_number LIKE '%$str%' OR Name_of_student LIKE '%$str%' OR Name_of_exam LIKE '%$str%' OR Year LIKE '%$str%' OR other LIKE '%$str%' ) ";
+        
         $result = mysqli_query($connection, $sth);
         $queryresult = mysqli_num_rows($result); ?>
 
                     <div class="card">
                         <div class="card-body btn-group">
                         <div> Results- </div> &nbsp; &nbsp;
-                        <button class="btn btn-success" onclick="exportTableToCSV('Search_Data.csv')"> Export Data </button>
+                        <button class="btn btn-success" onclick="exportTableToCSV('Search_data.csv')"> Export Data </button>
                         </div>
                     </div>
                     
@@ -195,25 +187,26 @@ session_start();
              
                     <tr>                
                         <td> <?php echo $row['id']; ?> </td>
-                        <td> <?php echo $row['Academic_year']; ?> </td> 
-                        <td> <?php echo $row['Branch']; ?> </td> 
-                        <td> <?php echo $row['Title_Of_Program']; ?> </td>
-                        <td> <?php echo $row['Approving_Body']; ?> </td>
-                        <td> <?php echo $row['Grant_Amount']; ?> </td>
-                        <td> <?php echo $row['Convener_Of_FDP_STTP']; ?> </td>
-                        <td> <?php echo $row['Dates_From']; ?> </td>
-                        <td> <?php echo $row['Dates_To']; ?> </td>
-                        <td> <?php echo $row['Total_No_Of_Days']; ?> </td>
-                        <td> <?php echo $row['No_Of_Participants']; ?> </td>
-                        <td>
-
-                            <a href="../../professors/fdp-sttp/<?php echo $row['pdffile']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
-                           
-							
+                        <td> <?php echo $row['Year']; ?> </td>
+                                <td> <?php echo $row['Branch']; ?> </td> 
+                                <td> <?php echo $row['Registration_number']; ?> </td>
+                                <td> <?php echo $row['Name_of_student']; ?> </td>
+                                <td> <?php echo $row['Name_of_exam']; ?> </td>
+                                <td> <?php echo $row['OTHER']; ?> </td>
+                                
+                                <td>
+                            <!--<a href="read.php?viewid=<?php echo htmlentities ($row['id']);?>" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>-->
+                            <!-- <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a> -->
+                            <a href="../../fdpadmins/competitive_exams/exams/<?php echo $row['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+							<!-- <a href="uploadsfrontit/<?php echo $row['pdffile2']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a> -->
+                            <!-- <a class="delete btn-danger deletebtn" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+							 -->
                             
                             
                             <!-- <button class="btn"><i class="fa fa-download"></i> Download</button> -->
-                        </td>
+                           
+                            </td>
+                        
                     </tr> 
                     <tbody>
                     <?php 
@@ -284,15 +277,14 @@ session_start();
                 console.log(data);
                 //chnage this keep same variable as above
                 $('#update_id').val(data[0]);
-                $('#Academic_year').val(data[1]);
+                $('#Year').val(data[1]);
                 $('#Branch').val(data[2]);
-                $('#Title_Of_Program').val(data[3]);
-                $('#Approving_Body').val(data[4]);
-                $('#Grant_Amount').val(data[5]);
-                $('#Convener_Of_FDP_STTP').val(data[6]);
-                $('#Dates_From').val(data[7]);
-                $('#Dates_To').val(data[8]);
-                $('#No_Of_Participants').val(data[9]);
+                $('#Registration_number').val(data[3]);
+                $('#Name_of_student').val(data[4]);
+                $('#Name_of_exam').val(data[5]);
+                $('#other').val(data[6]);
+                $('#pdffile1').val(data[7]);
+                // $('#pdffile2').val(data[13]);
             });
         });
     </script>
@@ -376,6 +368,7 @@ session_start();
     downloadCSV(csv.join("\n"), filename);  
     }  
 </script> 
+
 
 </body>
 </html>

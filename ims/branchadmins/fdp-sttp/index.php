@@ -99,7 +99,7 @@ session_start();
                                 }  
                             }
 
-                        $table_query = "SELECT * FROM fdpsttporganised ORDER BY id ASC";  
+                        $table_query = "SELECT * FROM fdpsttporganised WHERE branch = '$branch' ORDER BY id ASC";  
                         $query_run = mysqli_query($connection, $table_query);
                         $query_result = mysqli_num_rows($query_run); ?>
 
@@ -127,40 +127,65 @@ session_start();
                         <a class="delete btn-danger deletebtn" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
                     </td>
                     <td>
-                        <?php if($developer['STATUS'] == 'PENDING'){ ?>
-                            <form method="POST" action="approved.php">
-                                <input type="hidden" name="id" value="<?php echo $developer['id']; ?>">
-                                <input type="submit" name="approve" value="Approve">
-                                <!-- <input type="submit" name="delete" value="Delete"> -->
-                            </form>
-                        <?php } else { ?>
-                            <?php echo $developer['STATUS']; ?>
-                        <?php } ?>
-                    </td>
-                </tr>
-            </tbody>
-                        <?php           
-                    }
-                    
+                                <?php if ($developer['STATUS'] == 'PENDING') { ?>
+                                    <form method="POST" action="approved.php">
+                                        <input type="hidden" name="id" value="<?php echo $developer['id']; ?>">
+                                        <input type="submit" name="approve" value="Approve">
+                                    </form>
+                                    <form method="post" action="reject.php">
+                                        <input type="hidden" name="id" value="<?php echo $developer['id']; ?>">
+                                        <button type="submit" name="reject" class="btn btn-danger">Reject</button>
+                                    </form>
+                                <?php } elseif ($developer['STATUS'] == 'rejected') { ?>
+                                    <?php echo $developer['STATUS']; ?>
+                                    <form method="POST" action="approve-now.php">
+                                        <input type="hidden" name="id" value="<?php echo $developer['id']; ?>">
+                                        <input type="submit" name="approve_now" value="Approve Now">
+                                    </form>
+                                <?php } else { ?>
+                                    <?php echo $developer['STATUS']; ?>
+                                <?php } ?>
+                            </td>
+                        </tr>
+                    </tbody>
+                <?php
                 }
-                else 
-                {
-                    echo "No Record Found";
-                }
+            } else {
+                echo "No Record Found";
+            }
             ?>
-                    </table>
+        </table>
 
-            <?php
-            if(isset($_POST['approve'])){
-                $id=$_POST['id'];
-                $select = "UPDATE fdpsttporganised SET STATUS ='APPROVED' WHERE id='$id'";
-                $result=mysqli_query($conn,$select);
-                 echo "DATA Approved";
-                header(("location:index.php"));
-            }?>
-            
-        </div> 
+        <?php
+        // Approve button logic
+        if (isset($_POST['approve'])) {
+            $id = $_POST['id'];
+            $select = "UPDATE fdpsttporganised SET STATUS ='APPROVED' WHERE id='$id'";
+            $result = mysqli_query($connection, $select);
+            echo "Data Approved";
+            header("Location: index.php");
+        }
+
+        // Reject button logic
+        if (isset($_POST['reject'])) {
+            $id = $_POST['id'];
+            $select = "UPDATE fdpsttporganised SET STATUS ='REJECTED' WHERE id='$id'";
+            $result = mysqli_query($connection, $select);
+            echo "Data Rejected";
+            header("Location: index.php");
+        }
+
+        // Approve Now button logic
+if (isset($_POST['approve_now'])) {
+    $id = $_POST['id'];
+    $select = "UPDATE fdpsttporganised SET STATUS ='APPROVED' WHERE id='$id'";
+    $result = mysqli_query($connection, $select);
+    echo "Data Approved";
+    header("Location: index.php");
+}
+        ?>
     </div>
+</div>
      <!-- EDIT POP UP FORM  -->
     <!-- this is edit data form Make changes to variables and placeholder, keep same variables -->
     <div class="modal fade" id="editmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -187,9 +212,22 @@ session_start();
                         </div>
                         
                         <div class="form-group">
-                            <label> Branch/Department Name </label>
-                            <input id='Branch' type="text" name="Branch" class="form-control" placeholder="Enter Title" required>
-                        </div>
+    <label>Branch</label>
+    <select name="Branch" class="form-control" required >
+        <option value="">--Select Department--</option>
+        <?php
+        // Retrieve the department information from the session or any other method
+        $branch = $_SESSION['branch']; 
+
+       $branches = array("IT", "EXTC", "Mechanical", "Computers", "Electrical", "Humanities");
+foreach ($branches as $branchOption) {
+    $selected = ($branchOption == $branch) ? 'selected="selected"' : '';
+    echo '<option value="' . $branchOption . '" ' . $selected . '>' . $branchOption . '</option>';
+}
+
+        ?>
+    </select>
+</div>
 
                         <div class="form-group">
                             <label> Approving Body </label>
@@ -289,13 +327,14 @@ session_start();
                             <th> NO OF DAYS </th>
                             <th> PARTICIPANTS</th>
                             <th> Action</th>
+                            <th> STATUS </th>
                         </tr>
                     <thead>       
 <?php 
     if (isset($_POST["submit"])) {
         $str = mysqli_real_escape_string($connection, $_POST["search"]);
 
-        $sth = "SELECT * FROM `fdpsttporganised` WHERE  (Academic_year LIKE '%$str%' OR Approving_Body LIKE '%$str%' OR Title_Of_Program LIKE '%$str%' OR Convener_Of_FDP_STTP LIKE '%$str%')";
+        $sth = "SELECT * FROM `fdpsttporganised`WHERE branch = '$branch' AND (Academic_year LIKE '%$str%' OR Approving_Body LIKE '%$str%' OR Title_Of_Program LIKE '%$str%' OR Convener_Of_FDP_STTP LIKE '%$str%'OR STATUS LIKE '$str')";
         $result = mysqli_query($connection, $sth);
         $queryresult = mysqli_num_rows($result); ?>
 
@@ -331,8 +370,27 @@ session_start();
                         <a class="delete btn-danger deletebtn" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
                     </td>
                     <td>
-                    </tr> 
-                    <tbody>
+                                <?php if ($row['STATUS'] == 'PENDING') { ?>
+                                    <form method="POST" action="approved.php">
+                                        <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
+                                        <input type="submit" name="approve" value="Approve">
+                                    </form>
+                                    <form method="post" action="reject.php">
+                                        <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
+                                        <button type="submit" name="reject" class="btn btn-danger">Reject</button>
+                                    </form>
+                                <?php } elseif ($row['STATUS'] == 'rejected') { ?>
+                                    <?php echo $row['STATUS']; ?>
+                                    <form method="POST" action="approve-now.php">
+                                        <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
+                                        <input type="submit" name="approve_now" value="Approve Now">
+                                    </form>
+                                <?php } else { ?>
+                                    <?php echo $row['STATUS']; ?>
+                                <?php } ?>
+                            </td>
+                        </tr>
+                    </tbody>
                     <?php 
             }
 
@@ -343,7 +401,6 @@ session_start();
     ?>
     </table>
     </div>
-
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
