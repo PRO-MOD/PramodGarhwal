@@ -50,7 +50,7 @@ session_start();
                 <div class="card-body btn-group">
                 
             <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">					
-				<button type="submit" onclick="exportTableToCSVuser('USerData_BookChapters.csv')" class="btn btn-success">Export to excel</button>
+				<button type="submit" onclick="exportTableToCSVuser('USerData_HigherStudies.csv')" class="btn btn-success">Export to excel</button>
 			</form> &nbsp; &nbsp; 
         
             <form method="post">
@@ -108,7 +108,7 @@ session_start();
                                 <td> <?php echo $developer['institute_name_joined']; ?> </td>
                                 <td> <?php echo $developer['program_name_admitted']; ?> </td>
                                 <td>
-                                <a href="reports/<?php echo $developer['upload_admitcard_idcard']; ?>"  class="download" title="Download" data-toggle="tooltip">
+                                <a href="../../fdpadmins/higher_studies/reports/<?php echo $developer['upload_admitcard_idcard']; ?>"  class="download" title="Download" data-toggle="tooltip">
                             <i class="fa fa-download"></i>
                         </a>
 
@@ -307,7 +307,7 @@ if (isset($_POST['approve_now'])) {
                     <div class="card">
                         <div class="card-body btn-group">
                         <div> Results- </div> &nbsp; &nbsp;
-                        <button class="btn btn-success" onclick="exportTableToCSV('Search_Data.csv')"> Export Data </button>
+                        <button class="btn btn-success" onclick="exportTableToCSV('Search_Data_HigherStudies.csv')"> Export Data </button>
                         </div>
                     </div>
                     
@@ -325,7 +325,7 @@ if (isset($_POST['approve_now'])) {
                                 <td> <?php echo $row['program_name_admitted']; ?> </td>
                         <td>
 
-                        <a href="reports/<?php echo $row['upload_admitcard_idcard']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+                        <a href="../../fdpadmins/higher_studies/reports/<?php echo $row['upload_admitcard_idcard']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
                            
 							
                             

@@ -200,7 +200,7 @@ session_start();
                 <div class="card-body btn-group">
 
             <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">					
-				<button type="submit" onclick="exportTableToCSVuser('USerData_BookChapters.csv')" class="btn btn-success">Export to excel</button>
+				<button type="submit" onclick="exportTableToCSVuser('USerData_OutreachPrograms.csv')" class="btn btn-success">Export to excel</button>
 			</form> &nbsp; &nbsp; 
         
             <form method="post">
@@ -269,7 +269,7 @@ session_start();
                                 <td> <?php echo $developer['No_of_People_benefitted_by_Activity']; ?> </td>
                                 <td>
                             <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                             <a href="Reports/<?php echo $developer['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+                             <a href="../../fdpadmins/outreach/Reports<?php echo $developer['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
                              <a class="delete btn-danger deletebtn" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
                              </td>
                             <td>
@@ -454,7 +454,7 @@ if (isset($_POST['approve_now'])) {
                     <div class="card">
                         <div class="card-body btn-group">
                         <div> Results- </div> &nbsp; &nbsp;
-                        <button class="btn btn-success" onclick="exportTableToCSV('Search_data.csv')"> Export Data </button>
+                        <button class="btn btn-success" onclick="exportTableToCSV('Search_data_OutreachPrograms.csv')"> Export Data </button>
                         </div>
                     </div>
                     
@@ -476,7 +476,7 @@ if (isset($_POST['approve_now'])) {
                         <td> <?php echo $row['No_of_People_benefitted_by_Activity']; ?> </td>
                         <td>
                             <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                            <a href="Reports/<?php echo $row['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+                            <a href="../../fdpadmins/outreach/Reports/<?php echo $row['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
                             <a class="delete btn-danger deletebtn" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
                         </td>
                         <td>

@@ -11,7 +11,7 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>  FDP / STTP ATTENDED</title>
+    <title> Student Internship Details </title>
 
     <link rel="stylesheet" href="styles.css">
     
@@ -44,13 +44,13 @@ session_start();
                 ?>
 
             <div class="card-body mt-5">
-                <h2> FDP / STTP ATTENDED</h2>
+                <h2> Student Internship Details </h2>
             </div>
             <div class="card">
                 <div class="card-body btn-group">
 
             <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">					
-				<button type="submit" onclick="exportTableToCSVuser('USerData_FdpSttpAttended.csv')" class="btn btn-success">Export to excel</button>
+				<button type="submit" onclick="exportTableToCSVuser('USerData_StudentInternshipDetails.csv')" class="btn btn-success">Export to excel</button>
 			</form> &nbsp; &nbsp; 
         
             <form method="post">
@@ -68,22 +68,20 @@ session_start();
         <table id="datatableid" class="table table-bordered table-dark mt-2">
             <thead>
                 <tr>
-                <th scope="col"> ID </th>
-                                <th scope="col"> ACADEMIC YEAR </th>
-                                <th scope="col"> NAME OF THE TEACHER </th>
-                                <th scope="col"> BRANCH </th>
-                                <th scope="col"> TITLE OF PROGRAM </th>
-                                <th scope="col"> PROFESSIONAL BODY OR ORGANIZATION ASSOCIATED  </th>
-                                <th scope="col"> COURSE TYPE</th>
-                                <th scope="col"> ORGANIZING INSTITUTE AND LOCATION</th>
-                                <th scope="col"> FROM DATE </th>
-                                <th scope="col"> END DATE </th>
-                                <th scope="col"> DURATION </th>
-                                <th scope="col"> TA RECEIVED </th>
-                                <th scope="col"> REGISTRATION AMOUNT</th>
-                                <th scope="col"> ACTION</th>
-                                <th scope="col"> STATUS</th>
-
+                    <th scope="col"> ID </th>
+                    <th scope="col"> NAME OF STUDENT </th>
+                    <th scope="col"> ROLL NUMBER </th>
+                    <th scope="col"> BRANCH </th>
+                    <th scope="col"> YEAR OF STUDY </th>
+                    <th scope="col"> INTERNSHIP SEMESTER </th> 
+                    <th scope="col"> STARTING DATE </th>
+                    <th scope="col"> ENDING DATE </th>
+                    <th scope="col"> NUMBER OF DAYS OF INTERNSHIP </th>
+                    <th scope="col"> NAME OF ORGANIZATION </th>
+                    <th scope="col"> ADDRESS OF ORGANIZATION </th>
+                    <th scope="col"> LEARNING ASPECTS/OUTCOMES OF THIS INTERNSHIP </th>
+                    <th scope="col"> ACTION </th>
+                    <th scope="col"> STATUS</th>
                 </tr>
             </thead>
             <?php
@@ -100,7 +98,7 @@ session_start();
                 }
             }
 
-            $table_query = "SELECT * FROM fdpsttpattendedit WHERE branch = '$branch' ORDER BY id ASC";
+            $table_query = "SELECT * FROM internship_details WHERE Branch = '$branch' ORDER BY id ASC";
 
             $query_run = mysqli_query($connection, $table_query);
             $query_result = mysqli_num_rows($query_run); ?>
@@ -110,23 +108,23 @@ session_start();
                     ?>
                     <tbody> <!-- change -->
                         <tr>
-                        <td> <?php echo $developer['id']; ?> </td>
-                                <td> <?php echo $developer['Academic_year']; ?> </td> 
-                                <td> <?php echo $developer['Name_Of_The_Teacher']; ?> </td> 
-                                <td> <?php echo $developer['Branch']; ?> </td>
-                                <td> <?php echo $developer['Title_Of_Program']; ?> </td>
-                                <td> <?php echo $developer['Professional_Body_Or_Organization_Associated']; ?> </td>
-                                <td> <?php echo $developer['Course_Type']; ?> </td>
-                                <td> <?php echo $developer['Organizing_Institute_And_Location']; ?> </td>
-                                <td> <?php echo $developer['Dates_From']; ?> </td>
-                                <td> <?php echo $developer['Dates_To']; ?> </td>
-                                <td> <?php echo $developer['Duration']; ?> </td>
-                                <td> <?php echo $developer['TA_Received']; ?> </td>
-                                <td> <?php echo $developer['Registration_Amount']; ?> </td>
-
+                            <td> <?php echo $developer['id']; ?> </td>
+                            <td> <?php echo $developer['Name_Of_The_Student']; ?> </td>
+                            <td> <?php echo $developer['Roll_no']; ?> </td>
+                            <td> <?php echo $developer['Branch']; ?> </td>
+                            <td> <?php echo $developer['Year_Of_Study']; ?> </td>
+                            <td> <?php echo $developer['Internship_Semester']; ?> </td>
+                            <td> <?php echo $developer['Internship_Outcomes']; ?> </td>
+                            <td> <?php echo $developer['Name_of_Organization']; ?> </td>
+                            <td> <?php echo $developer['Number_of_Days_of_Internship']; ?> </td>
+                            <td> <?php echo $developer['Organizing_Addr']; ?> </td>
+                            <td> <?php echo $developer['Dates_From']; ?> </td>
+                            <td> <?php echo $developer['Dates_To']; ?> </td>
                             <td>
-                                <a href="../../professors/fdp-sttp-attended/uploadsfdpattended1/<?php echo $developer['pdffile1']; ?>" class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
-                                <a href="../../professors/fdp-sttp-attended/uploadsfdpattended2/<?php echo $developer['pdffile2']; ?>" class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+                                <a href="../../student/internship/certificates/<?php echo $developer['pdffile1']; ?>" class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+                                <a href="../../student/internship/certificates/<?php echo $developer['pdffile2']; ?>" class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+                                <a href="../../student/internship/certificates/<?php echo $developer['pdffile3']; ?>" class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+                                <!-- <a href="../../professors/book-chapters/uploadsfrontit/<?php echo $developer['pdffile2']; ?>" class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a> -->
                                 <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
                                 <a class="delete btn-danger deletebtn" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
                             </td>
@@ -164,7 +162,7 @@ session_start();
         // Approve button logic
         if (isset($_POST['approve'])) {
             $id = $_POST['id'];
-            $select = "UPDATE bookschapter SET STATUS ='APPROVED' WHERE id='$id'";
+            $select = "UPDATE internship_details SET STATUS ='APPROVED' WHERE id='$id'";
             $result = mysqli_query($connection, $select);
             echo "Data Approved";
             header("Location: index.php");
@@ -173,7 +171,7 @@ session_start();
         // Reject button logic
         if (isset($_POST['reject'])) {
             $id = $_POST['id'];
-            $select = "UPDATE bookschapter SET STATUS ='REJECTED' WHERE id='$id'";
+            $select = "UPDATE internship_details SET STATUS ='REJECTED' WHERE id='$id'";
             $result = mysqli_query($connection, $select);
             echo "Data Rejected";
             header("Location: index.php");
@@ -182,7 +180,7 @@ session_start();
         // Approve Now button logic
 if (isset($_POST['approve_now'])) {
     $id = $_POST['id'];
-    $select = "UPDATE bookschapter SET STATUS ='APPROVED' WHERE id='$id'";
+    $select = "UPDATE internship_details SET STATUS ='APPROVED' WHERE id='$id'";
     $result = mysqli_query($connection, $select);
     echo "Data Approved";
     header("Location: index.php");
@@ -221,18 +219,15 @@ if (isset($_POST['approve_now'])) {
             </div>
         </div>
     </div>
-   <!-- EDIT POP UP FORM  -->
+    <!-- EDIT POP UP FORM  -->
     <!-- this is edit data form Make changes to variables and placeholder, keep same variables -->
     <div class="modal fade" id="editmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
-
         <div class="modal-dialog" role="document">
-
             <div class="modal-content">
-
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel"> Edit Data </h5> &nbsp;
-                    <h5 class="modal-title" id="exampleModalLabel"> (Please enter the dates again)</h5>
+                    <h5 class="modal-title" id="exampleModalLabel"> (Please enter the data again)</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -240,18 +235,18 @@ if (isset($_POST['approve_now'])) {
 
                 <form action="updatecode.php" method="POST">
 
-                    <input type="hidden" name="update_id" id="update_id">
-
                     <div class="modal-body">
 
-                    <div class="form-group">
-                            <label> Academic Year </label>
-                            <input type="text"  id="Academic_year" value="$Academic_year" name="Academic_year" class="form-control" required>
+                        <input type="hidden" name="update_id" id="update_id">
+
+                        <div class="form-group">
+                            <label> Name of the Student </label>
+                            <input type="text"  id="Name_Of_The_Student" name="Name_Of_The_Student" class="form-control" required>
                         </div>
 
                         <div class="form-group">
-                            <label> Name of The Teacher </label>
-                            <input type="text" id="Name_Of_The_Teacher"   name="Name_Of_The_Teacher" class="form-control" placeholder="Enter Name of Teacher" required>
+                            <label>  Roll Number </label>
+                            <input type="text"  id="Roll_no" name="Roll_no" class="form-control" required>
                         </div>
 
                         <div class="form-group">
@@ -271,109 +266,104 @@ foreach ($branches as $branchOption) {
         ?>
     </select>
 </div>
+
+
+                        <div class="form-group">
+                            <label> Year of Study </label>
+                            <input type="text"  id="Year_Of_Study" name="Year_Of_Study" class="form-control" placeholder="Enter Year" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Internship Semester</label>
+                            <input type="text" id="Internship_Semester" name="Internship_Semester" class="form-control" required>
+                        </div>
+
+                       
+                        <div class="form-group">
+                            <label>Learning Aspects/Outcomes of this internship</label>
+                            <input type="text" name="Internship_Outcomes" class="form-control" placeholder="Enter Outcomes" required>
+                        </div>
+
                         
+
                         <div class="form-group">
-                            <label> Title of Program </label>
-                            <input type="text" id="Title_Of_Program" name="Title_Of_Program"  class="form-control" placeholder="Enter Title" required>
+                            <label> Name of the Organization </label>
+                            <input type="text" name="Name_of_Organization" class="form-control" placeholder="Enter name of Organizing Body" required>
                         </div>
 
                         <div class="form-group">
-                            <label> Professional Body Or Organization Associated</label>
-                            <input type="text" id="Professional_Body_Or_Organization_Associated" name="Professional_Body_Or_Organization_Associated" class="form-control" placeholder="Enter Professional Bod Or Organization Associated" required>
+                            <label> Number of Days of Internship </label>
+                            <input type="text" name="Number_of_Days_of_Internship" class="form-control" placeholder="Number_of_Days_of_Internship" required>
                         </div>
 
                         <div class="form-group">
-                            <label> Course Type </label>
-                            <input type="text" id="Course_Type" name="Course_Type" class="form-control" placeholder="Enter Course Type" required>
+                            <label> Address of the Organization </label>
+                            <input type="text" name="Organizing_Addr" class="form-control" placeholder="Enter address of Organizing Body" required>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label> Internship Date (From) </label>
+                            <input type="date" name="Dates_From" class="form-control" placeholder="Enter Start Date" required>
                         </div>
 
                         <div class="form-group">
-                            <label> Organizing Institute And Location</label>
-                            <input type="text" id="Organizing_Institute_And_Location" name="Organizing_Institute_And_Location" class="form-control" placeholder="Enter Organizing Institute And Location" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label> Starting Date </label>
-                            <input type="date" id="Dates_From" name="Dates_From" class="form-control" placeholder="Enter Start Date" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label> Ending Date </label>
-                            <input type="date" id="Dates_To" name="Dates_To" class="form-control" placeholder="Enter Ending Date" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label> Duration </label>
-                            <input type="text" name="Duration" id="Duration" class="form-control" placeholder="Total Number of Days" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label> TA Received </label>
-                            <input type="text" name="TA_Received" id="TA_Received" class="form-control" placeholder="TA Received" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label> Registration Amount</label>
-                            <input type="text" name="Registration_Amount" id="Registration_Amount" class="form-control" placeholder="Enter Registration Amount" required>
-                        </div>
-
+                            <label> Internship Date (To) </label>
+                            <input type="date"  name="Dates_To" class="form-control" placeholder="Enter Ending Date" required>
+                        </div> 
                     </div>
-
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         <button type="submit" name="updatedata" class="btn btn-primary">Update Data</button>
                     </div>
-
                 </form>
 
             </div>
-
         </div>
-
     </div>
-
 
 
 
    
 <!--Search data -->
 <div id="srch" class="card-body">
+                <h4> Search Data </h4>
+                    <table class="table table-bordered ">
+                    <thead>
+                            <tr>
+                                <th scope="col"> ID </th>
+                                <th scope="col"> NAME OF TEACHER </th>
+                                <th scope="col"> ROLL NUMBER </th>
+                                <th scope="col"> BRANCH </th>
+                                <th scope="col"> YEAR OF STUDY </th>
+                                <th scope="col"> INTERNSHIP SEMESTER </th> 
+                                <th scope="col"> STARTING DATE </th>
+                                <th scope="col"> ENDING DATE </th>
+                                <th scope="col"> NUMBER OF DAYS OF INTERNSHIP </th>
+                                <th scope="col"> NAME OF ORGANIZATION </th>
+                                <th scope="col"> ADDRESS OF ORGANIZATION </th>
+                                <th scope="col"> LEARNING ASPECTS/OUTCOMES OF THIS INTERNSHIP </th>
+                                <th scope="col"> PERMISSION LETTER FROM FCRIT </th>
+                                <th scope="col"> ACTION </th>
+                                <th scope="col"> STATUS </th>
+                               
 
-    <h4> Search Data </h4>
-    <table class="table table-bordered ">
-    <thead>
-        <tr>
-            <th scope="col"> ID </th>
-            <th scope="col"> ACADEMIC YEAR </th>
-            <th scope="col"> NAME OF THE TEACHER </th>
-            <th scope="col"> BRANCH </th>
-            <th scope="col"> TITLE OF PROGRAM </th>
-            <th scope="col"> PROFESSIONAL BODY OR ORGANIZATION ASSOCIATED  </th>
-            <th scope="col"> COURSE TYPE</th>
-            <th scope="col"> ORGANIZING INSTITUTE AND LOCATION</th>
-            <th scope="col"> FROM DATE </th>
-            <th scope="col"> END DATE </th>
-            <th scope="col"> DURATION </th>
-            <th scope="col"> TA RECEIVED </th>
-            <th scope="col"> REGISTRATION AMOUNT</th>
-            <th scope="col"> ACTION</th>
-             <th> STATUS </th>
-        </tr>
-    <thead>  
-
+                               
+                            </tr>
+                        </thead>   
 <?php 
-    if (isset($_POST["submit"])) 
-    {
+    if (isset($_POST["submit"])) {
         $str = mysqli_real_escape_string($connection, $_POST["search"]);
 
-        $sth = "SELECT * FROM `fdpsttpattendedit` WHERE Academic_Year LIKE '%$str%' OR Name_Of_The_Teacher LIKE '%$str%' OR Branch LIKE '%$str%' OR Title_Of_Program LIKE '%$str%' OR Professional_Body_Or_Organization_Associated LIKE '%$str%' OR Course_Type LIKE '%$str%'  OR Organizing_Institute_And_Location LIKE '%$str%' OR Duration LIKE '%$str%' OR TA_Received LIKE '%$str%' OR Registration_Amount LIKE '%$str%' ";
+        $sth = "SELECT * FROM `internship_details` WHERE branch = '$branch' AND (Name_Of_The_Student LIKE '%$str%' OR Roll_no LIKE '%$str%' OR Year_Of_Study LIKE '%$str%' OR Internship_Semester LIKE '%$str%' OR Internship_Outcomes LIKE '%$str%' OR Name_Of_Organization LIKE '$str' OR Number_of_Days_of_Internship LIKE '%$str%' OR Organizing_Addr LIKE '%$str%' OR Dates_From LIKE '%$str%' OR Dates_To LIKE '%$str%' OR STATUS LIKE '$str' ) ";
+        
         $result = mysqli_query($connection, $sth);
         $queryresult = mysqli_num_rows($result); ?>
 
                     <div class="card">
                         <div class="card-body btn-group">
                         <div> Results- </div> &nbsp; &nbsp;
-                        <button class="btn btn-success" onclick="exportTableToCSV('Search_Data_FdpSttpAttended.csv')"> Export Data </button>
+                        <button class="btn btn-success" onclick="exportTableToCSV('Search_Data_StudentINternshipDetails.csv')"> Export Data </button>
                         </div>
                     </div>
                     
@@ -382,53 +372,50 @@ foreach ($branches as $branchOption) {
                     ?>
                     <tbody id="srch"> 
              
-                        <tr>
-                            <?php
-                $status = $row['STATUS'];
-                $is_disabled = ($status == "approved") ? "disabled" : "";
-                // If STATUS is "approved", set the $is_disabled variable to "disabled"
-                ?>  
-                            <td> <?php echo $row['id']; ?> </td>
-                            <td> <?php echo $row['Academic_year']; ?> </td> 
-                            <td> <?php echo $row['Name_Of_The_Teacher']; ?> </td> 
-                            <td> <?php echo $row['Branch']; ?> </td>
-                            <td> <?php echo $row['Title_Of_Program']; ?> </td>
-                            <td> <?php echo $row['Professional_Body_Or_Organization_Associated']; ?> </td>
-                            <td> <?php echo $row['Course_Type']; ?> </td>
-                            <td> <?php echo $row['Organizing_Institute_And_Location']; ?> </td>
-                            <td> <?php echo $row['Dates_From']; ?> </td>
-                            <td> <?php echo $row['Dates_To']; ?> </td>
-                            <td> <?php echo $row['Duration']; ?> </td>
-                            <td> <?php echo $row['TA_Received']; ?> </td>
-                            <td> <?php echo $row['Registration_Amount']; ?> </td>
-                            
-                            <td>
-                                <!--<a href="read.php?viewid=<?php echo htmlentities ($row['id']);?>" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>-->
-                                <!-- <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a> -->
-                                <a href="../../professors/fdp-sttp-attended/uploadsfdpattended1/<?php echo $row['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
-                                <a href="../../professors/fdp-sttp-attended/uploadsfdpattended2/<?php echo $row['pdffile2']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
-                                
-                                 <?php if ($status != "approved") { // If STATUS is not "approved", show the edit and delete buttons ?>
-                        <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip" <?php echo $is_disabled ?>>
-                            <i class="material-icons">&#xE254;</i>
-                        </a>
+                    <tr>                
+                        <td> <?php echo $row['id']; ?> </td>
+                        <td> <?php echo $row['Name_Of_The_Student']; ?> </td> 
+                        <td> <?php echo $row['Roll_no']; ?> </td>
+                        <td> <?php echo $row['Branch']; ?> </td>
+                        <td> <?php echo $row['Year_Of_Study']; ?> </td>
+                        <td> <?php echo $row['Internship_Semester']; ?> </td>
+                        <td> <?php echo $row['Internship_Outcomes']; ?> </td>
+                        <td> <?php echo $row['Name_of_Organization']; ?> </td>
+                        <td> <?php echo $row['Number_of_Days_of_Internship']; ?> </td>
+                        <td> <?php echo $row['Organizing_Addr']; ?> </td>
+                        <td> <?php echo $row['Dates_From']; ?> </td>
+                        <td> <?php echo $row['Dates_To']; ?> </td>
+                        <td>
 
-                        <a class="delete btn-danger deletebtn" title="Delete" data-toggle="tooltip" <?php echo $is_disabled ?>>
-                            <i class="material-icons">&#xE872;</i>
-                        </a>
-                    <?php } ?>
-                    <td> <?php echo $row['STATUS']; ?> </td>
-                                <!-- <a class="delete btn-danger deletebtn" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>        -->
-                                <!-- <button class="btn"><i class="fa fa-download"></i> Download</button> -->
+                            <a href="../../student/internship_details/certificates/<?php echo $row['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+                            <a href="../../student/internship_details/certificates/<?php echo $row['pdffile2']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+                            <a href="../../student/internship_details/certificates/<?php echo $row['pdffile3']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+							<!-- <a href="../../professors/book-chapters/uploadsfrontit/<?php echo $row['pdffile2']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a> -->
+                            <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                        <a class="delete btn-danger deletebtn" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                    </td>
+                    <td>
+                                <?php if ($row['STATUS'] == 'PENDING') { ?>
+                                    <form method="POST" action="approved.php">
+                                        <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
+                                        <input type="submit" name="approve" value="Approve">
+                                    </form>
+                                    <form method="post" action="reject.php">
+                                        <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
+                                        <button type="submit" name="reject" class="btn btn-danger">Reject</button>
+                                    </form>
+                                <?php } elseif ($row['STATUS'] == 'rejected') { ?>
+                                    <?php echo $row['STATUS']; ?>
+                                    <form method="POST" action="approve-now.php">
+                                        <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
+                                        <input type="submit" name="approve_now" value="Approve Now">
+                                    </form>
+                                <?php } else { ?>
+                                    <?php echo $row['STATUS']; ?>
+                                <?php } ?>
                             </td>
-                            <!-- <td>
-                                <button type="button" class="btn btn-success editbtn"> EDIT </button>
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-danger deletebtn"> DELETE </button>
-                            </td> -->
                         </tr>
-                    <tbody>
+                    </tbody>
                     <?php 
             }
 
@@ -439,6 +426,7 @@ foreach ($branches as $branchOption) {
     ?>
     </table>
     </div>
+
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -485,15 +473,20 @@ foreach ($branches as $branchOption) {
                 console.log(data);
                 //chnage this keep same variable as above
                 $('#update_id').val(data[0]);
-                $('#Name_Of_The_Teacher').val(data[1]);
-                $('#Branch').val(data[2]);
-                $('#Title_Of_The_Book_Published').val(data[3]);
-                $('#Title_Of_The_Chapter_Published_In_The_Book').val(data[4]);
-                $('#Name_Of_The_Publisher').val(data[5]);
-                $('#National_Or_International').val(data[6]);
-                $('#ISBN_Or_ISSN_Number').val(data[7]);
-                $('#Year_Of_Publication').val(data[8]);
-                $('#Volume_Issue').val(data[9]);
+                $('#Name_Of_The_Student').val(data[1]);
+                $('#Roll_no').val(data[2]);
+                $('#Branch').val(data[3]);
+                $('#Year_Of_Study').val(data[4]);
+                $('#Internship_Semester').val(data[5]);
+                $('#Internship_Outcomes').val(data[6]);
+            
+                $('#Name_of_Organization').val(data[7]);
+                $('#Number_of_Days_of_Internship').val(data[8]);
+                $('#Organizing_Addr').val(data[9]);
+                $('#Dates_From').val(data[11]);
+                $('#Dates_To').val(data[12]);
+                $('#pdffile1').val(data[13]);
+
             });
         });
     </script>

@@ -50,7 +50,7 @@ session_start();
                 <div class="card-body btn-group">
 
             <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">					
-				<button type="submit" onclick="exportTableToCSVuser('USerData_BookChapters.csv')" class="btn btn-success">Export to excel</button>
+				<button type="submit" onclick="exportTableToCSVuser('USerData_ConferencePublications.csv')" class="btn btn-success">Export to excel</button>
 			</form> &nbsp; &nbsp; 
         
             <form method="post">
@@ -136,10 +136,10 @@ session_start();
                                 <td> <?php echo $developer['Registration_Amount']; ?> </td>
                                 <td> <?php echo $developer['TA_Received']; ?> </td>
                             <td>
-                            <a href="../../professors/conference-publications/Paper_Details/<?php echo $row['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
-							<a href="../../professors/conference-publications/Conference_Paper/<?php echo $row['pdffile2']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
-                            <a href="../../professors/conference-publications/Conference_Certificate/<?php echo $row['pdffile3']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
-							<a href="../../professors/conference-publications/Application_Letter/<?php echo $row['pdffile4']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+                            <a href="../../professors/conference-publications/Paper_Details/<?php echo $developer['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+							<a href="../../professors/conference-publications/Conference_Paper/<?php echo $developer['pdffile2']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+                            <a href="../../professors/conference-publications/Conference_Certificate/<?php echo $developer['pdffile3']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+							<a href="../../professors/conference-publications/Application_Letter/<?php echo $developer['pdffile4']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
                                 <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
                                 <a class="delete btn-danger deletebtn" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
                             </td>
@@ -418,7 +418,7 @@ foreach ($branches as $branchOption) {
                     <div class="card">
                         <div class="card-body btn-group">
                         <div> Results- </div> &nbsp; &nbsp;
-                        <button class="btn btn-success" onclick="exportTableToCSV('Search_Data.csv')"> Export Data </button>
+                        <button class="btn btn-success" onclick="exportTableToCSV('Search_Data_ConferencePublications.csv')"> Export Data </button>
                         </div>
                     </div>
                     
@@ -449,8 +449,10 @@ foreach ($branches as $branchOption) {
                         <td> <?php echo $row['TA_Received']; ?> </td>
                         <td>
 
-                            <a href="../../professors/book-chapters/uploadsindexit/<?php echo $row['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
-							<a href="../../professors/book-chapters/uploadsfrontit/<?php echo $row['pdffile2']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+                            <a href="../../professors/conference-publications/Paper_Details/<?php echo $row['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+							<a href="../../professors/conference-publications/Conference_Paper/<?php echo $row['pdffile2']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+                            <a href="../../professors/conference-publications/Conference_Certificate/<?php echo $row['pdffile3']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+							<a href="../../professors/conference-publications/Application_Letter/<?php echo $row['pdffile4']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
                             <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
                         <a class="delete btn-danger deletebtn" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
                     </td>

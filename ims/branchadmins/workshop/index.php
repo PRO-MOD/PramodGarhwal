@@ -201,7 +201,7 @@ session_start();
             </form> &nbsp;
 
             <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">					
-				<button type="submit" onclick="exportTableToCSVuser('USerData_BookChapters.csv')" class="btn btn-success">Export to excel</button>
+				<button type="submit" onclick="exportTableToCSVuser('USerData_WorkshopSeminar.csv')" class="btn btn-success">Export to excel</button>
 			</form> &nbsp; &nbsp; 
         
             <form method="post">
@@ -454,7 +454,7 @@ if (isset($_POST['approve_now'])) {
                     <div class="card">
                         <div class="card-body btn-group">
                         <div> Results- </div> &nbsp; &nbsp;
-                        <button class="btn btn-success" onclick="exportTableToCSV('Search_data.csv')"> Export Data </button>
+                        <button class="btn btn-success" onclick="exportTableToCSV('Search_data_WorkshopSeminar.csv')"> Export Data </button>
                         </div>
                     </div>
                     

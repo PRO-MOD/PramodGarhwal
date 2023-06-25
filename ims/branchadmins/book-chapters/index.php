@@ -348,7 +348,7 @@ foreach ($branches as $branchOption) {
                     <div class="card">
                         <div class="card-body btn-group">
                         <div> Results- </div> &nbsp; &nbsp;
-                        <button class="btn btn-success" onclick="exportTableToCSV('Search_Data.csv')"> Export Data </button>
+                        <button class="btn btn-success" onclick="exportTableToCSV('Search_Data_BookChapters.csv')"> Export Data </button>
                         </div>
                     </div>
                     

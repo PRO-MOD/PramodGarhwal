@@ -2,6 +2,7 @@
 include('../../config.php');
 session_start();
 ?>
+
 <!DOCTYPE html> 
 
 <html lang="en">
@@ -10,7 +11,7 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title> FDP / STTP </title>
+    <title> Students Internship Details </title>
 
     <link rel="stylesheet" href="styles.css">
     
@@ -28,7 +29,8 @@ session_start();
 
 <body>
 
-<?php include('../../header.php'); ?>
+
+    <?php include('../../header.php'); ?>
 
  <!-- main card -->
  <!-- buttons and search buttoncard -->
@@ -43,14 +45,12 @@ session_start();
                 ?>
 
             <div class="card-body mt-5">
-                <h2> FDP / STTP Organised </h2>
+                <h2> Students Achievement Activities </h2>
             </div>
-            
             <div class="card">
                 <div class="card-body btn-group">
-                
             <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">					
-				<button type="submit" onclick="exportTableToCSVuser('UserData_FDP_STTP_Attended.csv')" class="btn btn-success">Export to excel</button>
+				<button type="submit" onclick="exportTableToCSVuser('USerData_StudentInternshipDetails.csv')" class="btn btn-success">Export to excel</button>
 			</form> &nbsp; &nbsp; 
         
             <form method="post">
@@ -69,18 +69,18 @@ session_start();
                         <thead>
                             <tr>
                                 <th scope="col"> ID </th>
-                                <th scope="col"> ACADEMIC YEAR </th>
-                                <th scope="col"> NAME OF THE TEACHER </th>
+                                <th scope="col"> NAME OF STUDENT </th>
+                                <th scope="col"> ROLL NUMBER </th>
                                 <th scope="col"> BRANCH </th>
-                                <th scope="col"> TITLE OF PROGRAM </th>
-                                <th scope="col"> PROFESSIONAL BODY OR ORGANIZATION ASSOCIATED  </th>
-                                <th scope="col"> COURSE TYPE</th>
-                                <th scope="col"> ORGANIZING INSTITUTE AND LOCATION</th>
-                                <th scope="col"> FROM DATE </th>
-                                <th scope="col"> END DATE </th>
-                                <th scope="col"> DURATION </th>
-                                <th scope="col"> TA RECEIVED </th>
-                                <th scope="col"> REGISTRATION AMOUNT</th>
+                                <th scope="col"> YEAR OF STUDY </th>
+                                <th scope="col"> INTERNSHIP SEMESTER </th> 
+                                <th scope="col"> STARTING DATE </th>
+                                <th scope="col"> ENDING DATE </th>
+                                <th scope="col"> NUMBER OF DAYS OF INTERNSHIP </th>
+                                <th scope="col"> NAME OF ORGANIZATION </th>
+                                <th scope="col"> ADDRESS OF ORGANIZATION </th>
+                                <th scope="col"> LEARNING ASPECTS/OUTCOMES OF THIS INTERNSHIP </th>
+                                <th scope="col"> ACTION </th>
                                
                             </tr>
                         </thead>
@@ -88,20 +88,18 @@ session_start();
                         <?php
                         $user = $_SESSION["role"];
                         
-                        $result = "SELECT * FROM branchadmins WHERE username = '$user'";
+                        $result = "SELECT * FROM superadmin WHERE username = '$user'";
 
                         $query = mysqli_query($connection, $result);
                         $queryresult = mysqli_num_rows($query); 
-                            if($queryresult > 0)
-                            {
-                                while($row = mysqli_fetch_assoc($query))
-                                { 
+                            if($queryresult > 0){
+                                while($row = mysqli_fetch_assoc($query)){ 
                                     $id = $row['id'];
-                                    $branch = $row['branch'];
                                 }  
                             }
 
-                        $table_query = "SELECT * FROM fdpsttpattended WHERE Branch LIKE '%$branch%' ORDER BY id ASC";  
+
+                        $table_query = "SELECT * FROM internship_details WHERE STATUS = 'approved' ORDER BY id ASC";
                         $query_run = mysqli_query($connection, $table_query);
                         $query_result = mysqli_num_rows($query_run); ?>
 
@@ -109,29 +107,36 @@ session_start();
                                         while($developer = mysqli_fetch_assoc($query_run)){   
                                             ?>
                         <tbody> <!-- change -->
-                        <tr>
-                                <td> <?php echo $developer['id']; ?> </td>
-                                <td> <?php echo $developer['Academic_year']; ?> </td> 
-                                <td> <?php echo $developer['Name_Of_The_Teacher']; ?> </td> 
+                            <tr>
+                            <td> <?php echo $developer['id']; ?> </td>
+                                <td> <?php echo $developer['Name_Of_The_Student']; ?> </td>
+                                <td> <?php echo $developer['Roll_no']; ?> </td> 
                                 <td> <?php echo $developer['Branch']; ?> </td>
-                                <td> <?php echo $developer['Title_Of_Program']; ?> </td>
-                                <td> <?php echo $developer['Professional_Body_Or_Organization_Associated']; ?> </td>
-                                <td> <?php echo $developer['Course_Type']; ?> </td>
-                                <td> <?php echo $developer['Organizing_Institute_And_Location']; ?> </td>
+                                <td> <?php echo $developer['Year_Of_Study']; ?> </td>
+                                <td> <?php echo $developer['Internship_Semester']; ?> </td>
+                                <td> <?php echo $developer['Internship_Outcomes']; ?> </td>
+                                <td> <?php echo $developer['Name_of_Organization']; ?> </td>
+                                <td> <?php echo $developer['Number_of_Days_of_Internship']; ?> </td>
+                                <td> <?php echo $developer['Organizing_Addr']; ?> </td>
+                             
                                 <td> <?php echo $developer['Dates_From']; ?> </td>
                                 <td> <?php echo $developer['Dates_To']; ?> </td>
-                                <td> <?php echo $developer['Duration']; ?> </td>
-                                <td> <?php echo $developer['TA_Received']; ?> </td>
-                                <td> <?php echo $developer['Registration_Amount']; ?> </td>
-
                                 <td>
-
-                                    <a href="../../professors/fdp-sttp-attended/uploadsfdpattended1/<?php echo $developer['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
-
-                                    <a href="../../professors/fdp-sttp-attended/uploadsfdpattended2/<?php echo $developer['pdffile2']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
-                                    
+                            <!--<a href="read.php?viewid=<?php echo htmlentities ($developer['id']);?>" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>-->
+                            <a href="certificates/<?php echo $developer['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+							<!-- <a href="uploadsfrontit/<?php echo $developer['pdffile2']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a> -->
+                            <a href="certificates/<?php echo $developer['pdffile2']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+                            <a href="certificates/<?php echo $developer['pdffile3']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+                            
+                            
+                            <!-- <button class="btn"><i class="fa fa-download"></i> Download</button> -->
+                        </td>
+                                <!-- <td>
+                                    <button type="button" class="btn btn-success editbtn"> EDIT </button>
                                 </td>
-
+                                <td>
+                                    <button type="button" class="btn btn-danger deletebtn"> DELETE </button>
+                                </td> -->
                             </tr>
                         </tbody>
                         <?php           
@@ -151,31 +156,32 @@ session_start();
 
 <!--Search data -->
 <div id="srch" class="card-body">
-    <h4> Search Data </h4>
-    <table class="table table-bordered ">
-    <thead>
-        <tr>
-            <th scope="col"> ID </th>
-            <th scope="col"> ACADEMIC YEAR </th>
-            <th scope="col"> NAME OF THE TEACHER </th>
-            <th scope="col"> BRANCH </th>
-            <th scope="col"> TITLE OF PROGRAM </th>
-            <th scope="col"> PROFESSIONAL BODY OR ORGANIZATION ASSOCIATED  </th>
-            <th scope="col"> COURSE TYPE</th>
-            <th scope="col"> ORGANIZING INSTITUTE AND LOCATION</th>
-            <th scope="col"> FROM DATE </th>
-            <th scope="col"> END DATE </th>
-            <th scope="col"> DURATION </th>
-            <th scope="col"> TA RECEIVED </th>
-            <th scope="col"> REGISTRATION AMOUNT</th>
-        </tr>
-    <thead>  
-    <?php 
-    if (isset($_POST["submit"])) 
-    {
+                <h4> Search Data </h4>
+                    <table class="table table-bordered ">
+                    <thead>
+                        <tr>
+                                <th scope="col"> ID </th>
+                                <th scope="col"> NAME OF STUDENT </th>
+                                <th scope="col"> ROLL NUMBER </th>
+                                <th scope="col"> BRANCH </th>
+                                <th scope="col"> YEAR OF STUDY </th>
+                                <th scope="col"> INTERNSHIP SEMESTER </th> 
+                                <th scope="col"> STARTING DATE </th>
+                                <th scope="col"> ENDING DATE </th>
+                                <th scope="col"> NUMBER OF DAYS OF INTERNSHIP </th>
+                                <th scope="col"> NAME OF ORGANIZATION </th>
+                                <th scope="col"> ADDRESS OF ORGANIZATION </th>
+                                <th scope="col"> LEARNING ASPECTS/OUTCOMES OF THIS INTERNSHIP </th>
+                                <th scope="col"> PERMISSION LETTER FROM FCRIT </th>
+                                <th> ACTION </th>
+                        </tr>
+                    <thead>       
+<?php 
+    if (isset($_POST["submit"])) {
         $str = mysqli_real_escape_string($connection, $_POST["search"]);
 
-        $sth = "SELECT * FROM `fdpsttpattended` WHERE Academic_Year LIKE '%$str%' OR Name_Of_The_Teacher LIKE '%$str%' OR Branch LIKE '%$str%' OR Title_Of_Program LIKE '%$str%' OR Professional_Body_Or_Organization_Associated LIKE '%$str%' OR Course_Type LIKE '%$str%'  OR Organizing_Institute_And_Location LIKE '%$str%' OR Duration LIKE '%$str%' OR TA_Received LIKE '%$str%' OR Registration_Amount LIKE '%$str%' ";
+            $sth = "SELECT * FROM `internship_details` WHERE STATUS = 'approved' AND( Branch LIKE '%$str%' OR Roll_no LIKE '%$str%' OR Name_Of_The_Student LIKE '%$str%' OR Year_Of_Study LIKE '%$str%' OR Internship_Semester LIKE '%$str%' OR Internship_Outcomes LIKE '%$str%' OR Name_Of_Organization LIKE '$str' OR Number_of_Days_of_Internship LIKE '%$str%' OR Organizing_Addr LIKE '%$str%' OR Dates_From LIKE '%$str%' OR Dates_To LIKE '%$str%' OR STATUS LIKE '$str' ) ";
+        
         $result = mysqli_query($connection, $sth);
         $queryresult = mysqli_num_rows($result); ?>
 
@@ -191,27 +197,30 @@ session_start();
                     ?>
                     <tbody id="srch"> 
              
-                        <tr>
-                            <td> <?php echo $row['id']; ?> </td>
-                            <td> <?php echo $row['Academic_year']; ?> </td> 
-                            <td> <?php echo $row['Name_Of_The_Teacher']; ?> </td> 
-                            <td> <?php echo $row['Branch']; ?> </td>
-                            <td> <?php echo $row['Title_Of_Program']; ?> </td>
-                            <td> <?php echo $row['Professional_Body_Or_Organization_Associated']; ?> </td>
-                            <td> <?php echo $row['Course_Type']; ?> </td>
-                            <td> <?php echo $row['Organizing_Institute_And_Location']; ?> </td>
-                            <td> <?php echo $row['Dates_From']; ?> </td>
-                            <td> <?php echo $row['Dates_To']; ?> </td>
-                            <td> <?php echo $row['Duration']; ?> </td>
-                            <td> <?php echo $row['TA_Received']; ?> </td>
-                            <td> <?php echo $row['Registration_Amount']; ?> </td>
+                    <tr>                
+                        <td> <?php echo $row['id']; ?> </td>
+                        <td> <?php echo $row['Name_Of_The_Student']; ?> </td> 
+                        <td> <?php echo $row['Roll_no']; ?> </td>
+                        <td> <?php echo $row['Branch']; ?> </td>
+                        <td> <?php echo $row['Year_Of_Study']; ?> </td>
+                        <td> <?php echo $row['Internship_Semester']; ?> </td>
+                        <td> <?php echo $row['Internship_Outcomes']; ?> </td>
+                        <td> <?php echo $row['Name_of_Organization']; ?> </td>
+                        <td> <?php echo $row['Number_of_Days_of_Internship']; ?> </td>
+                        <td> <?php echo $row['Organizing_Addr']; ?> </td>
+                        <td> <?php echo $row['Dates_From']; ?> </td>
+                        <td> <?php echo $row['Dates_To']; ?> </td>
+                        <td>
+                            <!--<a href="read.php?viewid=<?php echo htmlentities ($developer['id']);?>" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>-->
+                            <a href="certificates/<?php echo $developer['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+							<!-- <a href="uploadsfrontextc/<?php echo $developer['pdffile2']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a> -->
+                            <a href="certificates/<?php echo $row['pdffile2']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+                            <a href="certificates/<?php echo $row['pdffile3']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
                             
-                            <td>           
-                                <a href="../../iqacadmins/fdp-sttp-attended/uploadsfdpattended1/<?php echo $row['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
-
-                                <a href="../../iqacadmins/fdp-sttp-attended/uploadsfdpattended2/<?php echo $row['pdffile2']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
-                            </td>
-                        </tr>
+                            
+                            <!-- <button class="btn"><i class="fa fa-download"></i> Download</button> -->
+                        </td>
+                    </tr> 
                     <tbody>
                     <?php 
             }
@@ -281,18 +290,18 @@ session_start();
                 console.log(data);
                 //chnage this keep same variable as above
                 $('#update_id').val(data[0]);
-                $('#Academic_year').val(data[1]);
-                $('#Name_Of_The_Teacher').val(data[2]);
+                $('#Name_Of_The_Student').val(data[1]);
+                $('#Roll_no').val(data[2]);
                 $('#Branch').val(data[3]);
-                $('#Title_Of_Program').val(data[4]);
-                $('#Professional_Body_Or_Organization_Associated').val(data[5]);
-                $('#Course_Type').val(data[6]);
-                $('#Organizing_Institute_And_Location').val(data[7]);
-                $('#Dates_From').val(data[8]);
-                $('#Dates_To').val(data[9]);
-                $('#Duration').val(data[10]);
-                $('#TA_Received').val(data[11]);
-                $('#Registration_Amount').val(data[12]);
+                $('#Year_Of_Study').val(data[4]);
+                $('#Internship_Semester').val(data[5]);
+                $('#Internship_Outcomes').val(data[6]);
+            
+                $('#Name_of_Organization').val(data[7]);
+                $('#Number_of_Days_of_Internship').val(data[8]);
+                $('#Organizing_Addr').val(data[9]);
+                $('#Dates_From').val(data[10]);
+                $('#Dates_To').val(data[11]);
             });
         });
     </script>

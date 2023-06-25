@@ -11,7 +11,7 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title> Outreach Programs </title>
+    <title> Students Internship Details </title>
 
     <link rel="stylesheet" href="styles.css">
     
@@ -49,54 +49,81 @@ session_start();
 
                     <div class="modal-body">
 
+
                         <div class="form-group">
-                            <label> Name of the activity </label>
-                            <input type="text" name="Name_of_Activity" class="form-control" placeholder="Enter Activity Name" required>
+                            <label> Name of the Student</label>
+                            <input type="text" name="Name_Of_The_Student" class="form-control" placeholder="Name of the Student" required>
                         </div>
 
                         <div class="form-group">
-                            <label> Organizing unit/agency/collaborating agency </label>
-                            <input type="text" name="Organizing_Unit" class="form-control" placeholder="Enter Title" required>
+                            <label> Roll Number </label>
+                            <input type="text" name="Roll_no" class="form-control" placeholder="Roll no" required>
                         </div>
 
-                        <div class="form-group">
-                            <label> Name of the Coordinator </label>
-                            <input type="text" name="Name_of_Coordinators" class="form-control" placeholder="Enter Title" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Name of the scheme/ department</label>
-                            <select name="Name_of_Scheme" class="form-control" required>
-                                <option value="">--Select--</option>
-                                <option name="Name_of_Scheme" value="NSS">NSS</option>
-                                <option name="Name_of_Scheme" value="UBA">UBA</option>
-                                <option name="Name_of_Scheme" value="Eco-club">Eco-club</option>
-                            </select>
-                        </div>
-                        
                         
                         <div class="form-group">
-                            <label> Date/Dates conducted</label>
-                            <input type="date" name="Dates_Conducted" class="form-control" placeholder="Enter Title" required>
+    <label>Branch</label>
+    <select name="Branch" class="form-control" required disabled>
+        <option value="">--Select Department--</option>
+        <?php
+        // Retrieve the department information from the session or any other method
+        $branch = $_SESSION['branch']; 
+
+       $branches = array("IT", "EXTC", "Mechanical", "Computers", "Electrical", "Humanities");
+foreach ($branches as $branchOption) {
+    $selected = ($branchOption == $branch) ? 'selected="selected"' : '';
+    echo '<option value="' . $branchOption . '" ' . $selected . '>' . $branchOption . '</option>';
+}
+
+        ?>
+    </select>
+</div>
+
+                            <div class="form-group">
+                            <label>Year of Study</label>
+                            <input type="text" name="Year_Of_Study" class="form-control" placeholder="Enter Year" required>
                         </div>
 
                         <div class="form-group">
-                            <label> Year of the activity</label>
-                            <input type="text" name="Year_of_Activity" class="form-control" placeholder="Enter Title" required>
+                            <label>Internship Semester</label>
+                            <input type="text" name="Internship_Semester" class="form-control" placeholder="Enter Sem" required>
                         </div>
 
                         <div class="form-group">
-                            <label> Number of student volunteers for the activity </label>
-                            <input type="number" name="No_of_Student_Volunteer_for_Activity" class="form-control" placeholder="Enter Title" required>
+                            <label>Learning Aspects/Outcomes of this internship</label>
+                            <input type="text" name="Internship_Outcomes" class="form-control" placeholder="Enter Outcomes" required>
+                        </div>
+
+                        
+
+                        <div class="form-group">
+                            <label> Name of the Organization </label>
+                            <input type="text" name="Name_of_Organization" class="form-control" placeholder="Enter name of Organizing Body" required>
                         </div>
 
                         <div class="form-group">
-                            <label>Number of people benefitted by the activity </label>
-                            <input type="number" name="No_of_People_benefitted_by_Activity" class="form-control" placeholder="Enter Title" required>
-                        </div>               
+                            <label> Number of Days of Internship </label>
+                            <input type="text" name="Number_of_Days_of_Internship" class="form-control" placeholder="Number_of_Days_of_Internship" required>
+                        </div>
 
                         <div class="form-group">
-                            <label> Upload Report as per the Template </label>
+                            <label> Address of the Organization </label>
+                            <input type="text" name="Organizing_Addr" class="form-control" placeholder="Enter address of Organizing Body" required>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label> Internship Date (From) </label>
+                            <input type="date" name="Dates_From" class="form-control" placeholder="Enter Start Date" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label> Internship Date (To) </label>
+                            <input type="date"  name="Dates_To" class="form-control" placeholder="Enter Ending Date" required>
+                        </div>                     
+
+                        <div class="form-group">
+                            <label> Permission Letter from FCRIT </label>
                             <input type="file" name="pdffile1" id="pdffile1" required/><br>
                                     <img src="" id="pdf-file1-tag" width="100px" />
 
@@ -116,9 +143,11 @@ session_start();
                                         });
                                     </script><br>
 						</div>
-                        <!-- <div class="form-group">
-                            <label> Submit front page of book </label>						
-						    <input type="file" name="pdffile2" id="pdffile2" required/><br>
+                       
+                        
+                        <div class="form-group">
+                            <label> Internship Report </label>
+                            <input type="file" name="pdffile2" id="pdffile2" required/><br>
                                     <img src="" id="pdf-file2-tag" width="100px" />
 
                                     <script type="text/javascript">
@@ -136,8 +165,30 @@ session_start();
                                             readURL(this);
                                         });
                                     </script><br>
-						</div>			 -->
+						</div>
 
+                        
+                        <div class="form-group">
+                            <label> Internship Completion Letter / Certificate </label>
+                            <input type="file" name="pdffile3" id="pdffile13" required/><br>
+                                    <img src="" id="pdf-file3-tag" width="100px" />
+
+                                    <script type="text/javascript">
+                                        function readURL(input) {
+                                            if (input.files && input.files[0]) {
+                                                var reader = new FileReader();
+                                                
+                                                reader.onload = function (e) {
+                                                    $('#pdf-file3-tag').attr('src', e.target.result);
+                                                }
+                                                reader.readAsDataURL(input.files[0]);
+                                            }
+                                        }
+                                        $("#pdffile3").change(function(){
+                                            readURL(this);
+                                        });
+                                    </script><br>
+						</div>
 
                     </div>
                     <div class="modal-footer">
@@ -194,7 +245,7 @@ session_start();
                 ?>
 
             <div class="card-body mt-5">
-                <h2> Outreach Program</h2>
+                <h2> Students Internship Details</h2>
             </div>
             <div class="card">
                 <div class="card-body btn-group">
@@ -205,7 +256,7 @@ session_start();
             </form> &nbsp;
 
             <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">					
-				<button type="submit" onclick="exportTableToCSVuser('USerData_BookChapters.csv')" class="btn btn-success">Export to excel</button>
+				<button type="submit" onclick="exportTableToCSVuser('USerData_StudentInternshipDetails.csv')" class="btn btn-success">Export to excel</button>
 			</form> &nbsp; &nbsp; 
         
             <form method="post">
@@ -224,14 +275,20 @@ session_start();
                         <thead>
                             <tr>
                                 <th scope="col"> ID </th>
-                                <th scope="col"> NAME OF ACTIVITY </th>
-                                <th scope="col"> ORGANIZING UNIT/AGENCY/COLLABORATING AGENCY </th>
-                                <th scope="col"> NAME OF THE COORDINATORS </th>
-                                <th scope="col"> NAME OF THE SCHEME</th>
-                                <th scope="col"> DATE/ DATES CONDUCTED </th>
-                                <th scope="col"> YEAR OF THE ACTIVITY</th>
-								<th scope="col"> NUMBER OF STUDENT VOLUNTEERS FOR THE ACTIVITY </th>
-                                <th scope="col"> NUMBER OF PEOPLE BENEFITTED BY THE ACTIVITY </th>
+                                <th scope="col"> NAME OF STUDENT </th>
+                                <th scope="col"> ROLL NUMBER </th>
+                                <th scope="col"> BRANCH </th>
+                                <th scope="col"> YEAR OF STUDY </th>
+                                <th scope="col"> INTERNSHIP SEMESTER </th> 
+                                <th scope="col"> STARTING DATE </th>
+                                <th scope="col"> ENDING DATE </th>
+                                <th scope="col"> NUMBER OF DAYS OF INTERNSHIP </th>
+                                <th scope="col"> NAME OF ORGANIZATION </th>
+                                <th scope="col"> ADDRESS OF ORGANIZATION </th>
+                                <th scope="col"> LEARNING ASPECTS/OUTCOMES OF THIS INTERNSHIP </th>
+                             
+							
+                            
                                 <th scope="col"> ACTION </th>
                                 <th scope="col"> STATUS</th>
                                
@@ -241,22 +298,22 @@ session_start();
                         <?php
                         $user = $_SESSION["role"];
                         
-                        $result = "SELECT * FROM ecoclub WHERE username = '$user'";
+                        $result = "SELECT * FROM student WHERE username = '$user'";
 
                         $query = mysqli_query($connection, $result);
                         $queryresult = mysqli_num_rows($query); 
                             if($queryresult > 0){
                                 while($row = mysqli_fetch_assoc($query)){ 
                                     $id = $row['id'];
-
+                                    $branch = $row['branch'];
                                 }  
                             }
 
-                        $table_query = "SELECT * FROM outreachprogram ORDER BY id ASC";
+                        $table_query = "SELECT * FROM internship_details WHERE user_id= '$id' ";
                         
                         $query_run = mysqli_query($connection, $table_query);
                         $query_result = mysqli_num_rows($query_run); ?>
-                        
+
                         <?php if($query_result > 0){
                                         while($developer = mysqli_fetch_assoc($query_run)){   
                                             ?>
@@ -268,34 +325,31 @@ session_start();
                 // If STATUS is "approved", set the $is_disabled variable to "disabled"
                 ?>
                                 <td> <?php echo $developer['id']; ?> </td>
-                                <td> <?php echo $developer['Name_of_Activity']; ?> </td> 
-                                <td> <?php echo $developer['Organizing_Unit']; ?> </td>
-                                <td> <?php echo $developer['Name_of_Coordinators']; ?> </td>
-                                <td> <?php echo $developer['Name_of_Scheme']; ?> </td>
-                                <td> <?php echo $developer['Dates_Conducted']; ?> </td>
-                                <td> <?php echo $developer['Year_of_Activity']; ?> </td>
-                                <td> <?php echo $developer['No_of_Student_Volunteer_for_Activity']; ?> </td>
-                                <td> <?php echo $developer['No_of_People_benefitted_by_Activity']; ?> </td>
+                                <td> <?php echo $developer['Name_Of_The_Student']; ?> </td>
+                                <td> <?php echo $developer['Roll_no']; ?> </td> 
+                                <td> <?php echo $developer['Branch']; ?> </td>
+                                <td> <?php echo $developer['Year_Of_Study']; ?> </td>
+                                <td> <?php echo $developer['Internship_Semester']; ?> </td>
+                                <td> <?php echo $developer['Internship_Outcomes']; ?> </td>
+                                <td> <?php echo $developer['Name_of_Organization']; ?> </td>
+                                <td> <?php echo $developer['Number_of_Days_of_Internship']; ?> </td>
+                                <td> <?php echo $developer['Organizing_Addr']; ?> </td>
+                             
+                                <td> <?php echo $developer['Dates_From']; ?> </td>
+                                <td> <?php echo $developer['Dates_To']; ?> </td>
+                                
                                 <td>
-<!--                             <a href="read.php?viewid=<?php echo htmlentities ($developer['id']);?>" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
-                            <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
- -->                            <a href="../../fdpadmins/outreach/Reports/<?php echo $developer['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+                            <!--<a href="read.php?viewid=<?php echo htmlentities ($developer['id']);?>" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>-->
+                            <!-- <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a> -->
+                           
+                            <a href="certificates/<?php echo $developer['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+                            <a href="certificates/<?php echo $developer['pdffile2']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+                            <a href="certificates/<?php echo $developer['pdffile3']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
 							<!-- <a href="uploadsfrontit/<?php echo $developer['pdffile2']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a> -->
-<!--                             <a class="delete btn-danger deletebtn" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
- -->							
+                            <!-- <a class="delete btn-danger deletebtn" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a> -->
+							
                             
-                            
-                            <!-- <button class="btn"><i class="fa fa-download"></i> Download</button>
-                        </td>
-                                <td>
-                                    <button type="button" class="btn btn-success editbtn"> EDIT </button>
-                                </td>
-                                <td>
-                                    <button type="button" class="btn btn-danger deletebtn"> DELETE </button>
-                                </td>
-                            </tr>
-                        </tbody> -->
-                        <?php if ($status != "approved") { // If STATUS is not "approved", show the edit and delete buttons ?>
+                            <?php if ($status != "approved") { // If STATUS is not "approved", show the edit and delete buttons ?>
                         <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip" <?php echo $is_disabled ?>>
                             <i class="material-icons">&#xE254;</i>
                         </a>
@@ -312,15 +366,18 @@ session_start();
         <?php           
     }
 }
-else
-                {
-                    echo "No Record Found";
-                }
-            ?>
+else 
+{
+    
+    echo "No Record Found";
+}
+?>
+
                     </table>
             
         </div> 
     </div>
+
 
     <!-- EDIT POP UP FORM  -->
     <!-- this is edit data form Make changes to variables and placeholder, keep same variables -->
@@ -330,7 +387,7 @@ else
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel"> Edit Data </h5> &nbsp;
-                    <h5 class="modal-title" id="exampleModalLabel"> (Please enter the dates again)</h5>
+                    <h5 class="modal-title" id="exampleModalLabel"> (Please enter the data again)</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -343,57 +400,79 @@ else
                         <input type="hidden" name="update_id" id="update_id">
 
                         <div class="form-group">
-                            <label> Name of the activity </label>
-                            <input type="text" name="Name_of_Activity" class="form-control" placeholder="Enter Activity Name" required>
+                            <label> Name of the Student</label>
+                            <input type="text" id="Name_Of_The_Student" name="Name_Of_The_Student" class="form-control"  required>
                         </div>
 
                         <div class="form-group">
-                            <label> Organizing unit/agency/collaborating agency </label>
-                            <input type="text" name="Organizing_Unit" class="form-control" placeholder="Enter Title" required>
+                            <label> Roll Number </label>
+                            <input type="text" id="Roll_no" name="Roll_no" class="form-control" required>
+                        </div>
+
+
+                        <div class="form-group">
+    <label>Branch</label>
+    <select name="Branch" class="form-control" required >
+        <option value="">--Select Department--</option>
+        <?php
+        // Retrieve the department information from the session or any other method
+        $branch = $_SESSION['branch']; 
+
+       $branches = array("IT", "EXTC", "Mechanical", "Computers", "Electrical", "Humanities");
+foreach ($branches as $branchOption) {
+    $selected = ($branchOption == $branch) ? 'selected="selected"' : '';
+    echo '<option value="' . $branchOption . '" ' . $selected . '>' . $branchOption . '</option>';
+}
+
+        ?>
+    </select>
+</div>
+
+
+                        <div class="form-group">
+                            <label>Year of Study</label>
+                            <input type="text" id="Year_Of_Study" name="Year_Of_Study" class="form-control" required>
                         </div>
 
                         <div class="form-group">
-                            <label> Name of the Coordinator </label>
-                            <input type="text" name="Name_of_Coordinators" class="form-control" placeholder="Enter Title" required>
+                            <label>Internship Semester</label>
+                            <input type="text" id="Internship_Semester" name="Internship_Semester" class="form-control" required>
                         </div>
 
+                       
                         <div class="form-group">
-                            <label>Name of the scheme/ department</label>
-                            <select name="Name_of_Scheme" class="form-control" required>
-                                <option value="">--Select Year--</option>
-                                <option name="Name_of_Scheme" value="NSS">NSS</option>
-                                <option name="Name_of_Scheme" value="UBA">UBA</option>
-                                <option name="Name_of_Scheme" value="EBSB">EBSB</option>
-                                <option name="Name_of_Scheme" value="Eco-club">Eco-club</option>
-                              
-                            </select>
+                            <label>Learning Aspects/Outcomes of this internship</label>
+                            <input type="text" name="Internship_Outcomes" class="form-control" placeholder="Enter Outcomes" required>
                         </div>
+
                         
-                        
 
                         <div class="form-group">
-                            <label> Date/Dates conducted</label>
-                            <input type="date" name="Dates_Conducted" class="form-control" placeholder="Enter Title" required>
+                            <label> Name of the Organization </label>
+                            <input type="text" name="Name_of_Organization" class="form-control" placeholder="Enter name of Organizing Body" required>
                         </div>
 
                         <div class="form-group">
-                            <label> Year of the activity</label>
-                            <input type="text" name="Year_of_Activity" class="form-control" placeholder="Enter Title" required>
+                            <label> Number of Days of Internship </label>
+                            <input type="text" name="Number_of_Days_of_Internship" class="form-control" placeholder="Number_of_Days_of_Internship" required>
                         </div>
 
                         <div class="form-group">
-                            <label> Number of student volunteers for the activity </label>
-                            <input type="number" name="No_of_Student_Volunteer_for_Activity" class="form-control" placeholder="Enter Title" required>
+                            <label> Address of the Organization </label>
+                            <input type="text" name="Organizing_Addr" class="form-control" placeholder="Enter address of Organizing Body" required>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label> Internship Date (From) </label>
+                            <input type="date" name="Dates_From" class="form-control" placeholder="Enter Start Date" required>
                         </div>
 
                         <div class="form-group">
-                            <label>Number of people benefitted by the activity </label>
-                            <input type="number" name="No_of_People_benefitted_by_Activity" class="form-control" placeholder="Enter Title" required>
-                        </div> 
-                        
-						
+                            <label> Internship Date (To) </label>
+                            <input type="date"  name="Dates_To" class="form-control" placeholder="Enter Ending Date" required>
+                        </div>                     
 
-                            
 
                     </div>
                     <div class="modal-footer">
@@ -412,24 +491,30 @@ else
                     <table class="table table-bordered ">
                     <thead>
                         <tr>
-                            <th> ID </th> 
-                            <th> NAME OF ACTIVITY </th>
-                            <th> ORGANIZING UNIT/ AGENCY/ COLLABORATING AGENCY</th>
-                            <th> NAME OF THE COORDINATORS </th>
-                            <th> NAME OF THE SCHEME </th>
-                            <th> DATE/ DATES CONDUCTED </th>
-                            <th> YEAR OF THE ACTIVITY</th>
-                            <th> NUMBER OF THE STUDENT VOLUNTEERS FOR THE ACTIVITY </th>
-                            <th> NUMBER OF PEOPLE BENEFITTED BY THE ACTIVITY </th>
+                                <th scope="col"> ID </th>
+                                <th scope="col"> NAME OF STUDENT </th>
+                                <th scope="col"> ROLL NUMBER </th>
+                                <th scope="col"> BRANCH </th>
+                                <th scope="col"> YEAR OF STUDY </th>
+                                <th scope="col"> INTERNSHIP SEMESTER </th> 
+                                <th scope="col"> STARTING DATE </th>
+                                <th scope="col"> ENDING DATE </th>
+                                <th scope="col"> NUMBER OF DAYS OF INTERNSHIP </th>
+                                <th scope="col"> NAME OF ORGANIZATION </th>
+                                <th scope="col"> ADDRESS OF ORGANIZATION </th>
+                                <th scope="col"> LEARNING ASPECTS/OUTCOMES OF THIS INTERNSHIP </th>
+                                <th scope="col"> PERMISSION LETTER FROM FCRIT </th>
                             <th> ACTION </th>
                             <th> STATUS </th>
                         </tr>
                     <thead>       
+
+
 <?php 
     if (isset($_POST["submit"])) {
         $str = mysqli_real_escape_string($connection, $_POST["search"]);
 
-        $sth = "SELECT * FROM `outreachprogram` WHERE user_id=$id AND (Name_of_Activity LIKE '%$str%' OR Organizing_Unit LIKE '%$str%' OR Name_of_Coordinators LIKE '%$str%' OR Name_of_Scheme LIKE '%$str%' OR Others LIKE '%$str%' OR Dates_Conducted LIKE '$str' OR Year_of_Activity LIKE '%$str%' OR No_of_Student_Volunteer_for_Activity LIKE '%$str%' OR No_of_People_benefitted_by_Activity LIKE '%$str%') ";
+        $sth = "SELECT * FROM `internship_details` WHERE user_id= '$id' AND (Branch LIKE '%$str%' OR Roll_no LIKE '%$str%' OR Name_Of_The_Student LIKE '%$str%' OR Year_Of_Study LIKE '%$str%' OR Internship_Semester LIKE '%$str%' OR Internship_Outcomes LIKE '%$str%' OR Name_Of_Organization LIKE '$str' OR Number_of_Days_of_Internship LIKE '%$str%' OR Organizing_Addr LIKE '%$str%' OR Dates_From LIKE '%$str%' OR Dates_To LIKE '%$str%' OR STATUS LIKE '$str' ) ";
         
         $result = mysqli_query($connection, $sth);
         $queryresult = mysqli_num_rows($result); ?>
@@ -446,31 +531,38 @@ else
                     ?>
                     <tbody id="srch"> 
              
-                    <tr>     
+                    <tr>              
                     <?php
                 $status = $row['STATUS'];
                 $is_disabled = ($status == "approved") ? "disabled" : "";
                 // If STATUS is "approved", set the $is_disabled variable to "disabled"
-                ?>           
+                ?>  
                         <td> <?php echo $row['id']; ?> </td>
-                        <td> <?php echo $row['Name_of_Activity']; ?> </td> 
-                        <td> <?php echo $row['Organizing_Unit']; ?> </td>
-                        <td> <?php echo $row['Name_of_Coordinators']; ?> </td>
-                        <td> <?php echo $row['Name_of_Scheme']; ?> </td>
-                        <td> <?php echo $row['Dates_Conducted']; ?> </td>
-                        <td> <?php echo $row['Year_of_Activity']; ?> </td>
-                        <td> <?php echo $row['No_of_Student_Volunteer_for_Activity']; ?> </td>
-                        <td> <?php echo $row['No_of_People_benefitted_by_Activity']; ?> </td>
+                        <td> <?php echo $row['Name_Of_The_Student']; ?> </td>
+                        <td> <?php echo $row['Roll_no']; ?> </td> 
+                        <td> <?php echo $row['Branch']; ?> </td>
+                        <td> <?php echo $row['Year_Of_Study']; ?> </td>
+                        <td> <?php echo $row['Internship_Semester']; ?> </td>
+                        <td> <?php echo $row['Internship_Outcomes']; ?> </td>
+                        <td> <?php echo $row['Name_of_Organization']; ?> </td>
+                        <td> <?php echo $row['Number_of_Days_of_Internship']; ?> </td>
+                        <td> <?php echo $row['Organizing_Addr']; ?> </td>
+                        <td> <?php echo $row['Dates_From']; ?> </td>
+                        <td> <?php echo $row['Dates_To']; ?> </td>
                         <td>
-                            <!--<a href="read.php?viewid=<?php echo htmlentities ($row['id']);?>" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
-                            <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                --> <a href="../../fdpadmins/outreach/Reports/<?php echo $row['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
-							<!-- <a href="uploadsfrontit/<?php echo $row['pdffile2']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a> 
-                            <a class="delete btn-danger deletebtn" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-                -->
+                            <!--<a href="read.php?viewid=<?php echo htmlentities ($row['id']);?>" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>-->
+                            <!-- <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a> -->
+                            <a href="certificates/<?php echo $row['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+                            <a href="certificates/<?php echo $row['pdffile2']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+                            <a href="certificates/<?php echo $row['pdffile3']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+							<!-- <a href="uploadsfrontit/<?php echo $row['pdffile2']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a> -->
+                            <!-- <a class="delete btn-danger deletebtn" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a> -->
+							
                             
                             
                             <!-- <button class="btn"><i class="fa fa-download"></i> Download</button> -->
+
+                             
                             <?php if ($status != "approved") { // If STATUS is not "approved", show the edit and delete buttons ?>
                         <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip" <?php echo $is_disabled ?>>
                             <i class="material-icons">&#xE254;</i>
@@ -552,16 +644,21 @@ else
                 console.log(data);
                 //chnage this keep same variable as above
                 $('#update_id').val(data[0]);
-                $('#Name_Of_Activity').val(data[1]);
-                $('#Organizing_Unit').val(data[2]);
-                $('#Name_of_Coordinators').val(data[3]);
-                $('#Name_of_Scheme').val(data[4]);
-             
-                $('#Dates_Conducted').val(data[5]);
-                $('#Year_of_Activity').val(data[6]);
-                $('#No_of_Student_Volunteer_for_Activity').val(data[7]);
-                $('#No_of_People_benefitted_by_Activity').val(data[8]);
-                $('#pdffile1').val(data[9]);
+                $('#Name_Of_The_Student').val(data[1]);
+                $('#Roll_no').val(data[2]);
+                $('#Branch').val(data[3]);
+                $('#Year_Of_Study').val(data[4]);
+                $('#Internship_Semester').val(data[5]);
+                $('#Internship_Outcomes').val(data[6]);
+            
+                $('#Name_of_Organization').val(data[7]);
+                $('#Number_of_Days_of_Internship').val(data[8]);
+                $('#Organizing_Addr').val(data[9]);
+                $('#Dates_From').val(data[10]);
+                $('#Dates_To').val(data[11]);
+                $('#pdffile1').val(data[12]);
+                $('#pdffile2').val(data[13]);
+                $('#pdffile3').val(data[14]);
             });
         });
     </script>
