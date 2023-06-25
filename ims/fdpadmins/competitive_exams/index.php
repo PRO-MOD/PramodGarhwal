@@ -372,6 +372,12 @@ foreach ($branches as $branchOption) {
                             <input type="text" name="Name_of_exam"  id="Name_of_exam" class="form-control" placeholder="Enter Name_of_exam">
                         </div>
 
+                        <div class="form-group">
+                            <label> If other specify </label>
+                            <input type="text" name="other" 
+                            id="other" 
+                            class="form-control" placeholder="Enter other">
+                        </div>
 
                         
                         

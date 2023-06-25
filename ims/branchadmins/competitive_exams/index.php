@@ -268,7 +268,7 @@ foreach ($branches as $branchOption) {
                                 <td> <?php echo $developer['OTHER']; ?> </td>
                                 <td>
                             
-							<a href="branchexams/<?php echo $developer['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+							<a href="../../fdpadmins/competitive_exams/exams/<?php echo $developer['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
 							<a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
                         <a class="delete btn-danger deletebtn" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
                     </td>
@@ -390,6 +390,12 @@ foreach ($branches as $branchOption) {
                             <label> Name_of_exam</label>
                             <input type="text" name="Name_of_exam"  id="Name_of_exam" class="form-control" placeholder="Enter Name_of_exam">
                         </div>
+
+                        <div class="form-group">
+                            <label> If other specify </label>
+                            <input type="text" name="other" class="form-control" placeholder="Enter other">
+                        </div>
+
 
 
                         

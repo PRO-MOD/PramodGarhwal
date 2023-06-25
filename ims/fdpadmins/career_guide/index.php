@@ -310,7 +310,7 @@ foreach ($branches as $branchOption) {
         <option value="">--Select Department--</option>
         <?php
         // Retrieve the department information from the session or any other method
-        $branch = $_SESSION['branch']; 
+        $branch = $_SESSION['Branch']; 
 
        $branches = array("IT", "EXTC", "Mechanical", "Computers", "Electrical", "Humanities");
 foreach ($branches as $branchOption) {
@@ -390,7 +390,7 @@ foreach ($branches as $branchOption) {
                     <tr>                
                     <td> <?php echo $row['id']; ?> </td>
                         <td> <?php echo $row['career_year']; ?> </td> 
-                        <td> <?php echo $row['branch']; ?> </td> 
+                        <td> <?php echo $row['Branch']; ?> </td> 
                         <td> <?php echo $row['guidance_career']; ?> </td>
                         <td> <?php echo $row['title']; ?> </td>
                         <td> <?php echo $row['students_attended']; ?> </td>
