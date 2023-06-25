@@ -106,12 +106,12 @@ session_start();
                                 
                                 <td><?php echo $developer['id']; ?> </td>
                                 <td> <?php echo $developer['career_year']; ?> </td>
-                                <td> <?php echo $developer['branch']; ?> </td> 
+                                <td> <?php echo $developer['Branch']; ?> </td> 
                                 <td> <?php echo $developer['guidance_career']; ?> </td>
                                 <td> <?php echo $developer['title']; ?> </td>
                                 <td> <?php echo $developer['students_attended']; ?> </td>
                                 <td>
-                                <a href="../../professors/fdp-sttp/uploadsfdporganised/<?php echo $developer['pdffile']; ?>" class="download" title="Download" data-toggle="tooltip">
+                                <a href="../../fdpadmins/career_guide/uploadsfdporganised/<?php echo $developer['pdffile']; ?>" class="download" title="Download" data-toggle="tooltip">
                             <i class="fa fa-download"></i>
                         </a>
                         <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
@@ -221,13 +221,13 @@ if (isset($_POST['approve_now'])) {
                     <tr>                
                     <td><?php echo $row['id']; ?> </td>
                                 <td> <?php echo $row['career_year']; ?> </td>
-                                <td> <?php echo $row['branch']; ?> </td> 
+                                <td> <?php echo $row['Branch']; ?> </td> 
                                 <td> <?php echo $row['guidance_career']; ?> </td>
                                 <td> <?php echo $row['title']; ?> </td>
                                 <td> <?php echo $row['students_attended']; ?> </td>
                         <td>
                             
-                        <a href="../../professors/fdp-sttp/<?php echo $row['pdffile']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+                        <a href="../../fdpadmins/career_guide/uploadsfdporganised/<?php echo $row['pdffile']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
                            
                         <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
                         <a class="delete btn-danger deletebtn" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>

@@ -15,7 +15,7 @@ $queryresult = mysqli_num_rows($query);
     if(isset($_POST['updatedata']))
     {    $id = $_POST['update_id'];
         $career_year = $_POST['career_year'];
-        $Branch = $_POST['Branch'];
+        $branch = $_POST['Branch'];
         $guidance_career = $_POST['guidance_career'];
         $title = $_POST['title'];
         $students_attended = $_POST['students_attended'];

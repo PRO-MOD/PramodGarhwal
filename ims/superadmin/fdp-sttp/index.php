@@ -116,7 +116,7 @@ session_start();
                                 <td> <?php echo $developer['Total_No_Of_Days']; ?> </td>
                                 <td> <?php echo $developer['No_Of_Participants']; ?> </td>
                                 <td>
-                            <a href="../../fdpadmins/uploadsfdporganised/<?php echo $developer['pdffile']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+                            <a href="../../fdpadmins/fdp-sttp/uploadsfdporganised/<?php echo $developer['pdffile']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
                         </td>
 
                             </tr>
@@ -189,7 +189,7 @@ session_start();
                         <td> <?php echo $row['No_Of_Participants']; ?> </td>
                         <td>
 
-                            <a href="../../fdpadmins/uploadsfdporganised/<?php echo $developer['pdffile']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+                            <a href="../../fdpadmins/fdp-sttp/uploadsfdporganised/<?php echo $developer['pdffile']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
 
 							
                             
