@@ -122,18 +122,26 @@ session_start();
                                 <td>
                                 <a href="uploadsindex1/<?php echo $developer['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip">
                             <i class="fa fa-download"></i>
-                        </a>
-
-                        <?php if($developer['STATUS'] == 'PENDING'){ ?>
-                            <form method="POST" action="approved.php">
-                                <input type="hidden" name="id" value="<?php echo $developer['id']; ?>">
-                                <input type="submit" name="approve" value="Approve">
-                                <input type="submit" name="delete" value="Delete">
-                            </form>
-                        <?php } else { ?>
-                            <?php echo $developer['STATUS']; ?>
-                        <?php } ?>
-                    </td>
+                            <td>
+                                <?php if ($developer['STATUS'] == 'PENDING') { ?>
+                                    <form method="POST" action="approved.php">
+                                        <input type="hidden" name="id" value="<?php echo $developer['id']; ?>">
+                                        <input type="submit" name="approve" value="Approve">
+                                    </form>
+                                    <form method="post" action="reject.php">
+                                        <input type="hidden" name="id" value="<?php echo $developer['id']; ?>">
+                                        <button type="submit" name="reject" class="btn btn-danger">Reject</button>
+                                    </form>
+                                <?php } elseif ($developer['STATUS'] == 'rejected') { ?>
+                                    <?php echo $developer['STATUS']; ?>
+                                    <form method="POST" action="approve-now.php">
+                                        <input type="hidden" name="id" value="<?php echo $developer['id']; ?>">
+                                        <input type="submit" name="approve_now" value="Approve Now">
+                                    </form>
+                                <?php } else { ?>
+                                    <?php echo $developer['STATUS']; ?>
+                                <?php } ?>
+                            </td>
      
 
                 </tr>
@@ -150,13 +158,34 @@ session_start();
             ?>
                     </table>
 
-            <?php
-            if(isset($_POST['approve'])){
-                $id=$_POST['id'];
-                $select = "UPDATE researchprojectconsultancies SET STATUS ='APPROVED' WHERE id='$id'";
-                $result=mysqli_query($conn,$select);
-                header(("location:index.php"));
-            }?>
+                    <?php
+        // Approve button logic
+        if (isset($_POST['approve'])) {
+            $id = $_POST['id'];
+            $select = "UPDATE bookschapter SET STATUS ='APPROVED' WHERE id='$id'";
+            $result = mysqli_query($connection, $select);
+            echo "Data Approved";
+            header("Location: index.php");
+        }
+
+        // Reject button logic
+        if (isset($_POST['reject'])) {
+            $id = $_POST['id'];
+            $select = "UPDATE bookschapter SET STATUS ='REJECTED' WHERE id='$id'";
+            $result = mysqli_query($connection, $select);
+            echo "Data Rejected";
+            header("Location: index.php");
+        }
+
+        // Approve Now button logic
+if (isset($_POST['approve_now'])) {
+    $id = $_POST['id'];
+    $select = "UPDATE bookschapter SET STATUS ='APPROVED' WHERE id='$id'";
+    $result = mysqli_query($connection, $select);
+    echo "Data Approved";
+    header("Location: index.php");
+}
+        ?>
             
         </div> 
     </div>
@@ -298,13 +327,14 @@ session_start();
                         <th> FUNDING AGENCY WEBSITE LINK </th>
                         <th> TYPE(GOVT./NON-GOVT.) </th>
                         <th> UPLOAD THE RELEVANT DOCUMENT </th>
+                        <th> STATUS </th>
                         </tr>
                     <thead>       
 <?php 
     if (isset($_POST["submit"])) {
         $str = mysqli_real_escape_string($connection, $_POST["search"]);
 
-        $sth = "SELECT * FROM `researchprojectconsultancies` WHERE (id LIKE '%$str%' OR Type_Research_Project_Consultancy LIKE '%$str%' OR Name_Of_Project_Endownment LIKE '%$str%' OR Name_Of_Principal_Investigator_CoInvestigator LIKE '%$str%' OR Department_Of_Principal_Investigator LIKE '%$str%' OR Year_Of_Award LIKE '%$str%' OR Amount_Sanctioned LIKE '%$str%' OR Duration_Of_The_Project LIKE '%$str%' OR Name_Of_The_Funding_Agency LIKE '%$str%' OR Funding_Agency_Website_Link LIKE '%$str%' OR Type_Govt_NonGovt LIKE '%$str%')";
+        $sth = "SELECT * FROM `researchprojectconsultancies` WHERE (id LIKE '%$str%' OR Type_Research_Project_Consultancy LIKE '%$str%' OR Name_Of_Project_Endownment LIKE '%$str%' OR Name_Of_Principal_Investigator_CoInvestigator LIKE '%$str%' OR Department_Of_Principal_Investigator LIKE '%$str%' OR Year_Of_Award LIKE '%$str%' OR Amount_Sanctioned LIKE '%$str%' OR Duration_Of_The_Project LIKE '%$str%' OR Name_Of_The_Funding_Agency LIKE '%$str%' OR Funding_Agency_Website_Link LIKE '%$str%' OR Type_Govt_NonGovt LIKE '%$str%' OR STATUS LIKE '%$str%')";
         $result = mysqli_query($connection, $sth);
         $queryresult = mysqli_num_rows($result); ?>
 
@@ -341,6 +371,26 @@ session_start();
                             
                             <!-- <button class="btn"><i class="fa fa-download"></i> Download</button> -->
                         </td>
+                        <td>
+                                <?php if ($row['STATUS'] == 'PENDING') { ?>
+                                    <form method="POST" action="approved.php">
+                                        <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
+                                        <input type="submit" name="approve" value="Approve">
+                                    </form>
+                                    <form method="post" action="reject.php">
+                                        <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
+                                        <button type="submit" name="reject" class="btn btn-danger">Reject</button>
+                                    </form>
+                                <?php } elseif ($row['STATUS'] == 'rejected') { ?>
+                                    <?php echo $row['STATUS']; ?>
+                                    <form method="POST" action="approve-now.php">
+                                        <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
+                                        <input type="submit" name="approve_now" value="Approve Now">
+                                    </form>
+                                <?php } else { ?>
+                                    <?php echo $row['STATUS']; ?>
+                                <?php } ?>
+                            </td>
                     </tr> 
                     <tbody>
                     <?php 

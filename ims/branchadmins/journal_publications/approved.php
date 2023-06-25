@@ -18,8 +18,8 @@ if (isset($_POST['deny'])) {
        die("Connection failed: " . mysqli_connect_error());
     }
      if (isset($_POST['approve'])) {
-
-     $query = "UPDATE journal_publications SET STATUS = 'approved'";
+      $id = $_POST['id'];
+     $query = "UPDATE journal_publications SET STATUS = 'approved' WHERE id = $id";
      $mysqli->query($query);
      header("Location: " . $_SERVER['PHP_SELF']);
      echo "<script>alert('Data has been approved.')</script>";

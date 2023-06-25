@@ -8,6 +8,7 @@ $queryresult = mysqli_num_rows($query);
     if($queryresult > 0){
         while($row = mysqli_fetch_assoc($query)){ 
             $id = $row['id'];
+            $branch = $row['branch'];
         }  
     }
     
@@ -31,7 +32,7 @@ $queryresult = mysqli_num_rows($query);
         move_uploaded_file($file_tmp1,"uploadsfdpattended1/$pdffile1");
         move_uploaded_file($file_tmp2,"uploadsfdpattended2/$pdffile2");
         
-        $query = "UPDATE fdpsttpattended SET Academic_year = '$Academic_year', Name_Of_The_Teacher = '$Name_Of_The_Teacher', Branch = '$Branch', 
+        $query = "UPDATE fdpsttpattendedit SET Academic_year = '$Academic_year', Name_Of_The_Teacher = '$Name_Of_The_Teacher', Branch = '$Branch', 
         Title_Of_Program = '$Title_Of_Program', Professional_Body_Or_Organization_Associated = '$Professional_Body_Or_Organization_Associated', Course_Type = '$Course_Type', 
         Organizing_Institute_And_Location = '$Organizing_Institute_And_Location', Dates_From = '$Dates_From', Dates_To = '$Dates_To', 
         Duration = '$Duration', TA_Received = '$TA_Received', Registration_Amount='$Registration_Amount' WHERE id='$id'  ";

@@ -61,7 +61,7 @@
       </div>
     </div>
 
-    <!-- <div class="card">
+    <div class="card">
       <div class="box">
         <div class="content">
           <h4>CAREER GUIDANCE</h4>
@@ -69,7 +69,12 @@
           <a href="career_guide/index.php">Go to Criteria</a>
         </div>
       </div>
-    </div> -->
+    </div>
+
+
+
+  </div>
+    </div>
 
 
   

@@ -11,7 +11,7 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title> Research Projects & Consultancies </title>
+    <title> Higher Studies </title>
 
     <link rel="stylesheet" href="styles.css">
     
@@ -44,7 +44,7 @@ session_start();
                 ?>
 
             <div class="card-body mt-5">
-                <h2> Research Projects / Consultancies </h2>
+                <h2> Higher Studies </h2>
             </div>
             <div class="card">
                 <div class="card-body btn-group">
@@ -93,7 +93,7 @@ session_start();
                             }
 
                         
-                            $table_query = "SELECT * FROM higher_studies WHERE id=$id";
+                            $table_query = "SELECT * FROM higher_studies ORDER BY id ASC";
                             $query_run = mysqli_query($connection, $table_query);
                         $query_result = mysqli_num_rows($query_run); ?>
 
@@ -112,15 +112,25 @@ session_start();
                             <i class="fa fa-download"></i>
                         </a>
 
-                        <?php if($developer['STATUS'] == 'PENDING'){ ?>
-                            <form method="POST" action="approved.php">
-                                <input type="hidden" name="id" value="<?php echo $developer['id']; ?>">
-                                <input type="submit" name="approve" value="Approve">
-                                <input type="submit" name="delete" value="Delete">
-                            </form>
-                        <?php } else { ?>
-                            <?php echo $developer['STATUS']; ?>
-                        <?php } ?>
+                        <td>
+                                <?php if ($developer['STATUS'] == 'PENDING') { ?>
+                                    <form method="POST" action="approved.php">
+                                        <input type="hidden" name="id" value="<?php echo $developer['id']; ?>">
+                                        <input type="submit" name="approve" value="Approve">
+                                    </form>
+                                    <form method="post" action="reject.php">
+                                        <input type="hidden" name="id" value="<?php echo $developer['id']; ?>">
+                                        <button type="submit" name="reject" class="btn btn-danger">Reject</button>
+                                    </form>
+                                <?php } elseif ($developer['STATUS'] == 'rejected') { ?>
+                                    <?php echo $developer['STATUS']; ?>
+                                    <form method="POST" action="approve-now.php">
+                                        <input type="hidden" name="id" value="<?php echo $developer['id']; ?>">
+                                        <input type="submit" name="approve_now" value="Approve Now">
+                                    </form>
+                                <?php } else { ?>
+                                    <?php echo $developer['STATUS']; ?>
+                                <?php } ?>
                     </td>
      
 
@@ -138,13 +148,34 @@ session_start();
             ?>
                     </table>
 
-            <?php
-            if(isset($_POST['approve'])){
-                $id=$_POST['id'];
-                $select = "UPDATE higher_studies SET STATUS ='APPROVED' WHERE id='$id'";
-                $result=mysqli_query($conn,$select);
-                header(("location:index.php"));
-            }?>
+                    <?php
+        // Approve button logic
+        if (isset($_POST['approve'])) {
+            $id = $_POST['id'];
+            $select = "UPDATE bookschapter SET STATUS ='APPROVED' WHERE id='$id'";
+            $result = mysqli_query($connection, $select);
+            echo "Data Approved";
+            header("Location: index.php");
+        }
+
+        // Reject button logic
+        if (isset($_POST['reject'])) {
+            $id = $_POST['id'];
+            $select = "UPDATE bookschapter SET STATUS ='REJECTED' WHERE id='$id'";
+            $result = mysqli_query($connection, $select);
+            echo "Data Rejected";
+            header("Location: index.php");
+        }
+
+        // Approve Now button logic
+if (isset($_POST['approve_now'])) {
+    $id = $_POST['id'];
+    $select = "UPDATE bookschapter SET STATUS ='APPROVED' WHERE id='$id'";
+    $result = mysqli_query($connection, $select);
+    echo "Data Approved";
+    header("Location: index.php");
+}
+        ?>
             
         </div> 
     </div>
@@ -261,14 +292,15 @@ session_start();
                                 <th> Student Name </th>
                                 <th> Name of the Institute Joined </th>
                                 <th> Name of Program Admitted </th>
-                                <th> Upload Admitcard & Idcard </th> 
+                                <th> Upload Admitcard & Idcard </th>
+                                <th> STATUS </th> 
                         </tr>
                     <thead>       
 <?php 
     if (isset($_POST["submit"])) {
         $str = mysqli_real_escape_string($connection, $_POST["search"]);
 
-        $sth = "SELECT * FROM `higher_studies` WHERE user_id=$id AND (year LIKE '%$str%' OR graduation_program LIKE '%$str%' OR student_name LIKE '%$str%' OR institute_name_joined LIKE '%$str%' OR program_name_admitted LIKE '%$str%') ";
+        $sth = "SELECT * FROM `higher_studies` WHERE user_id=$id AND (year LIKE '%$str%' OR graduation_program LIKE '%$str%' OR student_name LIKE '%$str%' OR institute_name_joined LIKE '%$str%' OR program_name_admitted LIKE '%$str%' OR STATUS LIKE '%$str%') ";
         $result = mysqli_query($connection, $sth);
         $queryresult = mysqli_num_rows($result); ?>
 
@@ -300,6 +332,26 @@ session_start();
                             
                             <!-- <button class="btn"><i class="fa fa-download"></i> Download</button> -->
                         </td>
+                        <td>
+                                <?php if ($row['STATUS'] == 'PENDING') { ?>
+                                    <form method="POST" action="approved.php">
+                                        <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
+                                        <input type="submit" name="approve" value="Approve">
+                                    </form>
+                                    <form method="post" action="reject.php">
+                                        <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
+                                        <button type="submit" name="reject" class="btn btn-danger">Reject</button>
+                                    </form>
+                                <?php } elseif ($row['STATUS'] == 'rejected') { ?>
+                                    <?php echo $row['STATUS']; ?>
+                                    <form method="POST" action="approve-now.php">
+                                        <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
+                                        <input type="submit" name="approve_now" value="Approve Now">
+                                    </form>
+                                <?php } else { ?>
+                                    <?php echo $row['STATUS']; ?>
+                                <?php } ?>
+                            </td>
                     </tr> 
                     <tbody>
                     <?php 

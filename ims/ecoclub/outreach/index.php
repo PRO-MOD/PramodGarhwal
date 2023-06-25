@@ -67,26 +67,14 @@ session_start();
                         <div class="form-group">
                             <label>Name of the scheme/ department</label>
                             <select name="Name_of_Scheme" class="form-control" required>
-                                <option value="">--Select Year--</option>
+                                <option value="">--Select--</option>
                                 <option name="Name_of_Scheme" value="NSS">NSS</option>
                                 <option name="Name_of_Scheme" value="UBA">UBA</option>
-                                <option name="Name_of_Scheme" value="EBSB">EBSB</option>
                                 <option name="Name_of_Scheme" value="Eco-club">Eco-club</option>
-                                <option name="Name_of_Scheme" value="Mechanical">Mechanical</option>
-                                <option name="Name_of_Scheme" value="Electrical">Electrical</option>
-                                <option name="Name_of_Scheme" value="EXTC">EXTC</option>
-                                <option name="Name_of_Scheme" value="Computer">Computer</option>
-                                <option name="Name_of_Scheme" value="IT">IT</option>
-                                <option name="Name_of_Scheme" value="Humanities">Humanities</option>
-                                <option name="Name_of_Scheme" value="Others">Others</option>
                             </select>
                         </div>
                         
-                        <div class="form-group">
-                            <label> Others </label>
-                            <input type="text" name="Others" class="form-control" placeholder="Enter Title">
-                        </div>
-
+                        
                         <div class="form-group">
                             <label> Date/Dates conducted</label>
                             <input type="date" name="Dates_Conducted" class="form-control" placeholder="Enter Title" required>
@@ -99,12 +87,12 @@ session_start();
 
                         <div class="form-group">
                             <label> Number of student volunteers for the activity </label>
-                            <input type="text" name="No_of_Student_Volunteer_for_Activity" class="form-control" placeholder="Enter Title" required>
+                            <input type="number" name="No_of_Student_Volunteer_for_Activity" class="form-control" placeholder="Enter Title" required>
                         </div>
 
                         <div class="form-group">
                             <label>Number of people benefitted by the activity </label>
-                            <input type="text" name="No_of_People_benefitted_by_Activity" class="form-control" placeholder="Enter Title" required>
+                            <input type="number" name="No_of_People_benefitted_by_Activity" class="form-control" placeholder="Enter Title" required>
                         </div>               
 
                         <div class="form-group">
@@ -239,13 +227,13 @@ session_start();
                                 <th scope="col"> NAME OF ACTIVITY </th>
                                 <th scope="col"> ORGANIZING UNIT/AGENCY/COLLABORATING AGENCY </th>
                                 <th scope="col"> NAME OF THE COORDINATORS </th>
-                                <th scope="col"> NAME OF THE SCHEME/DEPARTMENT </th>
-                                <th scope="col"> OTHERS </th>
+                                <th scope="col"> NAME OF THE SCHEME</th>
                                 <th scope="col"> DATE/ DATES CONDUCTED </th>
                                 <th scope="col"> YEAR OF THE ACTIVITY</th>
 								<th scope="col"> NUMBER OF STUDENT VOLUNTEERS FOR THE ACTIVITY </th>
                                 <th scope="col"> NUMBER OF PEOPLE BENEFITTED BY THE ACTIVITY </th>
                                 <th scope="col"> ACTION </th>
+                                <th scope="col"> STATUS</th>
                                
                             </tr>
                         </thead>
@@ -253,7 +241,7 @@ session_start();
                         <?php
                         $user = $_SESSION["role"];
                         
-                        $result = "SELECT * FROM clubs WHERE username = '$user'";
+                        $result = "SELECT * FROM ecoclub WHERE username = '$user'";
 
                         $query = mysqli_query($connection, $result);
                         $queryresult = mysqli_num_rows($query); 
@@ -264,33 +252,37 @@ session_start();
                                 }  
                             }
 
-                        $table_query = "SELECT * FROM outreached_program WHERE user_id=$id";
+                        $table_query = "SELECT * FROM outreachprogram ORDER BY id ASC";
                         
                         $query_run = mysqli_query($connection, $table_query);
                         $query_result = mysqli_num_rows($query_run); ?>
-
+                        
                         <?php if($query_result > 0){
                                         while($developer = mysqli_fetch_assoc($query_run)){   
                                             ?>
                         <tbody> <!-- change -->
                             <tr>
+                            <?php
+                $status = $developer['STATUS'];
+                $is_disabled = ($status == "approved") ? "disabled" : "";
+                // If STATUS is "approved", set the $is_disabled variable to "disabled"
+                ?>
                                 <td> <?php echo $developer['id']; ?> </td>
                                 <td> <?php echo $developer['Name_of_Activity']; ?> </td> 
                                 <td> <?php echo $developer['Organizing_Unit']; ?> </td>
                                 <td> <?php echo $developer['Name_of_Coordinators']; ?> </td>
                                 <td> <?php echo $developer['Name_of_Scheme']; ?> </td>
-                                <td> <?php echo $developer['Others']; ?> </td>
                                 <td> <?php echo $developer['Dates_Conducted']; ?> </td>
                                 <td> <?php echo $developer['Year_of_Activity']; ?> </td>
                                 <td> <?php echo $developer['No_of_Student_Volunteer_for_Activity']; ?> </td>
                                 <td> <?php echo $developer['No_of_People_benefitted_by_Activity']; ?> </td>
                                 <td>
-                            <a href="read.php?viewid=<?php echo htmlentities ($developer['id']);?>" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
+<!--                             <a href="read.php?viewid=<?php echo htmlentities ($developer['id']);?>" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
                             <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                            <a href="uploadsindexit/<?php echo $developer['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+ -->                            <a href="Reports/<?php echo $developer['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
 							<!-- <a href="uploadsfrontit/<?php echo $developer['pdffile2']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a> -->
-                            <a class="delete btn-danger deletebtn" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-							
+<!--                             <a class="delete btn-danger deletebtn" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+ -->							
                             
                             
                             <!-- <button class="btn"><i class="fa fa-download"></i> Download</button>
@@ -303,10 +295,24 @@ session_start();
                                 </td>
                             </tr>
                         </tbody> -->
-                        <?php           
-                    }
-                }
-                else 
+                        <?php if ($status != "approved") { // If STATUS is not "approved", show the edit and delete buttons ?>
+                        <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip" <?php echo $is_disabled ?>>
+                            <i class="material-icons">&#xE254;</i>
+                        </a>
+
+                        <a class="delete btn-danger deletebtn" title="Delete" data-toggle="tooltip" <?php echo $is_disabled ?>>
+                            <i class="material-icons">&#xE872;</i>
+                        </a>
+                    <?php } ?>
+                </td>
+
+                <td> <?php echo $status; ?> </td>
+            </tr>
+        </tbody>
+        <?php           
+    }
+}
+else
                 {
                     echo "No Record Found";
                 }
@@ -359,20 +365,11 @@ session_start();
                                 <option name="Name_of_Scheme" value="UBA">UBA</option>
                                 <option name="Name_of_Scheme" value="EBSB">EBSB</option>
                                 <option name="Name_of_Scheme" value="Eco-club">Eco-club</option>
-                                <option name="Name_of_Scheme" value="Mechanical">Mechanical</option>
-                                <option name="Name_of_Scheme" value="Electrical">Electrical</option>
-                                <option name="Name_of_Scheme" value="EXTC">EXTC</option>
-                                <option name="Name_of_Scheme" value="Computer">Computer</option>
-                                <option name="Name_of_Scheme" value="IT">IT</option>
-                                <option name="Name_of_Scheme" value="Humanities">Humanities</option>
-                                <option name="Name_of_Scheme" value="Others">Others</option>
+                              
                             </select>
                         </div>
                         
-                        <div class="form-group">
-                            <label> Others </label>
-                            <input type="text" name="Others" class="form-control" placeholder="Enter Title">
-                        </div>
+                        
 
                         <div class="form-group">
                             <label> Date/Dates conducted</label>
@@ -386,12 +383,12 @@ session_start();
 
                         <div class="form-group">
                             <label> Number of student volunteers for the activity </label>
-                            <input type="text" name="No_of_Student_Volunteer_for_Activity" class="form-control" placeholder="Enter Title" required>
+                            <input type="number" name="No_of_Student_Volunteer_for_Activity" class="form-control" placeholder="Enter Title" required>
                         </div>
 
                         <div class="form-group">
                             <label>Number of people benefitted by the activity </label>
-                            <input type="text" name="No_of_People_benefitted_by_Activity" class="form-control" placeholder="Enter Title" required>
+                            <input type="number" name="No_of_People_benefitted_by_Activity" class="form-control" placeholder="Enter Title" required>
                         </div> 
                         
 						
@@ -419,19 +416,20 @@ session_start();
                             <th> NAME OF ACTIVITY </th>
                             <th> ORGANIZING UNIT/ AGENCY/ COLLABORATING AGENCY</th>
                             <th> NAME OF THE COORDINATORS </th>
-                            <th> NAME OF THE SCHEME/ DEPARTMENT </th>
+                            <th> NAME OF THE SCHEME </th>
                             <th> DATE/ DATES CONDUCTED </th>
                             <th> YEAR OF THE ACTIVITY</th>
                             <th> NUMBER OF THE STUDENT VOLUNTEERS FOR THE ACTIVITY </th>
                             <th> NUMBER OF PEOPLE BENEFITTED BY THE ACTIVITY </th>
                             <th> ACTION </th>
+                            <th> STATUS </th>
                         </tr>
                     <thead>       
 <?php 
     if (isset($_POST["submit"])) {
         $str = mysqli_real_escape_string($connection, $_POST["search"]);
 
-        $sth = "SELECT * FROM `outreached_program` WHERE user_id=$id AND (Name_of_Activity LIKE '%$str%' OR Organizing_Unit LIKE '%$str%' OR Name_of_Coordinators LIKE '%$str%' OR Name_of_Scheme LIKE '%$str%' OR Others LIKE '%$str%' OR Dates_Conducted LIKE '$str' OR Year_of_Activity LIKE '%$str%' OR No_of_Student_Volunteer_for_Activity LIKE '%$str%' OR No_of_People_benefitted_by_Activity LIKE '%$str%') ";
+        $sth = "SELECT * FROM `outreachprogram` WHERE user_id=$id AND (Name_of_Activity LIKE '%$str%' OR Organizing_Unit LIKE '%$str%' OR Name_of_Coordinators LIKE '%$str%' OR Name_of_Scheme LIKE '%$str%' OR Others LIKE '%$str%' OR Dates_Conducted LIKE '$str' OR Year_of_Activity LIKE '%$str%' OR No_of_Student_Volunteer_for_Activity LIKE '%$str%' OR No_of_People_benefitted_by_Activity LIKE '%$str%') ";
         
         $result = mysqli_query($connection, $sth);
         $queryresult = mysqli_num_rows($result); ?>
@@ -448,28 +446,42 @@ session_start();
                     ?>
                     <tbody id="srch"> 
              
-                    <tr>                
+                    <tr>     
+                    <?php
+                $status = $row['STATUS'];
+                $is_disabled = ($status == "approved") ? "disabled" : "";
+                // If STATUS is "approved", set the $is_disabled variable to "disabled"
+                ?>           
                         <td> <?php echo $row['id']; ?> </td>
                         <td> <?php echo $row['Name_of_Activity']; ?> </td> 
                         <td> <?php echo $row['Organizing_Unit']; ?> </td>
                         <td> <?php echo $row['Name_of_Coordinators']; ?> </td>
                         <td> <?php echo $row['Name_of_Scheme']; ?> </td>
-                        <td> <?php echo $row['Others']; ?> </td>
                         <td> <?php echo $row['Dates_Conducted']; ?> </td>
                         <td> <?php echo $row['Year_of_Activity']; ?> </td>
                         <td> <?php echo $row['No_of_Student_Volunteer_for_Activity']; ?> </td>
                         <td> <?php echo $row['No_of_People_benefitted_by_Activity']; ?> </td>
                         <td>
-                            <!--<a href="read.php?viewid=<?php echo htmlentities ($row['id']);?>" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>-->
+                            <!--<a href="read.php?viewid=<?php echo htmlentities ($row['id']);?>" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
                             <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                            <a href="uploadsindexit/<?php echo $row['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
-							<!-- <a href="uploadsfrontit/<?php echo $row['pdffile2']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a> -->
+                --> <a href="Reports/<?php echo $row['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+							<!-- <a href="uploadsfrontit/<?php echo $row['pdffile2']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a> 
                             <a class="delete btn-danger deletebtn" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-							
+                -->
                             
                             
                             <!-- <button class="btn"><i class="fa fa-download"></i> Download</button> -->
-                        </td>
+                            <?php if ($status != "approved") { // If STATUS is not "approved", show the edit and delete buttons ?>
+                        <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip" <?php echo $is_disabled ?>>
+                            <i class="material-icons">&#xE254;</i>
+                        </a>
+
+                        <a class="delete btn-danger deletebtn" title="Delete" data-toggle="tooltip" <?php echo $is_disabled ?>>
+                            <i class="material-icons">&#xE872;</i>
+                        </a>
+                    <?php } ?>
+                            </td>
+                        <td> <?php echo $row['STATUS']; ?> </td>
                     </tr> 
                     <tbody>
                     <?php 
@@ -544,12 +556,12 @@ session_start();
                 $('#Organizing_Unit').val(data[2]);
                 $('#Name_of_Coordinators').val(data[3]);
                 $('#Name_of_Scheme').val(data[4]);
-                $('#Others').val(data[5]);
-                $('#Dates_Conducted').val(data[6]);
-                $('#Year_of_Activity').val(data[7]);
-                $('#No_of_Student_Volunteer_for_Activity').val(data[8]);
-                $('#No_of_People_benefitted_by_Activity').val(data[9]);
-                $('#pdffile1').val(data[10]);
+             
+                $('#Dates_Conducted').val(data[5]);
+                $('#Year_of_Activity').val(data[6]);
+                $('#No_of_Student_Volunteer_for_Activity').val(data[7]);
+                $('#No_of_People_benefitted_by_Activity').val(data[8]);
+                $('#pdffile1').val(data[9]);
             });
         });
     </script>

@@ -11,7 +11,7 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title> Certificate programs </title>
+    <title> Certificate Programs</title>
 
     <link rel="stylesheet" href="styles.css">
     
@@ -32,6 +32,143 @@ session_start();
 
     <?php include('../../header.php'); ?>
 
+    <!-- Modal -->
+    <!-- this is add data form Make changes to variables, keep same variables -->
+    <div class="modal fade mt-2" id="studentaddmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Data </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <form action="insertcode.php" method="POST" enctype="multipart/form-data" >
+
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label> Year of offering </label>
+                            <input type="text"  id="Year_Of_offering" name="Year_of_offering" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label> Department </label>
+                            <input type="text"  id="Department" name="Department"  class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label> Course_coordinator </label>
+                            <input type="text"  id="Course_coordinator" name="Course_coordinator" class="form-control" placeholder="Enter Course coordinator" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label> Programs_offered </label>
+                            <input type="text" name="Programs_offered" id="Programs_offered" class="form-control" placeholder="Programs_offered" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label> Course_code</label>
+                            <input type="text" name="Course_code"  id="Course_code" class="form-control" placeholder="Enter course code">
+                        </div>
+
+                        <div class="form-group">
+                            <label>  No_of_times_offered</label>
+                            <input type="number" name="No_of_times_offered" id="No_of_times_offered" class="form-control" placeholder="Enter No_of_times_offered " required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>  Start_date</label>
+                            <input type="date" name="Start_date" id="Start_date" class="form-control" placeholder="Enter Start_date " required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>  End_date</label>
+                            <input type="date" name="End_date" id="End_date" class="form-control" placeholder="Enter End_date " required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>  Duration </label>
+                            <input type="number" name= "Duration" id= "Duration" class="form-control" placeholder="Enter Duration  " required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>  No_of_students_enrolled</label>
+                            <input type="number" name="No_of_students_enrolled" id="No_of_students_enrolled" class="form-control" placeholder="Enter No_of_students_enrolled " required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>  No_of_students_completing</label>
+                            <input type="number" name="No_of_students_completing" id="No_of_students_completing" class="form-control" placeholder="Enter No_of_students_completing " required>
+                        </div>
+
+                        <div class="form-group">
+                            <label> Upload Report </label>
+                            <input type="file" name="pdffile1" id="pdffile1" required/><br>
+                                    <img src="" id="pdf-file1-tag" width="100px" />
+
+                                    <script type="text/javascript">
+                                        function readURL(input) {
+                                            if (input.files && input.files[0]) {
+                                                var reader = new FileReader();
+                                                
+                                                reader.onload = function (e) {
+                                                    $('#pdf-file1-tag').attr('src', e.target.result);
+                                                }
+                                                reader.readAsDataURL(input.files[0]);
+                                            }
+                                        }
+                                        $("#pdffile1").change(function(){
+                                            readURL(this);
+                                        });
+                                    </script><br>
+						</div>
+                        </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" id="insertbutton" name="insertdata" class="btn btn-primary" onClick="datechecker() ">Save Data</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+
+    
+
+    <!-- DELETE POP UP FORM  --->
+    <!-- dont make changes--->
+    <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"> Delete Student Data </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <form action="deletecode.php" method="POST">
+
+                    <div class="modal-body">
+
+                        <input type="hidden" name="delete_id" id="delete_id">
+
+                        <h4> Do you want to Delete this Data ??</h4>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"> NO </button>
+                        <button type="submit" name="deletedata" class="btn btn-primary"> Yes, Delete it. </button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
  <!-- main card -->
  <!-- buttons and search buttoncard -->
             <div class="card">
@@ -45,12 +182,18 @@ session_start();
                 ?>
 
             <div class="card-body mt-5">
-                <h2> Certificate programs </h2>
+                <h2> Certificate programs</h2>
             </div>
             <div class="card">
                 <div class="card-body btn-group">
+                <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#studentaddmodal"> 
+                        ADD DATA
+                    </button>
+            </form> &nbsp;
+
             <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">					
-				<button type="submit" onclick="exportTableToCSVuser('USerData_Certificate_programs.csv')" class="btn btn-success">Export to excel</button>
+				<button type="submit" onclick="exportTableToCSVuser('USerData_BookChapters.csv')" class="btn btn-success">Export to excel</button>
 			</form> &nbsp; &nbsp; 
         
             <form method="post">
@@ -69,19 +212,20 @@ session_start();
                         <thead>
                             <tr>
                                 <th scope="col"> ID </th>
-                                <th scope="col"> DEPARTMENT </th>
-                                <th scope="col"> COURSE COORDINATOR</th>
-                                <th scope="col"> PROGRAMS OFFERED </th>
-                                <th scope="col"> COURSE CODE </th>
-                                <th scope="col"> YEAR OF OFFERING </th>
-                                <th scope="col"> NO OF TIMES OFFERED </th>
-								<th scope="col"> START DATE </th>
-                                <th scope="col"> END DATE </th>
-                                <th scope="col"> DURATION </th>
-                                <th scope="col"> NO OF STUDENTS ENROLLED </th>
-                                <th scope="col"> NO OF STUDENTS COMPLETING </th>
-                                <th scope="col"> ACTION </th>
-                                <th scope="col"> STATUS</th>
+                                <th scope="col"> Department </th>
+                                <th scope="col"> Course Coordinator </th>
+                                <th scope="col"> Programs Offered </th>
+                                <th scope="col"> Course Code </th>
+                                <th scope="col"> Year of offering </th>
+                                <th scope="col"> No of times offered </th>
+								<th scope="col"> Start date </th>
+                                <th scope="col"> End date </th>
+                                <th scope="col"> Duration </th>
+                                <th scope="col"> No of students enrolled </th>
+                                <th scope="col"> No of students completing </th>
+                                <th scope="col"> Upload Report </th> 
+                                <th scope="col"> STATUS </th>
+
                                
                             </tr>
                         </thead>
@@ -89,18 +233,19 @@ session_start();
                         <?php
                         $user = $_SESSION["role"];
                         
-                        $result = "SELECT * FROM clubs WHERE username = '$user'";
+                        $result = "SELECT * FROM placementcell WHERE username = '$user'";
 
                         $query = mysqli_query($connection, $result);
                         $queryresult = mysqli_num_rows($query); 
                             if($queryresult > 0){
                                 while($row = mysqli_fetch_assoc($query)){ 
                                     $id = $row['id'];
+                                    
                                 }  
                             }
 
-
                         $table_query = "SELECT * FROM certificates ORDER BY id ASC";
+                        
                         $query_run = mysqli_query($connection, $table_query);
                         $query_result = mysqli_num_rows($query_run); ?>
 
@@ -126,17 +271,11 @@ session_start();
                                 <td> <?php echo $developer['Duration']; ?> </td>
                                 <td> <?php echo $developer['No_of_students_enrolled']; ?> </td>
                                 <td> <?php echo $developer['No_of_students_completing']; ?> </td>
-                               
                                 <td>
-
-
-                                <!-- <a href="../../branchadmins/certificates/reports/<?php echo $developer['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a> -->
-							    <!-- <a href="../../professors/book-chapters/uploadsfrontit/<?php echo $developer['pdffile2']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a> -->
-                            <!--<a href="read.php?viewid=<?php echo htmlentities ($developer['id']);?>" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>-->
-                            <a href="reports/<?php echo $developer['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
-							<!-- <a href="uploadsfrontit/<?php echo $developer['pdffile2']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a> -->
-							
-                            <?php if ($status != "approved") { // If STATUS is not "approved", show the edit and delete buttons ?>
+<!--                             <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>-->
+                            <a href="reports/<?php echo $row['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+<!--                             <a class="delete btn-danger deletebtn" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>-->
+                         <?php if ($status != "approved") { // If STATUS is not "approved", show the edit and delete buttons ?>
                         <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip" <?php echo $is_disabled ?>>
                             <i class="material-icons">&#xE254;</i>
                         </a>
@@ -153,47 +292,138 @@ session_start();
         <?php           
     }
 }
-else 
+else  
 {
-    
     echo "No Record Found";
 }
-?>
-
-
+            ?>
                     </table>
+
+                    
             
         </div> 
     </div>
 
-  
+    <!-- EDIT POP UP FORM  -->
+    <!-- this is edit data form Make changes to variables and placeholder, keep same variables -->
+    <div class="modal fade" id="editmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"> Edit Data </h5> &nbsp;
+                    <h5 class="modal-title" id="exampleModalLabel"> (Please enter the dates again)</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <form action="updatecode.php" method="POST">
+
+                    <div class="modal-body">
+
+                        <input type="hidden" name="update_id" id="update_id">
+
+                        <div class="form-group">
+                            <label> Year of offering </label>
+                            <input type="text"  id="Year_Of_offering" name="Year_of_offering" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label> Department </label>
+                            <input type="text"  id="Department" name="Department"  class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label> Course_coordinator </label>
+                            <input type="text"  id="Course_coordinator" name="Course_coordinator" class="form-control" placeholder="Enter Course coordinator" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label> Programs_offered </label>
+                            <input type="text" name="Programs_offered" id="Programs_offered" class="form-control" placeholder="Programs_offered" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label> Course_code</label>
+                            <input type="text" name="Course_code"  id="Course_code" class="form-control" placeholder="Enter course code">
+                        </div>
+
+                        <div class="form-group">
+                            <label>  No_of_times_offered</label>
+                            <input type="number" name="No_of_times_offered" id="No_of_times_offered" class="form-control" placeholder="Enter No_of_times_offered " required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>  Start_date</label>
+                            <input type="date" name="Start_date" id="Start_date" class="form-control" placeholder="Enter Start_date " required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>  End_date</label>
+                            <input type="date" name="End_date" id="End_date" class="form-control" placeholder="Enter End_date " required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>  Duration </label>
+                            <input type="number" name= "Duration" id= "Duration" class="form-control" placeholder="Enter Duration  " required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>  No_of_students_enrolled</label>
+                            <input type="number" name="No_of_students_enrolled" id="No_of_students_enrolled" class="form-control" placeholder="Enter No_of_students_enrolled " required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>  No_of_students_completing</label>
+                            <input type="number" name="No_of_students_completing" id="No_of_students_completing" class="form-control" placeholder="Enter No_of_students_completing " required>
+                        </div>
+
+                        
+                        
+						
+
+                            
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" name="updatedata" class="btn btn-primary">Update Data</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
 
 <!--Search data -->
 <div id="srch" class="card-body">
                 <h4> Search Data </h4>
                     <table class="table table-bordered ">
                     <thead>
-                        <tr>
-                            <th> ID </th> 
-                            <th> DEPARTMENT </th>
-                            <th> COURSE COORDINATOR</th>
-                            <th> PROGRAMS OFFERED </th>
-                            <th> COURSE CODE </th>
-                            <th> YEAR OF OFFERING </th>
-                            <th> NO OF TIMES OFFERED </th>
-                            <th> START DATE </th>
-                            <th> END DATE </th>
-                            <th> DURATION </th>
-                            <th> NO OF STUDENTS ENROLLED </th>
-                            <th> NO OF STUDENTS COMPLETING </th>
-                            <th> ACTION </th>
-                        </tr>
-                    <thead>       
+                            <tr>
+                                <th> ID </th>
+                                <th> Department </th>
+                                <th> Course Coordinator </th>
+                                <th> Programs Offered </th>
+                                <th> Course Code </th>
+                                <th> Year of offering </th>
+                                <th> No of times offered </th>
+								<th> Start date </th>
+                                <th> End date </th>
+                                <th> Duration </th>
+                                <th> No of students enrolled </th>
+                                <th> No of students completing </th>
+                                <th> Upload Report </th>
+                                <th> Status</th>
+                               
+                            </tr>
+                        </thead>       
 <?php 
     if (isset($_POST["submit"])) {
         $str = mysqli_real_escape_string($connection, $_POST["search"]);
 
-            $sth = "SELECT * FROM `certificates` WHERE Department LIKE '%$str%' OR Course_coordinator LIKE '%$str%' OR Programs_offered LIKE '%$str%' OR Course_code LIKE '%$str%' OR Year_of_offering LIKE '%$str%' OR No_of_times_offered LIKE '$str' OR Start_date LIKE '%$str%' OR End_date LIKE '%$str%' OR Duration LIKE '%$str%'";
+        $sth = "SELECT * FROM `certificates` WHERE user_id=$id AND (Department LIKE '%$str%' OR Course_coordinator LIKE '%$str%' OR Programs_offered LIKE '%$str%' OR Course_code LIKE '%$str%' OR Year_of_offering LIKE '%$str%' OR No_of_times_offered LIKE '$str' OR Start_date LIKE '%$str%' OR End_date LIKE '%$str%' OR Duration LIKE '%$str%' OR No_of_students_enrolled LIKE '%$str%' OR No_of_students_completing LIKE '%$str%') ";
         
         $result = mysqli_query($connection, $sth);
         $queryresult = mysqli_num_rows($result); ?>
@@ -201,7 +431,7 @@ else
                     <div class="card">
                         <div class="card-body btn-group">
                         <div> Results- </div> &nbsp; &nbsp;
-                        <button class="btn btn-success" onclick="exportTableToCSV('Search_Data.csv')"> Export Data </button>
+                        <button class="btn btn-success" onclick="exportTableToCSV('Search_data.csv')"> Export Data </button>
                         </div>
                     </div>
                     
@@ -210,29 +440,45 @@ else
                     ?>
                     <tbody id="srch"> 
              
-                    <tr>                
+                    <tr>              
+                    <?php
+                $status = $row['STATUS'];
+                $is_disabled = ($status == "approved") ? "disabled" : "";
+                // If STATUS is "approved", set the $is_disabled variable to "disabled"
+                ?>                  
                         <td> <?php echo $row['id']; ?> </td>
-                        <td> <?php echo $row['Department']; ?> </td> 
-                        <td> <?php echo $row['Course_coordinator']; ?> </td>
-                        <td> <?php echo $row['Programs_offered']; ?> </td>
-                        <td> <?php echo $row['Course_code']; ?> </td>
-                        <td> <?php echo $row['Year_of_offering']; ?> </td>
-                        <td> <?php echo $row['No_of_times_offered']; ?> </td>
-                        <td> <?php echo $row['Start_date']; ?> </td>
-                        <td> <?php echo $row['End_date']; ?> </td>
-                        <td> <?php echo $row['Duration']; ?> </td>
-                        <td> <?php echo $row['No_of_students_enrolled']; ?> </td>
-                        <td> <?php echo $row['No_of_students_completing']; ?> </td>
-                        <td>
-                            <a href="../../branchadmins/certificate-programs/reports/<?php echo $row['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
-                            <!--<a href="read.php?viewid=<?php echo htmlentities ($developer['id']);?>" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>-->
-                            <!-- <a href="reports/<?php echo $row['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a> -->
-							<!-- <a href="uploadsfrontextc/<?php echo $developer['pdffile2']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a> -->
-							
+                                <td> <?php echo $row['Department']; ?> </td> 
+                                <td> <?php echo $row['Course_coordinator']; ?> </td>
+                                <td> <?php echo $row['Programs_offered']; ?> </td>
+                                <td> <?php echo $row['Course_code']; ?> </td>
+                                <td> <?php echo $row['Year_of_offering']; ?> </td>
+                                <td> <?php echo $row['No_of_times_offered']; ?> </td>
+                                <td> <?php echo $row['Start_date']; ?> </td>
+                                <td> <?php echo $row['End_date']; ?> </td>
+                                <td> <?php echo $row['Duration']; ?> </td>
+                                <td> <?php echo $row['No_of_students_enrolled']; ?> </td>
+                                <td> <?php echo $row['No_of_students_completing']; ?> </td>
+                                <td>
+                            <!--<a href="read.php?viewid=<?php echo htmlentities ($row['id']);?>" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>-->
+<!--                             <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+ -->                            <a href="reports/<?php echo $row['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+							<!-- <a href="uploadsfrontit/<?php echo $row['pdffile2']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a> -->
+<!--                             <a class="delete btn-danger deletebtn" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+ -->							
                             
                             
                             <!-- <button class="btn"><i class="fa fa-download"></i> Download</button> -->
-                        </td>
+                            <?php if ($status != "approved") { // If STATUS is not "approved", show the edit and delete buttons ?>
+                        <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip" <?php echo $is_disabled ?>>
+                            <i class="material-icons">&#xE254;</i>
+                        </a>
+
+                        <a class="delete btn-danger deletebtn" title="Delete" data-toggle="tooltip" <?php echo $is_disabled ?>>
+                            <i class="material-icons">&#xE872;</i>
+                        </a>
+                    <?php } ?>
+                            </td>
+                        <td> <?php echo $row['STATUS']; ?> </td>
                     </tr> 
                     <tbody>
                     <?php 
@@ -314,6 +560,8 @@ else
                 $('#Duration').val(data[9]);
                 $('#No_of_students_enrolled').val(data[10]);
                 $('#No_of_students_completing').val(data[11]);
+                $('#pdffile1').val(data[12]);
+                // $('#pdffile2').val(data[13]);
             });
         });
     </script>
@@ -343,7 +591,7 @@ else
         downloadLink.click();  
     }  
 
-    //user-defined function to export the data to CSV file format  
+    //user-defined function to export the data to CSV file formatt  
     function exportTableToCSVuser(filename) {  
     //declare a JavaScript variable of array type  
     var csv = [];  
@@ -397,6 +645,7 @@ else
     downloadCSV(csv.join("\n"), filename);  
     }  
 </script> 
+
 
 </body>
 </html>
