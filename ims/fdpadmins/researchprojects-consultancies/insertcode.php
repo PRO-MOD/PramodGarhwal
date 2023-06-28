@@ -8,6 +8,7 @@ $queryresult = mysqli_num_rows($query);
     if($queryresult > 0){
         while($row = mysqli_fetch_assoc($query)){ 
             $id = $row['id'];
+            $branch = $row['branch'];
         }  
     }
     
@@ -25,7 +26,8 @@ if(isset($_POST['insertdata']))
     $Type_Govt_NonGovt = $_POST['Type_Govt_NonGovt'];
     $pdffile1 = $_FILES['pdffile1']['name'];
     $file_tmp1 = $_FILES['pdffile1']['tmp_name'];
-    $id = $_POST['id'];
+    $user_id = $_POST['user_id'];
+    //$branch = $_POST['branch'];
 
         move_uploaded_file($file_tmp1,"uploadsindex1/$pdffile1");
 	 
@@ -33,9 +35,9 @@ if(isset($_POST['insertdata']))
     $query = "INSERT INTO researchprojectconsultancies
     (`Type_Research_Project_Consultancy`,`Name_Of_Project_Endownment`, `Name_Of_Principal_Investigator_CoInvestigator`, `Department_Of_Principal_Investigator`, `Year_Of_Award`,
      `Amount_Sanctioned`, `Duration_Of_The_Project`, `Name_Of_The_Funding_Agency`, `Funding_Agency_Website_Link`, 
-     `Type_Govt_NonGovt`, `pdffile1`, `id`, `STATUS`) 
+     `Type_Govt_NonGovt`, `pdffile1`, `user_id`, `STATUS`,`branch`) 
     VALUES ('$Type_Research_Project_Consultancy','$Name_Of_Project_Endownment', '$Name_Of_Principal_Investigator_CoInvestigator', '$Department_Of_Principal_Investigator', '$Year_Of_Award', 
-    '$Amount_Sanctioned', '$Duration_Of_The_Project', '$Name_Of_The_Funding_Agency', '$Funding_Agency_Website_Link', '$Type_Govt_NonGovt', '$pdffile1', '$id','PENDING')";
+    '$Amount_Sanctioned', '$Duration_Of_The_Project', '$Name_Of_The_Funding_Agency', '$Funding_Agency_Website_Link', '$Type_Govt_NonGovt', '$pdffile1', '$id','PENDING','$branch')";
     
     
     $query_run = mysqli_query($connection, $query);
