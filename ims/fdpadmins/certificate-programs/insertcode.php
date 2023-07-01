@@ -13,7 +13,7 @@ if ($queryresult > 0) {
 }
 
 if (isset($_POST['insertdata'])) {
-   $Department = $_POST['Department'];
+    $Department = $_POST['Department'];
         $Course_coordinator = $_POST['Course_coordinator'];
         $Programs_offered= $_POST['Programs_offered'];
         $Course_code = $_POST['Course_code'];
