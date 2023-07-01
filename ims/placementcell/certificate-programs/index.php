@@ -32,7 +32,7 @@ session_start();
 
     <?php include('../../header.php'); ?>
 
-    <!-- Modal -->
+    <!-- Modal --->
     <!-- this is add data form Make changes to variables, keep same variables -->
     <div class="modal fade mt-2" id="studentaddmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
@@ -55,7 +55,15 @@ session_start();
 
                         <div class="form-group">
                             <label> Department </label>
-                            <input type="text"  id="Department" name="Department"  class="form-control" required>
+                            <select name="Department" class="form-control" required>
+                                <option value="">--Department--</option>
+                                <option name="Department" value="IT">IT</option>
+                                <option name="Department" value="Computer">Computer</option>
+                                <option name="Department" value="Extc">Extc</option>
+                                <option name="Department" value="Electrical">Electrical</option>
+                                <option name="Department" value="Mechanical">Mechanical</option>
+                                <option name="Department" value="Hummanities">Hummanities</option>
+                            </select>                        
                         </div>
 
                         <div class="form-group">
@@ -244,7 +252,7 @@ session_start();
                                 }  
                             }
 
-                        $table_query = "SELECT * FROM certificates ORDER BY id ASC";
+                        $table_query = "SELECT * FROM certificates WHERE user_id=$id";
                         
                         $query_run = mysqli_query($connection, $table_query);
                         $query_result = mysqli_num_rows($query_run); ?>
@@ -275,7 +283,8 @@ session_start();
 <!--                             <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>-->
                             <a href="reports/<?php echo $row['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
 <!--                             <a class="delete btn-danger deletebtn" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>-->
-                         <?php if ($status != "approved") { // If STATUS is not "approved", show the edit and delete buttons ?>
+                         
+<?php if ($status != "approved") { // If STATUS is not "approved", show the edit and delete buttons ?>
                         <a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip" <?php echo $is_disabled ?>>
                             <i class="material-icons">&#xE254;</i>
                         </a>
@@ -331,7 +340,15 @@ else
 
                         <div class="form-group">
                             <label> Department </label>
-                            <input type="text"  id="Department" name="Department"  class="form-control" required>
+                            <select name="Department" class="form-control" required>
+                                <option value="">--Department--</option>
+                                <option name="Department" value="IT">IT</option>
+                                <option name="Department" value="Computer">Computer</option>
+                                <option name="Department" value="Extc">Extc</option>
+                                <option name="Department" value="Electrical">Electrical</option>
+                                <option name="Department" value="Mechanical">Mechanical</option>
+                                <option name="Department" value="Hummanities">Hummanities</option>
+                            </select>                        
                         </div>
 
                         <div class="form-group">

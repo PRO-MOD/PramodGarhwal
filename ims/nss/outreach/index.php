@@ -66,11 +66,9 @@ session_start();
 
                         <div class="form-group">
                             <label>Name of the scheme/ department</label>
-                            <select name="Name_of_Scheme" class="form-control" required>
+                            <select name="Branch" class="form-control" required>
                                 <option value="">--Select--</option>
-                                <option name="Name_of_Scheme" value="NSS">NSS</option>
-                                <option name="Name_of_Scheme" value="UBA">UBA</option>
-                                <option name="Name_of_Scheme" value="Eco-club">Eco-club</option>
+                                <option name="Branch" value="NSS">NSS</option>
                             </select>
                         </div>
                         
@@ -252,7 +250,7 @@ session_start();
                                 }  
                             }
 
-                        $table_query = "SELECT * FROM outreachprogram ORDER BY id ASC";
+                        $table_query = "SELECT * FROM outreachprogram WHERE user_id=$id";
                         
                         $query_run = mysqli_query($connection, $table_query);
                         $query_result = mysqli_num_rows($query_run); ?>
@@ -271,7 +269,7 @@ session_start();
                                 <td> <?php echo $developer['Name_of_Activity']; ?> </td> 
                                 <td> <?php echo $developer['Organizing_Unit']; ?> </td>
                                 <td> <?php echo $developer['Name_of_Coordinators']; ?> </td>
-                                <td> <?php echo $developer['Name_of_Scheme']; ?> </td>
+                                <td> <?php echo $developer['Branch']; ?> </td>
                                 <td> <?php echo $developer['Dates_Conducted']; ?> </td>
                                 <td> <?php echo $developer['Year_of_Activity']; ?> </td>
                                 <td> <?php echo $developer['No_of_Student_Volunteer_for_Activity']; ?> </td>
@@ -359,13 +357,9 @@ else
 
                         <div class="form-group">
                             <label>Name of the scheme/ department</label>
-                            <select name="Name_of_Scheme" class="form-control" required>
+                            <select name="Branch" class="form-control" required>
                                 <option value="">--Select Year--</option>
-                                <option name="Name_of_Scheme" value="NSS">NSS</option>
-                                <option name="Name_of_Scheme" value="UBA">UBA</option>
-                                <option name="Name_of_Scheme" value="EBSB">EBSB</option>
-                                <option name="Name_of_Scheme" value="Eco-club">Eco-club</option>
-                              
+                                <option name="Branch" value="NSS">NSS</option>
                             </select>
                         </div>
                         
@@ -429,7 +423,7 @@ else
     if (isset($_POST["submit"])) {
         $str = mysqli_real_escape_string($connection, $_POST["search"]);
 
-        $sth = "SELECT * FROM `outreachprogram` WHERE user_id=$id AND (Name_of_Activity LIKE '%$str%' OR Organizing_Unit LIKE '%$str%' OR Name_of_Coordinators LIKE '%$str%' OR Name_of_Scheme LIKE '%$str%' OR Others LIKE '%$str%' OR Dates_Conducted LIKE '$str' OR Year_of_Activity LIKE '%$str%' OR No_of_Student_Volunteer_for_Activity LIKE '%$str%' OR No_of_People_benefitted_by_Activity LIKE '%$str%') ";
+        $sth = "SELECT * FROM `outreachprogram` WHERE user_id=$id AND (Name_of_Activity LIKE '%$str%' OR Organizing_Unit LIKE '%$str%' OR Name_of_Coordinators LIKE '%$str%' OR Branch LIKE '%$str%' OR Others LIKE '%$str%' OR Dates_Conducted LIKE '$str' OR Year_of_Activity LIKE '%$str%' OR No_of_Student_Volunteer_for_Activity LIKE '%$str%' OR No_of_People_benefitted_by_Activity LIKE '%$str%') ";
         
         $result = mysqli_query($connection, $sth);
         $queryresult = mysqli_num_rows($result); ?>
@@ -456,7 +450,7 @@ else
                         <td> <?php echo $row['Name_of_Activity']; ?> </td> 
                         <td> <?php echo $row['Organizing_Unit']; ?> </td>
                         <td> <?php echo $row['Name_of_Coordinators']; ?> </td>
-                        <td> <?php echo $row['Name_of_Scheme']; ?> </td>
+                        <td> <?php echo $row['Branch']; ?> </td>
                         <td> <?php echo $row['Dates_Conducted']; ?> </td>
                         <td> <?php echo $row['Year_of_Activity']; ?> </td>
                         <td> <?php echo $row['No_of_Student_Volunteer_for_Activity']; ?> </td>
@@ -555,7 +549,7 @@ else
                 $('#Name_Of_Activity').val(data[1]);
                 $('#Organizing_Unit').val(data[2]);
                 $('#Name_of_Coordinators').val(data[3]);
-                $('#Name_of_Scheme').val(data[4]);
+                $('#Branch').val(data[4]);
              
                 $('#Dates_Conducted').val(data[5]);
                 $('#Year_of_Activity').val(data[6]);

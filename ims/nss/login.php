@@ -1,31 +1,31 @@
 <?php 
     include('../config.php');
     session_start();
+   
 
     $msg="";
 
     if(isset($_POST['login'])){
         $username = $_POST['username'];
         $password = $_POST['password'];
-        $branch = $_POST['branch'];
         $password= sha1($password);
 
-        $sql = "SELECT * FROM nss WHERE username=? AND password=? AND branch=?";
+        $sql = "SELECT * FROM ecoclub WHERE username=? AND password=?";
         $stmt = $connection->prepare($sql);
-        $stmt->bind_param("sss",$username,$password,$branch);
+        $stmt->bind_param("ss",$username,$password);
         $stmt->execute();
         $result = $stmt->get_result();
         $row = $result->fetch_assoc();
 
         session_regenerate_id();
         $_SESSION['role'] = $row['username'];
-        $_SESSION['branch'] = $row['branch'];
         session_write_close();
 
         if($row['username'] == $username && $row['password'] == $password){
-            header("location:fdp-sttp/index.php"); }
+            header("location:dashboard.php");
+        }  
         else{
-              $msg="username or password incorrect";
+              $msg="Invalid credentials, please try again";
         }
     }
 ?>
@@ -64,25 +64,12 @@
                         <input type="password" id="pass" name="password" class="form-control form-control-lg" placeholder="Password" required>
                     </div>
 
-                    
-                    <div class="form-group">
-                            <label>Branch</label>
-                            <select name="branch" class="form-control" required>
-                                <option name="branch" value="">-- SELECT BRANCH --</option>
-                                <option name="branch" value="IT">IT</option>
-                                <option name="branch" value="EXTC">EXTC</option>
-                                <option name="branch" value="Mechanical">Mechanical</option>
-                                <option name="branch" value="Computers">Computers</option>
-                                <option name="branch" value="Electrical">Electrical</option>
-                                <option name="branch" value="Humanities">Humanities</option>
-                            </select>
-                        </div>
-
                     <input type="checkbox" onclick="myFunction()">Show Password
 
                     <div class="form-group"> 
                         <input type="submit" name="login" class="btn btn-primary btn-block">
                     </div>
+
 
                     <h5 class="text-danger text-center"><?= $msg; ?> </h5>
 
@@ -90,9 +77,6 @@
             </div>
         </div>
     </div>  
-    <div class="footer">
-
-</div> 
 
 <script>
     function myFunction() {
@@ -105,7 +89,7 @@
     }
 </script>
 
-<?php include('../header.php'); ?> 
+<?php include('../header.php'); ?>  
 
 </body>
 </html>

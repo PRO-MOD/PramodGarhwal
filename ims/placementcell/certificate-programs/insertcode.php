@@ -11,7 +11,7 @@ if ($queryresult > 0) {
         
     }
 }
-
+#4
 if (isset($_POST['insertdata'])) {
     $Department = $_POST['Department'];
         $Course_coordinator = $_POST['Course_coordinator'];
@@ -26,7 +26,7 @@ if (isset($_POST['insertdata'])) {
         $No_of_students_completing = $_POST['No_of_students_completing'];
         $pdffile1 = $_FILES['pdffile1']['name'];
         $file_tmp1 = $_FILES['pdffile1']['tmp_name'];
-    $id = $_POST['id'];
+        $user_id = $_POST['user_id'];
 
     move_uploaded_file($file_tmp1,"reports/$pdffile1");
 
@@ -34,7 +34,7 @@ if (isset($_POST['insertdata'])) {
     $query = "INSERT INTO certificates
     (`Department`, `Course_coordinator`, `Programs_offered`, `Course_code`,
      `Year_of_offering`, `No_of_times_offered`, `Start_date`, `End_date`, 
-     `Duration`, `No_of_students_enrolled`, `No_of_students_completing`, `pdffile1`, `id`,`STATUS`) 
+     `Duration`, `No_of_students_enrolled`, `No_of_students_completing`, `pdffile1`, `user_id`,`STATUS`) 
     VALUES ('$Department', '$Course_coordinator', '$Programs_offered', '$Course_code', 
     '$Year_of_offering', '$No_of_times_offered', '$Start_date', '$End_date', '$Duration', '$No_of_students_enrolled', '$No_of_students_completing','$pdffile1', '$id','PENDING')";
 

@@ -10,7 +10,7 @@ $queryresult = mysqli_num_rows($query);
             $id = $row['id'];
         }  
     }
-
+#4
     if(isset($_POST['updatedata']))
     {   
         $id = $_POST['update_id'];

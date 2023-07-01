@@ -91,8 +91,7 @@
 <body>
     <div class="navbar">
         <img class="logo" src="https://i.postimg.cc/wvDjdZdp/logo.png" alt="image">
-        <h5 class="name">AGNEL CHARITIES' <br>
-            FR. C. RODRIGUES INSTITUTE OF TECHNOLOGY <br>
+        <h5 class="name">AGNEL CHARITIES' FR. C. RODRIGUES INSTITUTE OF TECHNOLOGY <br>
             Agnel Technical Education Complex Sector 9-A, Vashi, Navi Mumbai, Maharashtra, India PIN - 400703</h5>
         <a href='../../logout.php'>Logout</a>
     </div>

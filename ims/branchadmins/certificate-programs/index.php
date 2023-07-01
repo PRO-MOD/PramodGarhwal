@@ -34,7 +34,7 @@ session_start();
 
     
 
-    <!-- DELETE POP UP FORM  -->
+    <!--- DELETE POP UP FORM  -->
     <!-- dont make changes-->
     <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
@@ -82,11 +82,7 @@ session_start();
             </div>
             <div class="card">
                 <div class="card-body btn-group">
-                <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#studentaddmodal"> 
-                        ADD DATA
-                    </button>
-            </form> &nbsp;
+                
 
             <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">					
 				<button type="submit" onclick="exportTableToCSVuser('USerData_BookChapters.csv')" class="btn btn-success">Export to excel</button>
@@ -136,7 +132,6 @@ session_start();
                             if($queryresult > 0){
                                 while($row = mysqli_fetch_assoc($query)){ 
                                     $id = $row['id'];
-                                    $branch = $row['branch'];
                                 }  
                             }
 
@@ -257,7 +252,15 @@ if (isset($_POST['approve_now'])) {
 
                         <div class="form-group">
                             <label> Department </label>
-                            <input type="text"  id="Department" name="Department"  class="form-control" required>
+                            <select name="Department" class="form-control" required>
+                                <option value="">--Department--</option>
+                                <option name="Department" value="IT">IT</option>
+                                <option name="Department" value="Computer">Computer</option>
+                                <option name="Department" value="Extc">Extc</option>
+                                <option name="Department" value="Electrical">Electrical</option>
+                                <option name="Department" value="Mechanical">Mechanical</option>
+                                <option name="Department" value="Hummanities">Hummanities</option>
+                            </select>                        
                         </div>
 
                         <div class="form-group">

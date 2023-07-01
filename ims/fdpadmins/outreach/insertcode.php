@@ -8,7 +8,7 @@ $queryresult = mysqli_num_rows($query);
 if ($queryresult > 0) {
     while ($row = mysqli_fetch_assoc($query)) {
         $id = $row['id'];
-        $branch = $row['branch']; // Retrieve the branch information from the database
+        $Branch = $row['branch']; // Retrieve the branch information from the database
 
         
     }
@@ -18,7 +18,7 @@ if (isset($_POST['insertdata'])) {
     $Name_of_Activity = $_POST['Name_of_Activity'];
         $Organizing_Unit = $_POST['Organizing_Unit'];
         $Name_of_Coordinators= $_POST['Name_of_Coordinators'];
-        $Name_of_Scheme = $_POST['Name_of_Scheme'];
+        #$Name_of_Scheme = $_POST['Name_of_Scheme'];
         
         $Dates_Conducted = $_POST['Dates_Conducted'];
         $Year_of_Activity = $_POST['Year_of_Activity'];
@@ -32,9 +32,9 @@ if (isset($_POST['insertdata'])) {
 
 
     $query = "INSERT INTO outreachprogram
-    (`Name_of_Activity`, `Organizing_Unit`, `Name_of_Coordinators`, `Name_of_Scheme`, `Dates_Conducted`, `Year_of_Activity`, 
+    (`Name_of_Activity`, `Organizing_Unit`, `Name_of_Coordinators`, `Branch`, `Dates_Conducted`, `Year_of_Activity`, 
     `No_of_Student_Volunteer_for_Activity`, `No_of_People_benefitted_by_Activity`, `pdffile1`, `user_id`,`STATUS`) 
-    VALUES (' $Name_of_Activity', ' $Organizing_Unit', '$Name_of_Coordinators', '$Name_of_Scheme', '$Dates_Conducted',
+    VALUES (' $Name_of_Activity', ' $Organizing_Unit', '$Name_of_Coordinators', '$Branch', '$Dates_Conducted',
      '$Year_of_Activity', '$No_of_Student_Volunteer_for_Activity', '$No_of_People_benefitted_by_Activity', '$pdffile1','$id','PENDING')";
     $query_run = mysqli_query($connection, $query);
 

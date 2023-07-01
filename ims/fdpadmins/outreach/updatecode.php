@@ -8,7 +8,7 @@ $queryresult = mysqli_num_rows($query);
     if($queryresult > 0){
         while($row = mysqli_fetch_assoc($query)){ 
             $id = $row['id'];
-            $branch = $row['branch'];
+            $Branch = $row['branch'];
 
         }  
     }
@@ -20,7 +20,7 @@ $queryresult = mysqli_num_rows($query);
         $Name_of_Activity = $_POST['Name_of_Activity'];
         $Organizing_Unit = $_POST['Organizing_Unit'];
         $Name_of_Coordinators= $_POST['Name_of_Coordinators'];
-        $Name_of_Scheme = $_POST['Name_of_Scheme'];
+        $Branch = $_POST['Branch'];
         $Dates_Conducted = $_POST['Dates_Conducted'];
         $Year_of_Activity = $_POST['Year_of_Activity'];
         $No_of_Student_Volunteer_for_Activity = $_POST['No_of_Student_Volunteer_for_Activity'];
@@ -33,7 +33,7 @@ $queryresult = mysqli_num_rows($query);
         
  
             $query = "UPDATE outreachprogram SET Name_of_Activity = '$Name_of_Activity', Organizing_Unit = '$Organizing_Unit', 
-        Name_of_Coordinators = '$Name_of_Coordinators', Name_of_Scheme = '$Name_of_Scheme',
+        Name_of_Coordinators = '$Name_of_Coordinators', Branch = '$Branch',
         Dates_Conducted = '$Dates_Conducted', Year_of_Activity = '$Year_of_Activity', No_of_Student_Volunteer_for_Activity = '$No_of_Student_Volunteer_for_Activity', 
         No_of_People_benefitted_by_Activity = '$No_of_People_benefitted_by_Activity' WHERE id='$id'  ";
 
