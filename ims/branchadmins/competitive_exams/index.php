@@ -202,7 +202,7 @@ foreach ($branches as $branchOption) {
                 <div class="card-body btn-group">
                 
             <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">					
-				<button type="submit" onclick="exportTableToCSVuser('USerData_BookChapters.csv')" class="btn btn-success">Export to excel</button>
+				<button type="submit" onclick="exportTableToCSVuser('USerData_CompetitiveExams.csv')" class="btn btn-success">Export to excel</button>
 			</form> &nbsp; &nbsp; 
         
             <form method="post">
@@ -268,7 +268,7 @@ foreach ($branches as $branchOption) {
                                 <td> <?php echo $developer['OTHER']; ?> </td>
                                 <td>
                             
-							<a href="branchexams/<?php echo $developer['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
+							<a href="../../fdpadmins/competitive_exams/exams/<?php echo $developer['pdffile1']; ?>"  class="download" title="Download" data-toggle="tooltip"><i class="fa fa-download"></i></a>
 							<a class="edit btn-success editbtn" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
                         <a class="delete btn-danger deletebtn" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
                     </td>
@@ -391,6 +391,12 @@ foreach ($branches as $branchOption) {
                             <input type="text" name="Name_of_exam"  id="Name_of_exam" class="form-control" placeholder="Enter Name_of_exam">
                         </div>
 
+                        <div class="form-group">
+                            <label> If other specify </label>
+                            <input type="text" name="other" class="form-control" placeholder="Enter other">
+                        </div>
+
+
 
                         
                         
@@ -439,7 +445,7 @@ foreach ($branches as $branchOption) {
                     <div class="card">
                         <div class="card-body btn-group">
                         <div> Results- </div> &nbsp; &nbsp;
-                        <button class="btn btn-success" onclick="exportTableToCSV('Search_data.csv')"> Export Data </button>
+                        <button class="btn btn-success" onclick="exportTableToCSV('Search_data_CompetitiveExams.csv')"> Export Data </button>
                         </div>
                     </div>
                     

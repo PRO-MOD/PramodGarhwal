@@ -50,7 +50,7 @@ session_start();
                 <div class="card-body btn-group">
                 
             <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">					
-				<button type="submit" onclick="exportTableToCSVuser('USerData_BookChapters.csv')" class="btn btn-success">Export to excel</button>
+				<button type="submit" onclick="exportTableToCSVuser('USerData_ResearchProjects&Consultancies.csv')" class="btn btn-success">Export to excel</button>
 			</form> &nbsp; &nbsp; 
         
             <form method="post">
@@ -99,7 +99,7 @@ session_start();
                             }
 
                         
-                        $table_query = "SELECT * FROM researchprojectconsultancies ORDER BY id ASC";  
+                        $table_query = "SELECT * FROM researchprojectconsultancies WHERE branch = '$branch' ORDER BY id ASC";  
                         $query_run = mysqli_query($connection, $table_query);
                         $query_result = mysqli_num_rows($query_run); ?>
 
@@ -213,57 +213,75 @@ if (isset($_POST['approve_now'])) {
                             <label>Select Research Project/Consultancy</label>
                             <select name="Type_Research_Project_Consultancy" class="form-control" required>
                                 <option value="">--Select Type of Research--</option>
-                                <option name="Type_Research_Project_Consultancy" value="Research Project">Research Project</option>
-                                <option name="Type_Research_Project_Consultancy" value="Research Consultancy">Research Consultancy</option>
+                                <option name="Type_Research_Project_Consultancy" id="Type_Research_Project_Consultancy" value="Research Project">Research Project</option>
+                                <option name="Type_Research_Project_Consultancy" id="Type_Research_Project_Consultancy" value="Research Consultancy">Research Consultancy</option>
                             </select>
                         </div>
 
                         <div class="form-group">
+    <label>Branch</label>
+    <select name="Branch" class="form-control" required >
+        <option value="">--Select Department--</option>
+        <?php
+        // Retrieve the department information from the session or any other method
+        $branch = $_SESSION['branch']; 
+
+       $branches = array("IT", "EXTC", "Mechanical", "Computers", "Electrical", "Humanities");
+foreach ($branches as $branchOption) {
+    $selected = ($branchOption == $branch) ? 'selected="selected"' : '';
+    echo '<option value="' . $branchOption . '" ' . $selected . '>' . $branchOption . '</option>';
+}
+
+        ?>
+    </select>
+</div>
+
+                        <div class="form-group">
                             <label> Name of the Project/Endownments </label>
-                            <input type="text" name="Name_Of_The_Project_Endownment" class="form-control" placeholder="Name of the Project/Endownment" required>
+                            <input type="text" name="Name_Of_The_Project_Endownment" id="Name_Of_The_Project_Endownment"class="form-control" placeholder="Name of the Project/Endownment" required>
                         </div>
 
                         <div class="form-group">
                             <label> Name of the Principal Investigator/Co-investigator </label>
-                            <input type="text" name="Name_Of_The_Principal_Investigator_CoInvestigator" class="form-control" placeholder="Name of the Principal Investigator/Co-Investigator" required>
+                            <input type="text" name="Name_Of_The_Principal_Investigator_CoInvestigator" id="Name_Of_The_Principal_Investigator_CoInvestigator"class="form-control" placeholder="Name of the Principal Investigator/Co-Investigator" required>
                         </div>
 
                         <div class="form-group">
                             <label> Department of Principal Investigator </label>
-                            <input type="text" name="Department_Of_Principal_Investigator" class="form-control" placeholder="Department of Principal Investigator">
+                            <input type="text" name="Department_Of_Principal_Investigator" id="Department_Of_Principal_Investigator"class="form-control" placeholder="Department of Principal Investigator">
                         </div>
 
                         <div class="form-group">
                             <label> Year of Award</label>
-                            <input type="text" name="Year_Of_Award" class="form-control" placeholder="Year of Award" required>
+                            <input type="text" name="Year_Of_Award" id="Year_Of_Award"class="form-control" placeholder="Year of Award" required>
                         </div>
 
                         <div class="form-group">
                             <label> Amount Sanctioned</label>
-                            <input type="text" name="Amount_Sanctioned" class="form-control" placeholder="Amount Sanctioned" required>
+                            <input type="text" name="Amount_Sanctioned" id="Amount_Sanctioned"class="form-control" placeholder="Amount Sanctioned" required>
                         </div>
 
                         <div class="form-group">
                             <label>Duration of the project</label>
-                            <input type="text" name="Duration_Of_The_Project" class="form-control" placeholder="Duration of project" required>
+                            <input type="text" name="Duration_Of_The_Project" id="Duration_Of_The_Project"class="form-control" placeholder="Duration of project" required>
                         </div>
 
                         <div class="form-group">
                             <label>Name of the Funding Agency</label>
-                            <input type="text" name="Name_Of_The_Funding_Agency" class="form-control" placeholder="Enter Name of Agency" required>
+                            <input type="text" name="Name_Of_The_Funding_Agency" id="Name_Of_The_Funding_Agency"class="form-control" placeholder="Enter Name of Agency" required>
                         </div>
 
                         <div class="form-group">
                             <label>Funding agency website link</label>
-                            <input type="text" name="Funding_Agency_Website_Link" class="form-control" placeholder="Enter Link" required>
+                            <input type="text" name="Funding_Agency_Website_Link" id="Funding_Agency_Website_Link"class="form-control" placeholder="Enter Link" required>
                         </div>
 
                         <div class="form-group">
                             <label>Select Govt./Non-Govt.</label>
                             <select name="Type_Govt_NonGovt" class="form-control" required>
                                 <option value="">--Select Type of Publication--</option>
-                                <option name="Type_Govt_NonGovt" value="Government">Government</option>
-                                <option name="Type_Govt_NonGovt" value="Non-Government">Non-Government</option>
+                                <option name="Type_Govt_NonGovt" id="Type_Govt_NonGovt"value="Government">Government</option>
+                                <option name="Type_Govt_NonGovt" id="Type_Govt_NonGovt"value="Non-Government">Non-Government</option>
                             </select>
                         </div>
 
@@ -334,14 +352,14 @@ if (isset($_POST['approve_now'])) {
     if (isset($_POST["submit"])) {
         $str = mysqli_real_escape_string($connection, $_POST["search"]);
 
-        $sth = "SELECT * FROM `researchprojectconsultancies` WHERE (id LIKE '%$str%' OR Type_Research_Project_Consultancy LIKE '%$str%' OR Name_Of_Project_Endownment LIKE '%$str%' OR Name_Of_Principal_Investigator_CoInvestigator LIKE '%$str%' OR Department_Of_Principal_Investigator LIKE '%$str%' OR Year_Of_Award LIKE '%$str%' OR Amount_Sanctioned LIKE '%$str%' OR Duration_Of_The_Project LIKE '%$str%' OR Name_Of_The_Funding_Agency LIKE '%$str%' OR Funding_Agency_Website_Link LIKE '%$str%' OR Type_Govt_NonGovt LIKE '%$str%' OR STATUS LIKE '%$str%')";
+        $sth = "SELECT * FROM `researchprojectconsultancies` WHERE branch='$branch' AND (id LIKE '%$str%' OR Type_Research_Project_Consultancy LIKE '%$str%' OR Name_Of_Project_Endownment LIKE '%$str%' OR Name_Of_Principal_Investigator_CoInvestigator LIKE '%$str%' OR Department_Of_Principal_Investigator LIKE '%$str%' OR Year_Of_Award LIKE '%$str%' OR Amount_Sanctioned LIKE '%$str%' OR Duration_Of_The_Project LIKE '%$str%' OR Name_Of_The_Funding_Agency LIKE '%$str%' OR Funding_Agency_Website_Link LIKE '%$str%' OR Type_Govt_NonGovt LIKE '%$str%' OR STATUS LIKE '%$str%')";
         $result = mysqli_query($connection, $sth);
         $queryresult = mysqli_num_rows($result); ?>
 
                     <div class="card">
                         <div class="card-body btn-group">
                         <div> Results- </div> &nbsp; &nbsp;
-                        <button class="btn btn-success" onclick="exportTableToCSV('Search_Data.csv')"> Export Data </button>
+                        <button class="btn btn-success" onclick="exportTableToCSV('Search_Data_ResearchProjects&Consultancies.csv')"> Export Data </button>
                         </div>
                     </div>
                     

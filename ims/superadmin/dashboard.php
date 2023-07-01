@@ -70,11 +70,9 @@
     <div class="card">
       <div class="box">
         <div class="content">
-
           <h4>COMPETITIVE EXAMS</h4>
           <p>Organised by the Department</p>
           <a href="competitive_exams/index.php">Go to Criteria</a>
-         
         </div>
       </div>
     </div>
@@ -118,6 +116,16 @@
           <h4>STUDENT ACHIEVEMENT ACTIVITIES</h4>
           <p> conducted by dept </p>
           <a href="student_achievement_activities/index.php">Go to Criteria</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="box">
+        <div class="content">
+          <h4>STUDENT INTERNSHIP DETAILS</h4>
+          <p>organised by the Department</p>
+          <a href="student_internship/index.php">Go to Criteria</a>
         </div>
       </div>
     </div>
