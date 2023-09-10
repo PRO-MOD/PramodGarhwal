@@ -45,6 +45,7 @@ session_start();
                 </div>
 
                 <form action="insertcode.php" method="POST" enctype="multipart/form-data" >
+                     
 
                     <div class="modal-body">
 
@@ -60,6 +61,24 @@ session_start();
                                 <option name="year" value="2021-22">2022-23</option>
                             </select>
                         </div>
+
+                        <div class="form-group">
+    <label>Branch</label>
+    <select name="Branch" class="form-control" required disabled>
+        <option value="">--Select Department--</option>
+        <?php
+        // Retrieve the department information from the session or any other method
+        $branch = $_SESSION['branch']; 
+
+       $branches = array("IT", "EXTC", "Mechanical", "Computers", "Electrical", "Humanities");
+foreach ($branches as $branchOption) {
+    $selected = ($branchOption == $branch) ? 'selected="selected"' : '';
+    echo '<option value="' . $branchOption . '" ' . $selected . '>' . $branchOption . '</option>';
+}
+
+        ?>
+    </select>
+</div>
 
                     
                         <div class="form-group">
@@ -222,11 +241,12 @@ session_start();
                             if($queryresult > 0){
                                 while($row = mysqli_fetch_assoc($query)){ 
                                     $id = $row['id'];
+                                    $branch = $row['branch'];
                                 }  
                             }
 
 
-                        $table_query = "SELECT * FROM higher_studies ORDER BY id ASC";
+                        $table_query = "SELECT * FROM higher_studies where id='$id'";
                         $query_run = mysqli_query($connection, $table_query);
                         $query_result = mysqli_num_rows($query_run); ?>
 
@@ -325,8 +345,26 @@ session_start();
                         </div>
 
                         <div class="form-group">
+    <label>Branch</label>
+    <select name="Branch" class="form-control" required >
+        <option value="">--Select Department--</option>
+        <?php
+        // Retrieve the department information from the session or any other method
+        $branch = $_SESSION['branch']; 
+
+       $branches = array("IT", "EXTC", "Mechanical", "Computers", "Electrical", "Humanities");
+foreach ($branches as $branchOption) {
+    $selected = ($branchOption == $branch) ? 'selected="selected"' : '';
+    echo '<option value="' . $branchOption . '" ' . $selected . '>' . $branchOption . '</option>';
+}
+
+        ?>
+    </select>
+</div>
+
+                        <div class="form-group">
                             <label> Student Name </label>
-                            <input type="text" name="student_name" class="form-control" placeholder="Enter Student name" required>
+                            <input type="text" name="student_name" id="student_name"class="form-control" placeholder="Enter Student name" required>
                         </div>
 
                         <div class="form-group">
@@ -336,7 +374,7 @@ session_start();
 
                         <div class="form-group">
                             <label> Name of Program admitted </label>
-                            <input type="text" name="program_name_admitted" class="form-control" placeholder="program_name_admitted">
+                            <input type="text" name="program_name_admitted" id="program_name_admitted"class="form-control" placeholder="program_name_admitted">
                         </div>
 
                         <div class="form-group">
@@ -394,7 +432,7 @@ session_start();
     if (isset($_POST["submit"])) {
         $str = mysqli_real_escape_string($connection, $_POST["search"]);
 
-        $sth = "SELECT * FROM `higher_studies` WHERE ( graduation_program LIKE '%$str%' OR student_name LIKE '%$str%' OR institute_name_joined LIKE '%$str%' OR program_name_admitted LIKE '%$str%' OR STATUS LIKE '%$str') ";
+        $sth = "SELECT * FROM `higher_studies` WHERE user_id='$id' AND ( graduation_program LIKE '%$str%' OR student_name LIKE '%$str%' OR institute_name_joined LIKE '%$str%' OR program_name_admitted LIKE '%$str%' OR STATUS LIKE '%$str') ";
         
        
          $result = mysqli_query($connection, $sth);

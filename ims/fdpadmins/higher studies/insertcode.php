@@ -8,6 +8,7 @@ $queryresult = mysqli_num_rows($query);
     if($queryresult > 0){
         while($row = mysqli_fetch_assoc($query)){ 
             $id = $row['id'];
+            $branch = $row['branch'];
         }  
     }
 	
@@ -25,8 +26,8 @@ if(isset($_POST['insertdata']))
     move_uploaded_file($file_tmp1,"reports/$upload_admitcard_idcard");
 
     $query = "INSERT INTO higher_studies
-    (`year`,`graduation_program`, `student_name`, `institute_name_joined`, `program_name_admitted`,`upload_admitcard_idcard`, `id`,`STATUS`) 
-    VALUES ('$year','$graduation_program', '$student_name', '$institute_name_joined', '$program_name_admitted', '$upload_admitcard_idcard', '$id','PENDING')";
+    (`year`,`graduation_program`, `student_name`, `institute_name_joined`, `program_name_admitted`,`upload_admitcard_idcard`, `id`,`STATUS`,`branch`) 
+    VALUES ('$year','$graduation_program', '$student_name', '$institute_name_joined', '$program_name_admitted', '$upload_admitcard_idcard', '$id','PENDING','$branch')";
     
     $query_run = mysqli_query($connection, $query);
 

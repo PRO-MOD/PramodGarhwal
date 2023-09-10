@@ -93,7 +93,7 @@ session_start();
                             }
 
                         
-                            $table_query = "SELECT * FROM higher_studies ORDER BY id ASC";
+                            $table_query = "SELECT * FROM higher_studies where branch='$branch' ORDER BY id ASC";
                             $query_run = mysqli_query($connection, $table_query);
                         $query_result = mysqli_num_rows($query_run); ?>
 
@@ -226,8 +226,26 @@ if (isset($_POST['approve_now'])) {
                         </div>
 
                         <div class="form-group">
+    <label>Branch</label>
+    <select name="Branch" class="form-control" required >
+        <option value="">--Select Department--</option>
+        <?php
+        // Retrieve the department information from the session or any other method
+        $branch = $_SESSION['branch']; 
+
+       $branches = array("IT", "EXTC", "Mechanical", "Computers", "Electrical", "Humanities");
+foreach ($branches as $branchOption) {
+    $selected = ($branchOption == $branch) ? 'selected="selected"' : '';
+    echo '<option value="' . $branchOption . '" ' . $selected . '>' . $branchOption . '</option>';
+}
+
+        ?>
+    </select>
+</div>
+
+                        <div class="form-group">
                             <label> Student Name </label>
-                            <input type="text" name="student_name" class="form-control" placeholder="Enter Student name" required>
+                            <input type="text" name="student_name" id="student_name"class="form-control" placeholder="Enter Student name" required>
                         </div>
 
                         <div class="form-group">
@@ -237,7 +255,7 @@ if (isset($_POST['approve_now'])) {
 
                         <div class="form-group">
                             <label> Name of Program admitted </label>
-                            <input type="text" name="program_name_admitted" class="form-control" placeholder="program_name_admitted">
+                            <input type="text" name="program_name_admitted" id="program_name_admitted"class="form-control" placeholder="program_name_admitted">
                         </div>
 
                         <div class="form-group">
@@ -274,36 +292,6 @@ if (isset($_POST['approve_now'])) {
             </div>
         </div>
     </div>
-    <!-- DELETE POP UP FORM  -->
-    <!-- dont make changes-->
-    <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel"> Delete Student Data </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-
-                <form action="deletecode.php" method="POST">
-
-                    <div class="modal-body">
-
-                        <input type="hidden" name="delete_id" id="delete_id">
-
-                        <h4> Do you want to Delete this Data ??</h4>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal"> NO </button>
-                        <button type="submit" name="deletedata" class="btn btn-primary"> Yes, Delete it. </button>
-                    </div>
-                </form>
-
-            </div>
-        </div>
-    </div>
   
 
 <!--Search data -->
@@ -325,7 +313,7 @@ if (isset($_POST['approve_now'])) {
     if (isset($_POST["submit"])) {
         $str = mysqli_real_escape_string($connection, $_POST["search"]);
 
-        $sth = "SELECT * FROM `higher_studies` WHERE  (year LIKE '%$str%' OR graduation_program LIKE '%$str%' OR student_name LIKE '%$str%' OR institute_name_joined LIKE '%$str%' OR program_name_admitted LIKE '%$str%' OR STATUS LIKE '%$str%') ";
+        $sth = "SELECT * FROM `higher_studies` WHERE branch='$branch' AND (year LIKE '%$str%' OR graduation_program LIKE '%$str%' OR student_name LIKE '%$str%' OR institute_name_joined LIKE '%$str%' OR program_name_admitted LIKE '%$str%' OR STATUS LIKE '%$str%') ";
         $result = mysqli_query($connection, $sth);
         $queryresult = mysqli_num_rows($result); ?>
 
